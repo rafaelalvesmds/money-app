@@ -1,85 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using WebApp.API.Context;
+using WebApp.API.Interfaces;
 using WebApp.API.Models;
 
 namespace WebApp.API.Controllers
 {
-
-
     [Route("api/auth")]
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly WebAppContext _context;
+        private readonly ILoginService _loginService;
 
-        public LoginController(IConfiguration configuration, WebAppContext context)
+        public LoginController(ILoginService loginService) 
         {
-            _configuration = configuration;
-            _context = context;
+            _loginService = loginService;
         }
+
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] User user)
         {
-            // Verifique se já existe um usuário com o mesmo email no banco de dados.
-            var existingUser = _context.Users.SingleOrDefault(u => u.email == user.email);
+            var result = _loginService.Register(user);
 
-            if (existingUser != null)
+            if (result.Item1)
             {
-                return BadRequest("Já existe um usuário com o mesmo email.");
+                return Ok(new { Success = true, Notifications = result.Item2 });
             }
-
-            // Caso não exista um usuário com o mesmo email, crie o novo usuário.
-            _context.Users.Add(user);
-            _context.SaveChanges();
-
-            return Ok("Usuário cadastrado com sucesso.");
+            else
+            {
+                return BadRequest(new { Success = false, Notifications = result.Item2 });
+            }
         }
 
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            // Lógica de autenticação aqui, verificando as credenciais no banco de dados.
-            var user = _context.Users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
+            var result = _loginService.Login(request);
 
-            if (user == null)
+            if (result.isAuthenticated)
             {
-                return Unauthorized("Credenciais inválidas");
+                return Ok(result);
             }
-
-            // Se as credenciais estiverem corretas, gere um token JWT.
-            var token = GenerateJwtToken(user.email);
-
-            return Ok(new { Token = token });
-        }
-
-
-        private string GenerateJwtToken(string username)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
+            else 
             {
-            new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
-
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(1), // Defina a duração do token como necessário
-                signingCredentials: credentials
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                return BadRequest(result);
+            }
         }
+
+
     }
 }
