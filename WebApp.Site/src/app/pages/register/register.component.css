@@ -1,0 +1,9 @@
+.back-btn {
+  position: fixed;
+  top: 240px;
+}
+
+.adjust-position {
+  position: relative;
+  bottom: 19px;
+}
