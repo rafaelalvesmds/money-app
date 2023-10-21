@@ -3,6 +3,6 @@
   <form (submit)="onLoginSubmit()">
     <input type="text" placeholder="Nome de Usuário" [(ngModel)]="username" name="username">
     <input type="password" placeholder="Senha" [(ngModel)]="password" name="password">
-    <button type="submit">Entrar</button>
+    <p-button  (onClick)="onLoginSubmit()">Entrar</p-button>
   </form>
 </div>
