@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "WebApp.Site"
+  "cli": {
+    "analytics": "530138c0-72dd-4139-a1b6-041042b578c0"
+  }
 }
