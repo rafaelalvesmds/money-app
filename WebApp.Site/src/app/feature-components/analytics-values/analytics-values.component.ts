@@ -5,8 +5,9 @@ interface Card {
   value: string;
   icon: string;
   bgColor: string;
-  changeValue: string;
-  changeText: string;
+  changeValue?: string;
+  changeText?: string;
+  colorChangeValue: string;
 }
 
 @Component({

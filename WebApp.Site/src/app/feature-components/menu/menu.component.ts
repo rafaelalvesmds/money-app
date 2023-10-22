@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
       },
       {
         label: 'Exit',
-        tooltip: 'Trash',
+        tooltip: 'Exit',
         tooltipPosition: 'bottom',
         icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
         command: () => {

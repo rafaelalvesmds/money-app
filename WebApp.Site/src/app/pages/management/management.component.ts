@@ -8,36 +8,39 @@ import { Component } from '@angular/core';
 export class ManagementComponent {
   cards = [
     {
-      title: 'Orders',
-      value: '152',
-      icon: 'pi pi-shopping-cart',
-      bgColor: 'bg-blue-100',
-      changeValue: '24',
-      changeText: 'since last visit',
+      title: 'Receita',
+      value: '$2,100',
+      icon: 'pi pi-map-marker',
+      bgColor: 'bg-green-100',
+      changeValue: '+%52',
+      changeText: 'Nov/2023',
+      colorChangeValue: 'red'
     },
     {
-      title: 'Revenue',
+      title: 'Gasto',
+      value: '$2,100',
+      icon: 'pi pi-map-marker',
+      bgColor: 'bg-red-100',
+      changeValue: '+%52',
+      changeText: 'Nov/2023',
+      colorChangeValue: 'green'
+    },
+    {
+      title: 'Saldo',
       value: '$2,100',
       icon: 'pi pi-map-marker',
       bgColor: 'bg-orange-100',
-      changeValue: '%52+',
-      changeText: 'since last week',
+      changeValue: '+%52',
+      changeText: 'Nov/2023',
+      colorChangeValue: 'red'
     },
     {
-      title: 'Customers',
-      value: '28,441',
-      icon: 'pi pi-inbox',
-      bgColor: 'bg-cyan-100',
-      changeValue: '520',
-      changeText: 'newly registered',
-    },
-    {
-      title: 'Comments',
-      value: '152 Unread',
-      icon: 'pi pi-comment',
-      bgColor: 'bg-purple-100',
-      changeValue: '85',
-      changeText: 'responded',
+      title: 'Top 1',
+      value: '$1,100',
+      icon: 'pi pi-map-marker',
+      bgColor: 'bg-orange-400',
+      changeValue: 'Cartão de crédito',
+      colorChangeValue: 'orange'
     },
   ];
 }
