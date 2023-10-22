@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
@@ -11,9 +12,8 @@ import { AuthService } from 'src/app/core/service/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  msgError!: string;
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -26,19 +26,24 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
       (response: any) => {
         this.router.navigate(['/dashboard']);
-        this.saveToken(response.token)
+        this.saveToken(response)
       },
       (error: any) => {
-        this.msgError = error.error.notifications[0].message
+        this.showError(error.error.notifications[0].message);
       }
     );
   }
 
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
+  saveToken(response: any): void {
+    localStorage.setItem('token', response.token);
   }
 
   register() {
     this.router.navigate(['/register']);
   }
+
+  showError(message: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
 }

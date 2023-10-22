@@ -5,16 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuModule } from './feature-components/menu/menu.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MenuModule
   ],
   providers: [
     {

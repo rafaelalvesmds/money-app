@@ -1,9 +1,13 @@
 <div
   class="h-screen w-full bg-blue-100 flex align-items-center justify-content-center"
 >
-  <p-card header="Money Control App" styleClass="w-20rem h-25rem">
+  <p-card styleClass="w-20rem h-25rem">
+    <div class="flex flex-row justify-content-center mb-5">
+      <span class="text-2xl font-bold font-style adjust-position"
+        >Money Control App</span
+      >
+    </div>
     <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-20rem">
-      <!-- inputs -->
       <div class="col-12 mt-3">
         <span class="p-float-label">
           <input pInputText pInputText formControlName="email" />
@@ -11,16 +15,15 @@
         </span>
 
         <span class="p-float-label mt-4">
-          <input pInputText pInputText formControlName="password" type="password" />
+          <input
+            pInputText
+            pInputText
+            formControlName="password"
+            type="password"
+          />
           <label htmlFor="password">Senha</label>
         </span>
       </div>
-
-      <!-- msg erro -->
-      <span class="h-2rem col-12 font-semibold ml-1 text-red-500 text-xs">
-        <p *ngIf="msgError" class=""></p>
-        {{ msgError }}
-      </span>
 
       <div class="col-12">
         <div>
@@ -42,3 +45,5 @@
     </form>
   </p-card>
 </div>
+
+<p-toast></p-toast>
