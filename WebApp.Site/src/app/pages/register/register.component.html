@@ -8,43 +8,54 @@
       styleClass="p-button-rounded p-button-text"
       class="back-btn"
     ></p-button>
+
     <div class="flex flex-row justify-content-center">
       <span class="text-2xl font-bold font-style adjust-position"
         >Register</span
       >
     </div>
 
-    <form [formGroup]="registerForm" class="flex grid formgrid p-fluid h-20rem">
-      <span class="p-float-label col-12">
-        <input pInputText pInputText formControlName="name" />
+    <div [formGroup]="registerForm" class="flex flex-column gap-4 h-20rem">
+      <span class="p-float-label">
+        <input pInputText formControlName="name" class="w-full" />
         <label htmlFor="name">Name</label>
       </span>
 
-      <span class="p-float-label col-12">
-        <input pInputText pInputText formControlName="email" />
+      <span class="p-float-label">
+        <input pInputText formControlName="email" class="w-full" />
         <label htmlFor="email">Email</label>
       </span>
 
-      <span class="p-float-label col-12">
-        <input pInputText pInputText formControlName="password" />
-        <label htmlFor="password">Password</label>
-      </span>
-
-      <span class="p-float-label col-12">
-        <input pInputText pInputText formControlName="passwordConfirm" />
-        <label htmlFor="passwordConfirm">Password Confirm</label>
-      </span>
-
-      <span class="p-float-label col-12">
-        <input pInputText pInputText formControlName="cellphone" />
+      <span class="p-float-label">
+        <input pInputText formControlName="cellphone" class="w-full" />
         <label htmlFor="cellphone">Cellphone</label>
       </span>
-    </form>
 
-    <p-button
-      label="Save"
-      styleClass="p-button-rounded col-12"
-      (onClick)="save()"
-    ></p-button>
+      <span class="p-float-label w-full">
+        <p-password
+          [formControlName]="'password'"
+          [toggleMask]="true"
+          styleClass="w-full"
+        ></p-password>
+        <label for="password">Password</label>
+      </span>
+
+      <span class="p-float-label">
+        <p-password
+          [formControlName]="'passwordConfirm'"
+          [toggleMask]="true"
+          styleClass="w-full"
+        ></p-password>
+        <label for="passwordConfirm">Password Confirm</label>
+      </span>
+
+      <p-button
+        label="Save"
+        styleClass="p-button-rounded col-12"
+        (onClick)="save()"
+      ></p-button>
+    </div>
   </p-card>
 </div>
+
+<p-toast></p-toast>

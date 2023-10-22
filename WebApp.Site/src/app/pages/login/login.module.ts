@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { PrimeNgModule } from 'src/app/shared/primeng.module';
+import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
 @NgModule({
   declarations: [
     LoginComponent

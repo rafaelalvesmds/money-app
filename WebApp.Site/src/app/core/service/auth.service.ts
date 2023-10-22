@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,9 @@ export class AuthService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     return !!token;
+  }
+
+  register(user: UserModel): Observable<any> {
+    return this.http.post(`${this.apiBaseUrl}/api/auth/register`, user)
   }
 }
