@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/service/user.service';
 
@@ -10,22 +11,53 @@ import { UserService } from 'src/app/core/service/user.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  items!: MenuItem[];
+  displayTerminal!: boolean;
+
+  displayFinder!: boolean;
+
+  dockItems!: MenuItem[];
+
+  menubarItems!: any[];
+
+  responsiveOptions!: any[];
+
+  nodes!: any[];
+
   currentUser!: UserModel;
 
-  constructor(private router: Router, private userService: UserService) {
-    this.items = [
-      { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: '/dashboard' },
-      { label: 'Gerenciar Gastos', icon: 'pi pi-fw pi-chart-bar', routerLink: '/gerenciar-gastos' },
-      { label: 'Sair', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() },
-    ];
-  }
+  constructor(private messageService: MessageService, private router: Router, private userService: UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
     this.userService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
     });
-    console.log(this.currentUser, 'current user')
+
+    this.dockItems = [
+      {
+        label: 'Dashboard',
+        tooltip: 'Dashboard',
+        tooltipPosition: 'bottom',
+        icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
+        routerLink: '/dashboard'
+      },
+      {
+        label: 'Management',
+        tooltip: 'Management',
+        tooltipPosition: 'bottom',
+        icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
+        routerLink: '/management'
+      },
+      {
+        label: 'Exit',
+        tooltip: 'Trash',
+        tooltipPosition: 'bottom',
+        icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
+        command: () => {
+          this.logout()
+        }
+      }
+    ];
   }
 
   logout() {
@@ -33,5 +65,6 @@ export class MenuComponent implements OnInit {
     this.userService.clearCurrentUser();
     localStorage.removeItem('token');
   }
+
 
 }

@@ -1,12 +1,32 @@
-<p-menubar [model]="items">
-  <ng-template pTemplate="start">
-    <img
-      src="https://primefaces.org/cdn/primeng/images/primeng.svg"
-      height="40"
-      class="mr-2"
-    />
-  </ng-template>
-  <ng-template pTemplate="end">
-    <p>Hello, {{ currentUser?.name }}!</p>
-  </ng-template>
-</p-menubar>
+<!-- <div class="card">
+  <div class="dock-window dock-advanced">
+    <p-dock [model]="items" [position]="position">
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item.icon" [alt]="item.label" width="100%" />
+      </ng-template>
+    </p-dock>
+  </div>
+</div> -->
+
+<div
+  class="dock-window dock-advanced flex align-items-center justify-content-center"
+>
+  <p-card styleClass="m-5">
+    <router-outlet></router-outlet>
+  </p-card>
+
+  <p-dock [model]="dockItems" position="top">
+    <ng-template pTemplate="item" let-item>
+      <img
+        class="img-item"
+        [src]="item.icon"
+        [alt]="item.label"
+        width="100%"
+        [pTooltip]="item.tooltip"
+        [tooltipPosition]="item.tooltipPosition"
+      />
+    </ng-template>
+  </p-dock>
+
+  <p-toast></p-toast>
+</div>

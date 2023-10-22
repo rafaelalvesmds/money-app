@@ -1,9 +1,14 @@
 .back-btn {
   position: fixed;
-  top: 238px;
+  top: 231px;
 }
 
 .adjust-position {
   position: relative;
   bottom: 19px;
+}
+
+.btn-save {
+  position: relative;
+  top: 30px;
 }

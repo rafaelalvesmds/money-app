@@ -1,0 +1,22 @@
+<div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-3" *ngFor="let card of cards">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">{{ card.title }}</span>
+            <div class="text-900 font-medium text-xl">{{ card.value }}</div>
+          </div>
+          <div
+            class="flex align-items-center justify-content-center {{ card.bgColor }} border-round"
+            style="width: 2.5rem; height: 2.5rem"
+          >
+            <i [ngClass]="card.icon"></i>
+          </div>
+        </div>
+        <span class="text-green-500 font-medium">{{ card.changeValue }} </span>
+        <span class="text-500">{{ card.changeText }}</span>
+      </div>
+    </div>
+  </div>
+</div>

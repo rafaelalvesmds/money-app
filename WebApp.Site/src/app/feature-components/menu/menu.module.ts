@@ -11,7 +11,7 @@ import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
   ],
   imports: [
     CommonModule,
-    PrimeNgModule
+    PrimeNgModule,
   ],
   exports: [
     MenuComponent

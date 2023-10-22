@@ -6,6 +6,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './feature-components/menu/menu.module';
+import { PrimeNgModule } from './shared/modules/primeng.module';
+import { AnalyticsValuesComponent } from './feature-components/analytics-values/analytics-values.component';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { MenuModule } from './feature-components/menu/menu.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    MenuModule
+    MenuModule,
+    PrimeNgModule
   ],
   providers: [
     {

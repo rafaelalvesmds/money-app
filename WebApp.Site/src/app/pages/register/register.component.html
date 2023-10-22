@@ -1,5 +1,5 @@
 <div
-  class="h-screen w-full bg-blue-100 flex align-items-center justify-content-center"
+  class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
   <p-card styleClass="w-20rem h-30rem">
     <p-button
@@ -9,7 +9,7 @@
       class="back-btn"
     ></p-button>
 
-    <div class="flex flex-row justify-content-center">
+    <div class="flex flex-row justify-content-center mb-2">
       <span class="text-2xl font-bold font-style adjust-position"
         >Register</span
       >
@@ -48,15 +48,15 @@
         ></p-password>
         <label for="passwordConfirm">Password Confirm</label>
       </span>
-
-      <p-button
-        [pTooltip]="!registerForm.valid ? 'Preencha os campos' : ''"
-        [disabled]="!registerForm.valid"
-        label="Save"
-        styleClass="p-button-rounded col-12"
-        (onClick)="save()"
-      ></p-button>
     </div>
+    <p-button
+      [pTooltip]="!registerForm.valid ? 'Preencha os campos' : ''"
+      [disabled]="!registerForm.valid"
+      label="Save"
+      styleClass="p-button-rounded col-12"
+      class="btn-save"
+      (onClick)="save()"
+    ></p-button>
   </p-card>
 </div>
 

@@ -43,6 +43,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { OverlayModule } from 'primeng/overlay';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
+import { DockModule } from 'primeng/dock';
 
 @NgModule({
   exports: [
@@ -88,7 +89,8 @@ import { TabViewModule } from 'primeng/tabview';
     MenubarModule,
     OverlayModule,
     ProgressSpinnerModule,
-    TabViewModule
+    TabViewModule,
+    DockModule,
   ],
   providers: [
     ConfirmationService,
