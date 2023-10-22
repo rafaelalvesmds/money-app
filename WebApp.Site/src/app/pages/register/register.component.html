@@ -50,6 +50,7 @@
       </span>
 
       <p-button
+        [disabled]="!registerForm.valid"
         label="Save"
         styleClass="p-button-rounded col-12"
         (onClick)="save()"

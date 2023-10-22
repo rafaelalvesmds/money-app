@@ -25,6 +25,12 @@ export class RegisterComponent implements OnInit {
       passwordConfirm: [null, [Validators.required]],
       cellphone: [null, []]
     })
+
+    this.registerForm.valueChanges.subscribe({
+      next: () => {
+        this.registerForm.clearValidators();
+      }
+    })
   }
 
   back() {
@@ -32,61 +38,29 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    console.log(this.registerForm, 'v')
-    if (this.registerForm.valid) {
+    var form = this.registerForm.value
 
-      var form = this.registerForm.value
-
-      var user: UserModel = {
-        name: form.name,
-        email: form.email,
-        cellphone: form.cellphone,
-        password: form.password,
-      }
-
-      if (form.password === form.passwordConfirm) {
-        this.authService.register(user).subscribe({
-          next: (res: any) => {
-            console.log(res, 'register')
-            this.showSuccess(res.notifications[0].message)
-          },
-          error: (error: any) => {
-            this.showError(error.error.notifications[0].message)
-          }
-        })
-      } else {
-        this.registerForm.controls['passwordConfirm'].setErrors({ invalid: true })
-        this.registerForm.controls['password'].setErrors({ invalid: true })
-        this.showError("As senhas devem ser iguais")
-      }
-
-    } else {
-      this.checkValues();
-      //nessa parte
-
+    var user: UserModel = {
+      name: form.name,
+      email: form.email,
+      cellphone: form.cellphone,
+      password: form.password,
     }
 
-  }
-
-  checkValues() {
-    Object.keys(this.registerForm.controls).forEach((controlName) => {
-      const control = this.registerForm.get(controlName);
-
-      if (control) {
-        control.markAsDirty(); // Marcar o controle como "touched"
-      }
-    });
-
-    // Verifique novamente e marque como inválidos apenas os campos obrigatórios
-    Object.keys(this.registerForm.controls).forEach((controlName) => {
-      const control = this.registerForm.get(controlName);
-
-      if (control && control.hasError('required') && !control.value) {
-        control.setErrors({ invalid: true });
-      }
-    });
-
-    this.showError("Preencha os campos obrigatórios")
+    if (form.password === form.passwordConfirm) {
+      this.authService.register(user).subscribe({
+        next: (res: any) => {
+          this.showSuccess(res.notifications[0].message)
+        },
+        error: (error: any) => {
+          if (error.status == 400)
+            this.showError(error.error.notifications[0].message)
+        }
+      })
+    } else {
+      this.registerForm.controls['passwordConfirm'].setErrors({ invalid: true })
+      this.showError("As senhas devem ser iguais")
+    }
   }
 
   showError(message: string) {
