@@ -13,7 +13,7 @@
 
 <br/>  
 
-- Register/Login User
+- Login/Register User
 - Auth JWT Token
 
   
