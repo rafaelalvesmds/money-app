@@ -13,9 +13,9 @@
 
 <br/>  
 
-- Login/Register User
 - Auth JWT Token
-
+- Login
+- Register [ User, Expense ]
   
 <br/>
   
