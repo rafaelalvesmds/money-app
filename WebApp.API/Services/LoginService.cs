@@ -1,10 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
+using WebApp.API.Repository.DataBase;
 
 namespace WebApp.API.Services
 {
@@ -12,20 +14,22 @@ namespace WebApp.API.Services
     {
         private readonly WebAppContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public LoginService(WebAppContext context, IConfiguration configuration) 
+        public LoginService(WebAppContext context, IConfiguration configuration, IMapper mapper) 
         {
             _context = context;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public AuthenticationResult Login(LoginRequest request)
         {
-            var user = _context.Users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
+            var userRequest = _context.Users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
 
             List<Notification> notifications = new List<Notification>();
 
-            if (user == null)
+            if (userRequest == null)
             {
                 notifications.Add(new Notification { Message = "Credenciais inválidas" });
 
@@ -41,17 +45,19 @@ namespace WebApp.API.Services
             }
             else
             {
-                var token = GenerateJwtToken(user.email);
+                var token = GenerateJwtToken(userRequest.email);
 
                 notifications.Add(new Notification { Message = "Usuário autenticado com sucesso" });
+
 
                 var successResult = new AuthenticationResult
                 {
                     isAuthenticated = true,
-                    user = user,
+                    user = _mapper.Map<user, User>(userRequest),
                     notifications = notifications,
                     token = token
                 };
+                
 
                 return successResult;
             }
@@ -93,7 +99,7 @@ namespace WebApp.API.Services
             } 
             else
             {
-                _context.Users.Add(user);
+                _context.Users.Add(_mapper.Map<User, user>(user));
                 _context.SaveChanges();
 
                 notifications.Add(new Notification { Message = "Usuário cadastrado com sucesso." });

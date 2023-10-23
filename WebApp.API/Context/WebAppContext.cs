@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApp.API.Models;
+using WebApp.API.Repository.DataBase;
 
 namespace WebApp.API.Context
 {
@@ -8,8 +8,9 @@ namespace WebApp.API.Context
     {
         public WebAppContext(DbContextOptions<WebAppContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Expense> Expense { get; set; }
+        public DbSet<user> Users { get; set; }
+        public DbSet<expense> Expense { get; set; }
     }
 
 }
+

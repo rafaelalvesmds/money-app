@@ -21,7 +21,7 @@ namespace WebApp.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApp.API.Models.Expense", b =>
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.expense", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,8 @@ namespace WebApp.API.Migrations
 
                     b.Property<string>("email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("expenseType")
                         .HasColumnType("integer");
@@ -41,20 +42,21 @@ namespace WebApp.API.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
 
                     b.Property<decimal>("price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("year")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
-                    b.ToTable("Expense");
+                    b.ToTable("expense");
                 });
 
-            modelBuilder.Entity("WebApp.API.Models.User", b =>
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -64,23 +66,27 @@ namespace WebApp.API.Migrations
 
                     b.Property<string>("cellphone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
 
                     b.Property<string>("password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
 
                     b.HasKey("id");
 
-                    b.ToTable("Users");
+                    b.ToTable("user");
                 });
 #pragma warning restore 612, 618
         }

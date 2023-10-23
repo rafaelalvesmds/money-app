@@ -3,6 +3,8 @@ using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Services;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Adicione serviços ao contêiner.
@@ -10,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILoginService, LoginService>();
+
+
+// Configurar o AutoMapper e registrar os perfis de mapeamento
+builder.Services.AddAutoMapper(typeof(Program)); // Registre os perfis do AutoMapper
+
+// Adicione outros serviços necessários, como seu serviço de aplicação
+builder.Services.AddTransient<ILoginService, LoginService>();
+
 
 // Configure a conexão com o banco de dados PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
