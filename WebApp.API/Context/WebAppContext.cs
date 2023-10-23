@@ -8,8 +8,8 @@ namespace WebApp.API.Context
     {
         public WebAppContext(DbContextOptions<WebAppContext> options) : base(options) { }
 
-        public DbSet<user> Users { get; set; }
-        public DbSet<expense> Expense { get; set; }
+        public DbSet<user> users { get; set; }
+        public DbSet<expense> expenses { get; set; }
     }
 
 }

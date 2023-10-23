@@ -11,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ILoginService, LoginService>();
 
 
 // Configurar o AutoMapper e registrar os perfis de mapeamento
@@ -19,6 +18,7 @@ builder.Services.AddAutoMapper(typeof(Program)); // Registre os perfis do AutoMa
 
 // Adicione outros serviços necessários, como seu serviço de aplicação
 builder.Services.AddTransient<ILoginService, LoginService>();
+builder.Services.AddTransient<IExpenseService, ExpenseService>();
 
 
 // Configure a conexão com o banco de dados PostgreSQL

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 
 namespace WebApp.API.Controllers
 {
-    [Route("api/auth")]
+    [Route("api/auth/[action]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -17,7 +16,7 @@ namespace WebApp.API.Controllers
         }
 
 
-        [HttpPost("register")]
+        [HttpPost]  
         public IActionResult Register([FromBody] User user)
         {
             var result = _loginService.Register(user);
@@ -33,7 +32,7 @@ namespace WebApp.API.Controllers
         }
 
 
-        [HttpPost("login")]
+        [HttpPost]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var result = _loginService.Login(request);

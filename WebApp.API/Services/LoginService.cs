@@ -25,7 +25,7 @@ namespace WebApp.API.Services
 
         public AuthenticationResult Login(LoginRequest request)
         {
-            var userRequest = _context.Users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
+            var userRequest = _context.users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
 
             List<Notification> notifications = new List<Notification>();
 
@@ -87,7 +87,7 @@ namespace WebApp.API.Services
 
         public ValueTuple<bool, List<Notification>> Register(User user)
         {
-            var existingUser = _context.Users.SingleOrDefault(u => u.email == user.email);
+            var existingUser = _context.users.SingleOrDefault(u => u.email == user.email);
 
             List<Notification> notifications = new List<Notification>();
 
@@ -99,7 +99,7 @@ namespace WebApp.API.Services
             } 
             else
             {
-                _context.Users.Add(_mapper.Map<User, user>(user));
+                _context.users.Add(_mapper.Map<User, user>(user));
                 _context.SaveChanges();
 
                 notifications.Add(new Notification { Message = "Usuário cadastrado com sucesso." });
