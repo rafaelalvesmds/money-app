@@ -9,6 +9,7 @@ namespace WebApp.API.Context
         public WebAppContext(DbContextOptions<WebAppContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Expense> Expense { get; set; }
     }
 
 }
