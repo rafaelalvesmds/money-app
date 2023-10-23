@@ -11,10 +11,6 @@
 <div
   class="dock-window dock-advanced flex align-items-center justify-content-center"
 >
-  <p-card styleClass="m-5 w-full">
-    <router-outlet></router-outlet>
-  </p-card>
-
   <p-dock [model]="dockItems" position="top">
     <ng-template pTemplate="item" let-item>
       <img
@@ -27,6 +23,12 @@
       />
     </ng-template>
   </p-dock>
+
+  <p-card>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </p-card>
 
   <p-toast></p-toast>
 </div>

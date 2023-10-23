@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './feature-components/menu/menu.module';
 import { PrimeNgModule } from './shared/modules/primeng.module';
 import { AnalyticsValuesComponent } from './feature-components/analytics-values/analytics-values.component';
+import { TableSpentComponent } from './feature-components/table-spent/table-spent.component';
 
 
 @NgModule({

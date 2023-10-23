@@ -1,0 +1,28 @@
+<p-table [value]="products" styleClass="col-12 p-0 pt-1" responsiveLayout="stack" [breakpoint]="'960px'">
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      Products
+      <p-button icon="pi pi-refresh"></p-button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of columns">{{ column.header }}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <ng-container *ngFor="let column of columns">
+        <td *ngIf="!column.useTag">{{ product[column.field] }}</td>
+        <td *ngIf="column.useTag">
+          <p-tag [value]="product[column.field]"></p-tag>
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      In total there are {{ products ? products.length : 0 }} products.
+    </div>
+  </ng-template>
+</p-table>
