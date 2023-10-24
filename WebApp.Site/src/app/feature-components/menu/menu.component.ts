@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -25,9 +25,13 @@ export class MenuComponent implements OnInit {
 
   currentUser!: UserModel;
 
+  screenWidth!: number;
+
   constructor(private messageService: MessageService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
+    this.updateCardWidth();
 
     this.userService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
@@ -58,6 +62,27 @@ export class MenuComponent implements OnInit {
         }
       }
     ];
+
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+    this.updateCardWidth();
+  }
+
+  updateCardWidth() {
+    const card = document.getElementById('card-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+    if (card) {
+      if(this.screenWidth > 960) {
+        card.style.width = `${this.screenWidth * 0.8}px`;
+        card.style.marginTop = `${this.screenWidth * 0.1}px`
+      } else {
+        card.style.width = `${this.screenWidth * 0.90}px`;
+        card.style.marginTop = `${this.screenWidth * 0.05}px`
+      }
+    }
   }
 
   logout() {
@@ -65,6 +90,5 @@ export class MenuComponent implements OnInit {
     this.userService.clearCurrentUser();
     localStorage.removeItem('token');
   }
-
 
 }

@@ -1,4 +1,4 @@
-<p-table [value]="products" styleClass="col-12 p-0 pt-1" responsiveLayout="stack" [breakpoint]="'960px'">
+<p-table [value]="expenses" styleClass="col-12 p-0 pt-1" responsiveLayout="stack" [breakpoint]="'960px'">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Products
@@ -22,7 +22,7 @@
   </ng-template>
   <ng-template pTemplate="summary">
     <div class="flex align-items-center justify-content-between">
-      In total there are {{ products ? products.length : 0 }} products.
+      In total there are {{ expenses ? expenses.length : 0 }} products.
     </div>
   </ng-template>
 </p-table>

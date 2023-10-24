@@ -9,9 +9,14 @@
 </div> -->
 
 <div
-  class="dock-window dock-advanced flex align-items-center justify-content-center"
+  class="dock-window dock-advanced flex align-items-center justify-content-center h-full"
 >
-  <p-dock [model]="dockItems" position="top">
+  <p-dock
+    *ngIf="screenWidth > 960"
+    [model]="dockItems"
+    position="top"
+    styleClass="fixed"
+  >
     <ng-template pTemplate="item" let-item>
       <img
         class="img-item"
@@ -24,10 +29,8 @@
     </ng-template>
   </p-dock>
 
-  <p-card>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
+  <p-card id="card-container">
+    <router-outlet></router-outlet>
   </p-card>
 
   <p-toast></p-toast>

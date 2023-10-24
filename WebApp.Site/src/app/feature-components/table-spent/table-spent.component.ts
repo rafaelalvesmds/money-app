@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 export class TableSpentComponent {
 
   @Input() columns!: { field: string; header: string; useTag?: boolean }[];
-  @Input() products!: any[];
+  @Input() expenses!: any[];
 
 }
