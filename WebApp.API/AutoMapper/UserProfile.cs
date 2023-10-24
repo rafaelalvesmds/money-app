@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WebApp.API.Models;
 using WebApp.API.Repository.DataBase;
+using WebApp.API.Repository.DomainEntity;
 
 namespace WebApp.API.AutoMapper
 {
@@ -10,6 +11,7 @@ namespace WebApp.API.AutoMapper
         {
             CreateMap<user, User>();
             CreateMap<User, user>();
+            CreateMap<User, UserDomain>();
         }
     }
 

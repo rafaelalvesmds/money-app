@@ -4,6 +4,7 @@ using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 using WebApp.API.Repository.DataBase;
+using WebApp.API.Repository.DomainEntity;
 
 namespace WebApp.API.Services
 {
@@ -35,6 +36,14 @@ namespace WebApp.API.Services
 
         public (bool, List<Notification>) CreateExpense(Expense expense)
         {
+            ExpenseDomain expenseDomain = _mapper.Map<ExpenseDomain>(expense);
+
+
+            if (expenseDomain.HasNotifications())
+            {
+                return (false, expenseDomain.Notifications);
+            }
+
             var notifications = new List<Notification>();
             var expenseToRegister = _mapper.Map<Expense, expense>(expense);
 
@@ -44,9 +53,17 @@ namespace WebApp.API.Services
             return (true, notifications);
         }
 
-        public (bool, List<Notification>) UpdateExpense(expense updatedExpense)
+        public (bool, List<Notification>) UpdateExpense(Expense updatedExpense)
         {
+            ExpenseDomain expenseDomain = _mapper.Map<ExpenseDomain>(updatedExpense);
+
             var notifications = new List<Notification>();
+
+            if (expenseDomain.HasNotifications())
+            {
+                return (false, expenseDomain.Notifications);
+            }
+
             var existingExpense = _context.expenses.FirstOrDefault(e => e.id == updatedExpense.id);
 
             if (existingExpense == null)

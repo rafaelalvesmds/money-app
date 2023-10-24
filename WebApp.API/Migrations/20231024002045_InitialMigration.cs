@@ -38,7 +38,7 @@ namespace WebApp.API.Migrations
                     name = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     password = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    cellphone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                    cellphone = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

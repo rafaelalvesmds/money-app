@@ -43,7 +43,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateExpense(expense updatedExpense)
+        public IActionResult UpdateExpense(Expense updatedExpense)
         {
             (bool, List<Notification>) result = _expenseService.UpdateExpense(updatedExpense);
 

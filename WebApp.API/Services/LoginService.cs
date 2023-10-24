@@ -7,6 +7,7 @@ using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 using WebApp.API.Repository.DataBase;
+using WebApp.API.Repository.DomainEntity;
 
 namespace WebApp.API.Services
 {
@@ -87,6 +88,13 @@ namespace WebApp.API.Services
 
         public ValueTuple<bool, List<Notification>> Register(User user)
         {
+            UserDomain userDomain = _mapper.Map<UserDomain>(user);
+
+            if (userDomain.HasNotifications())
+            {
+                return (false, userDomain.Notifications);
+            }
+
             var existingUser = _context.users.SingleOrDefault(u => u.email == user.email);
 
             List<Notification> notifications = new List<Notification>();

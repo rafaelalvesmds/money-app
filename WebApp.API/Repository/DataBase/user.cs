@@ -22,8 +22,8 @@ namespace WebApp.API.Repository.DataBase
         [StringLength(64)]
         public string password { get; set; }
 
-        [StringLength(20)]
-        public string cellphone { get; set; }
+        [Range(0, 14)]
+        public int? cellphone { get; set; }
     }
 
 }
