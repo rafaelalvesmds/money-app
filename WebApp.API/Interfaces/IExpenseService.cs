@@ -8,6 +8,6 @@ namespace WebApp.API.Interfaces
         ValueTuple<bool, List<Notification>, List<expense>> GetAllExpenses(string email);
         ValueTuple<bool, List<Notification>> CreateExpense(Expense expense);
         ValueTuple<bool, List<Notification>> UpdateExpense(Expense updatedExpense);
-        ValueTuple<bool, List<Notification>> DeleteExpense(int id);
+        ValueTuple<bool, List<Notification>> DeleteExpense(Guid id);
     }
 }

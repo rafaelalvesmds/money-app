@@ -1,8 +1,8 @@
-<p-table [value]="expenses" styleClass="col-12 p-0 pt-1" responsiveLayout="stack" [breakpoint]="'960px'">
+<p-table [value]="expenses" styleClass="col-12 p-0 pt-1">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
-      Products
-      <p-button icon="pi pi-refresh"></p-button>
+      Expenses
+      <p-button icon="pi pi-plus"></p-button>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
@@ -10,19 +10,21 @@
       <th *ngFor="let column of columns">{{ column.header }}</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-product>
+  <ng-template pTemplate="body" let-expense>
     <tr>
       <ng-container *ngFor="let column of columns">
-        <td *ngIf="!column.useTag">{{ product[column.field] }}</td>
+        <td *ngIf="!column.useTag">{{ expense[column.field] }}</td>
         <td *ngIf="column.useTag">
-          <p-tag [value]="product[column.field]"></p-tag>
+          <p-tag [value]="expense[column.field]"></p-tag>
         </td>
       </ng-container>
+      <td>
+        <p-button
+          icon="pi pi-pencil"
+          class="p-button-text p-button-rounded"
+          (click)="onIconClick(expense)"
+        ></p-button>
+      </td>
     </tr>
-  </ng-template>
-  <ng-template pTemplate="summary">
-    <div class="flex align-items-center justify-content-between">
-      In total there are {{ expenses ? expenses.length : 0 }} products.
-    </div>
   </ng-template>
 </p-table>

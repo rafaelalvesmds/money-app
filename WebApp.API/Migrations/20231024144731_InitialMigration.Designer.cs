@@ -12,7 +12,7 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231024002045_InitialMigration")]
+    [Migration("20231024144731_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace WebApp.API.Migrations
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.expense", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -57,16 +55,14 @@ namespace WebApp.API.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("expense");
+                    b.ToTable("expenses", "management");
                 });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("cellphone")
                         .HasColumnType("integer");
@@ -88,7 +84,7 @@ namespace WebApp.API.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("user");
+                    b.ToTable("users", "auth");
                 });
 #pragma warning restore 612, 618
         }

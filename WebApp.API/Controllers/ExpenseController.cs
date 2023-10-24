@@ -56,7 +56,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteExpense(int id)
+        public IActionResult DeleteExpense(Guid id)
         {
             (bool, List<Notification>) result = _expenseService.DeleteExpense(id);
 

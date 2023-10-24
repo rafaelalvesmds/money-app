@@ -3,12 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.API.Repository.DataBase
 {
-    [Table("user")]
+    [Table("users", Schema = "auth")]
     public class user
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public Guid id { get; set; }
 
         [Required]
         [StringLength(180)]

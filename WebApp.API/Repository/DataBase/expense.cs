@@ -4,12 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.API.Repository.DataBase
 {
-    [Table("expense")]
+    [Table("expenses", Schema = "management")]
     public class expense
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public Guid id { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -22,7 +21,7 @@ namespace WebApp.API.Repository.DataBase
         [Required]
         public int expenseType { get; set; }
 
-        [Column(TypeName = "decimal(18, 2)")] // Ajuste o tamanho de acordo com suas necessidades
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal price { get; set; }
 
         [Required]

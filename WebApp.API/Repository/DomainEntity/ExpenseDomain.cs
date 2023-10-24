@@ -19,7 +19,7 @@ namespace WebApp.API.Repository.DomainEntity
             Validate();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
         public int ExpenseType { get; set; }

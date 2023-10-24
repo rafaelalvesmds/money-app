@@ -45,7 +45,9 @@ namespace WebApp.API.Services
             }
 
             var notifications = new List<Notification>();
+
             var expenseToRegister = _mapper.Map<Expense, expense>(expense);
+            expenseToRegister.id = Guid.NewGuid();
 
             notifications.Add(new Notification { Message = "registered expense." });
             _context.expenses.Add(expenseToRegister);
@@ -85,7 +87,7 @@ namespace WebApp.API.Services
             return (true, notifications);
         }
 
-        public (bool, List<Notification>) DeleteExpense(int id)
+        public (bool, List<Notification>) DeleteExpense(Guid id)
         {
             var notifications = new List<Notification>();
             var existingExpense = _context.expenses.FirstOrDefault(e => e.id == id);

@@ -23,11 +23,11 @@ namespace WebApp.API.Controllers
 
             if (result.Item1)
             {
-                return Ok(new { Success = true, Notifications = result.Item2 });
+                return Ok(new { success = true, notifications = result.Item2 });
             }
             else
             {
-                return BadRequest(new { Success = false, Notifications = result.Item2 });
+                return BadRequest(new { success = false, notifications = result.Item2 });
             }
         }
 
@@ -39,14 +39,19 @@ namespace WebApp.API.Controllers
 
             if (result.isAuthenticated)
             {
-                return Ok(result);
+                return Ok(new { sucess = true, userId = result.user.id, notifications = result.notifications, token  = result.token });
             }
             else 
             {
-                return BadRequest(result);
+                return BadRequest(new { sucess = false, notifications = result.notifications });
             }
         }
 
+
+        //public bool isAuthenticated { get; set; }
+        //public User user { get; set; }
+        //public List<Notification> notifications { get; set; }
+        //public string token { get; set; }
 
     }
 }

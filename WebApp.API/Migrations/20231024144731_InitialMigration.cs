@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,12 +11,18 @@ namespace WebApp.API.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "management");
+
+            migrationBuilder.EnsureSchema(
+                name: "auth");
+
             migrationBuilder.CreateTable(
-                name: "expense",
+                name: "expenses",
+                schema: "management",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     name = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     expenseType = table.Column<int>(type: "integer", nullable: false),
@@ -26,15 +32,15 @@ namespace WebApp.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_expense", x => x.id);
+                    table.PrimaryKey("PK_expenses", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "user",
+                name: "users",
+                schema: "auth",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     password = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
@@ -42,7 +48,7 @@ namespace WebApp.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user", x => x.id);
+                    table.PrimaryKey("PK_users", x => x.id);
                 });
         }
 
@@ -50,10 +56,12 @@ namespace WebApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "expense");
+                name: "expenses",
+                schema: "management");
 
             migrationBuilder.DropTable(
-                name: "user");
+                name: "users",
+                schema: "auth");
         }
     }
 }

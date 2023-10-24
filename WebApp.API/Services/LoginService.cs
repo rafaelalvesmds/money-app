@@ -26,11 +26,12 @@ namespace WebApp.API.Services
 
         public AuthenticationResult Login(LoginRequest request)
         {
-            var userRequest = _context.users.SingleOrDefault(u => u.email == request.email && u.password == request.password);
+            var userRequest = _context.users.SingleOrDefault(u => u.email == request.email);
 
             List<Notification> notifications = new List<Notification>();
 
-            if (userRequest == null)
+
+            if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
                 notifications.Add(new Notification { Message = "Credenciais inválidas" });
 
@@ -107,12 +108,21 @@ namespace WebApp.API.Services
             } 
             else
             {
-                _context.users.Add(_mapper.Map<User, user>(user));
+                user userToRegister = _mapper.Map<User, user>(user);
+                userToRegister.password = HashPassword(user.password);
+                userToRegister.id = Guid.NewGuid();
+
+                _context.users.Add(userToRegister);
                 _context.SaveChanges();
 
                 notifications.Add(new Notification { Message = "Usuário cadastrado com sucesso." });
                 return (true, notifications);
             }
+        }
+
+        public string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }
