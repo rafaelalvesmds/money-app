@@ -30,7 +30,7 @@ namespace WebApp.API.Services
 
             List<Notification> notifications = new List<Notification>();
 
-
+            //password encryption
             if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
                 notifications.Add(new Notification { Message = "Credenciais inválidas" });
