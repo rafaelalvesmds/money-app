@@ -7,9 +7,11 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './feature-components/menu/menu.module';
 import { PrimeNgModule } from './shared/modules/primeng.module';
-import { AnalyticsValuesComponent } from './feature-components/analytics-values/analytics-values.component';
-import { TableSpentComponent } from './feature-components/table-spent/table-spent.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -21,7 +23,12 @@ import { TableSpentComponent } from './feature-components/table-spent/table-spen
     AppRoutingModule,
     HttpClientModule,
     MenuModule,
-    PrimeNgModule
+    PrimeNgModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+      },
+    }),
   ],
   providers: [
     {

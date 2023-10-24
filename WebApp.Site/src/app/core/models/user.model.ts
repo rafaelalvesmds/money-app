@@ -2,5 +2,5 @@ export interface UserModel {
   name: string;
   email: string;
   password: string;
-  cellphone: string;
+  cellphone?: number;
 }

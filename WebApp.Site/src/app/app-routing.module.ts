@@ -4,7 +4,6 @@ import { AuthGuard } from './core/helpers/auth.guard';
 import { MenuComponent } from './feature-components/menu/menu.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: MenuComponent,
@@ -14,6 +13,7 @@ const routes: Routes = [
       { path: 'management', loadChildren: () => import('./pages/management/management.module').then(m => m.ManagementModule), canActivate: [AuthGuard] }
     ],
   },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
 ];
