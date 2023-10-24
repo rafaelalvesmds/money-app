@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ExpenseService } from 'src/app/core/service/expense.service';
 
 @Component({
   selector: 'app-management',
@@ -6,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent {
+
+  constructor(private expenseService: ExpenseService) { }
+
   cards = [
     {
       title: 'Receita',
@@ -59,9 +63,12 @@ export class ManagementComponent {
     { field: 'inventoryStatus', header: 'Inventory Status', useTag: true }
   ]
 
-  constructor() { }
 
   ngOnInit() {
-
+    this.expenseService.getExpenses("string@string.com").subscribe({
+      next: (res: any) => {
+        console.log(res)
+      }
+    })
   }
 }
