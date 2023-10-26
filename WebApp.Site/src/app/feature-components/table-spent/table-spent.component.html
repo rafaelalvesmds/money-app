@@ -1,4 +1,4 @@
-<p-table [value]="expenses" styleClass="col-12 p-0 pt-1">
+<p-table [value]="expenses" styleClass="col-12 p-0">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Expenses
@@ -7,24 +7,35 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let column of columns">{{ column.header }}</th>
+      <th *ngFor="let column of columns" [style.width]="column.width">
+        {{ column.header }}
+      </th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-expense>
     <tr>
-      <ng-container *ngFor="let column of columns">
+      <ng-container *ngFor="let column of columns; let last = last">
         <td *ngIf="!column.useTag">{{ expense[column.field] }}</td>
         <td *ngIf="column.useTag">
           <p-tag [value]="expense[column.field]"></p-tag>
         </td>
+        <!-- Se for a última coluna, renderize os botões "pencil" e "trash" -->
+        <td *ngIf="last">
+          <div class="btns-field flex flex-row justify-content-end w-full">
+            <p-button
+              icon="pi pi-pencil"
+              styleClass="p-button-text p-button-rounded"
+              (click)="onRowClick(expense)"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              styleClass="p-button-text p-button-rounded"
+              (click)="onRowClick(expense)"
+            ></p-button>
+          </div>
+        </td>
       </ng-container>
-      <td>
-        <p-button
-          icon="pi pi-pencil"
-          class="p-button-text p-button-rounded"
-          (click)="onIconClick(expense)"
-        ></p-button>
-      </td>
     </tr>
   </ng-template>
 </p-table>

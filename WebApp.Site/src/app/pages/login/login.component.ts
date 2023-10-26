@@ -30,9 +30,10 @@ export class LoginComponent implements OnInit {
   onLoginSubmit() {
     this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
       (response: any) => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/management']);
         this.userService.setCurrentUser(response.user);
         this.saveToken(response)
+        console.log(response)
       },
       (error: any) => {
         this.showError(error.error.notifications[0].message);

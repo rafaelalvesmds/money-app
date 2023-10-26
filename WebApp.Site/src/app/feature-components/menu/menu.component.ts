@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
   currentUser!: UserModel;
 
   screenWidth!: number;
+  screenHeigth!: number;
 
   constructor(private messageService: MessageService, private router: Router, private userService: UserService) { }
 
@@ -40,21 +41,21 @@ export class MenuComponent implements OnInit {
     this.dockItems = [
       {
         label: 'Dashboard',
-        tooltip: 'Dashboard',
+        // tooltip: 'Dashboard',
         tooltipPosition: 'bottom',
         icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
         routerLink: '/dashboard'
       },
       {
         label: 'Management',
-        tooltip: 'Management',
+        // tooltip: 'Management',
         tooltipPosition: 'bottom',
         icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
         routerLink: '/management'
       },
       {
         label: 'Exit',
-        tooltip: 'Exit',
+        // tooltip: 'Exit',
         tooltipPosition: 'bottom',
         icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
         command: () => {
@@ -75,12 +76,14 @@ export class MenuComponent implements OnInit {
   updateCardWidth() {
     const card = document.getElementById('card-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
     if (card) {
-      if(this.screenWidth > 960) {
+      if (this.screenWidth > 960) {
         card.style.width = `${this.screenWidth * 0.8}px`;
-        card.style.marginTop = `${this.screenWidth * 0.1}px`
+        card.style.height = `100vh`;
+        // card.style.marginTop = `${this.screenWidth * 0.1}px`
       } else {
         card.style.width = `${this.screenWidth * 0.90}px`;
-        card.style.marginTop = `${this.screenWidth * 0.05}px`
+        card.style.height = `100vh`;
+        // card.style.marginTop = `${this.screenWidth * 0.05}px`
       }
     }
   }

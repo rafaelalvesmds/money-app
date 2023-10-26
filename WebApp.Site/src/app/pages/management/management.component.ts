@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { error } from 'console';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
 import { ExpenseService } from 'src/app/core/service/expense.service';
 
@@ -54,19 +55,14 @@ export class ManagementComponent {
   expenses = [];
 
   columns: any[] = [
-    { field: 'name', header: 'Name' },
-    { field: 'price', header: 'Price' },
-    { field: 'expenseType', header: 'Category', useTag: true },
+    { field: 'name', header: 'Name', width: '50%' },
+    { field: 'price', header: 'Price', width: '20%' },
+    { field: 'expenseType', header: 'Category', useTag: true, width: '30%' },
   ]
 
 
   ngOnInit() {
-    this.expenseService.getExpenses("string@string.com").subscribe({
-      next: (res: any) => {
-        console.log(res.expenses)
-        this.expenses = res.expenses;
-      }
-    })
+    this.getExpenses()
   }
 
   receiveExpenseSelected(e: any) {
@@ -75,10 +71,24 @@ export class ManagementComponent {
     this.deleteExpense();
   }
 
+  getExpenses() {
+    this.expenseService.getExpenses("rafa@123").subscribe({
+      next: (res: any) => {
+        console.log(res.expenses)
+        this.expenses = res.expenses;
+      },
+      error: (error: any) => {
+        // console.log(error.error.notifications, 'error notifications')
+      }
+    })
+  }
+
   deleteExpense() {
     this.expenseService.deleteExpense(this.expenseSelected.id).subscribe({
       next: (res: any) => {
         console.log(res, 'dele res')
+        if (res.success)
+          this.getExpenses()
       }
     })
   }

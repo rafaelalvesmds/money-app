@@ -8,9 +8,7 @@
   </div>
 </div> -->
 
-<div
-  class="dock-window dock-advanced flex align-items-center justify-content-center h-full"
->
+<div class="dock-window dock-advanced">
   <p-dock
     *ngIf="screenWidth > 960"
     [model]="dockItems"
@@ -29,7 +27,7 @@
     </ng-template>
   </p-dock>
 
-  <p-card id="card-container">
+  <p-card id="card-container" class="card-container">
     <router-outlet></router-outlet>
   </p-card>
 

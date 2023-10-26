@@ -1,6 +1,7 @@
-<div>
-  <app-analytics-values [cards]="cards"></app-analytics-values>
+<div class="grid-nogutter w-full" class="management-container" style="height: 70vh; overflow: auto">
+  <app-analytics-values [cards]="cards" class="col-12"></app-analytics-values>
   <app-table-spent
+    class="col-12"
     [expenses]="expenses"
     [columns]="columns"
     (expenseSelected)="receiveExpenseSelected($event)"
