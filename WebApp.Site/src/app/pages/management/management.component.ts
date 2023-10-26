@@ -72,7 +72,7 @@ export class ManagementComponent {
     }
   ]
 
-  visibleDialog: boolean = true;
+  visible: boolean = false;
 
   ngOnInit() {
     this.getExpenses()
@@ -114,10 +114,6 @@ export class ManagementComponent {
   }
 
   addExpense() {
-    this.visibleDialog = true
-  }
-
-  onClosedDialog() {
-    this.visibleDialog = false
+    this.visible = true
   }
 }
