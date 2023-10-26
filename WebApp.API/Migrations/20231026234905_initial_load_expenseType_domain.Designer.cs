@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231026223539_create_table_users_expense")]
-    partial class create_table_users_expense
+    [Migration("20231026234905_initial_load_expenseType_domain")]
+    partial class initial_load_expenseType_domain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,11 @@ namespace WebApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -45,17 +50,31 @@ namespace WebApp.API.Migrations
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
-
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("id");
 
                     b.ToTable("expenses", "management");
+                });
+
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.expenseType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("name");
+
+                    b.HasKey("id");
+
+                    b.ToTable("expenseType", "domain");
                 });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>

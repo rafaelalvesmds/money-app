@@ -56,7 +56,7 @@ export class ManagementComponent {
   expenses = [];
 
   columns: any[] = [
-    { field: 'name', header: 'Name', width: '60%' },
+    { field: 'description', header: 'Description', width: '60%' },
     { field: 'expenseType', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
     { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
   ]

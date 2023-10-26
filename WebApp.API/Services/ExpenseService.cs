@@ -75,7 +75,7 @@ namespace WebApp.API.Services
             }
 
             existingExpense.email = updatedExpense.email;
-            existingExpense.name = updatedExpense.name;
+            existingExpense.description = updatedExpense.description;
             existingExpense.expenseType = updatedExpense.expenseType;
             existingExpense.price = updatedExpense.price;
             existingExpense.expenseDate = updatedExpense.expenseDate;

@@ -17,7 +17,7 @@ namespace WebApp.API.AutoMapper
                 .ConstructUsing(expense =>
                 new ExpenseDomain(
                     expense.email,
-                    expense.name,
+                    expense.description,
                     expense.expenseType,
                     expense.price,
                     expense.expenseDate,

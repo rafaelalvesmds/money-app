@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,6 +16,9 @@ namespace WebApp.API.Migrations
                 name: "management");
 
             migrationBuilder.EnsureSchema(
+                name: "domain");
+
+            migrationBuilder.EnsureSchema(
                 name: "auth");
 
             migrationBuilder.CreateTable(
@@ -24,7 +28,7 @@ namespace WebApp.API.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    name = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
+                    description = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     expenseType = table.Column<int>(type: "integer", nullable: false),
                     price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     includedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -33,6 +37,20 @@ namespace WebApp.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_expenses", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "expenseType",
+                schema: "domain",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_expenseType", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,6 +77,10 @@ namespace WebApp.API.Migrations
             migrationBuilder.DropTable(
                 name: "expenses",
                 schema: "management");
+
+            migrationBuilder.DropTable(
+                name: "expenseType",
+                schema: "domain");
 
             migrationBuilder.DropTable(
                 name: "users",

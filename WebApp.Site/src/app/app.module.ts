@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './feature-components/menu/menu.module';
 import { PrimeNgModule } from './shared/modules/primeng.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ExpenseFormRegisterComponent } from './feature-components/expense-form-register/expense-form-register.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -17,7 +16,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    ExpenseFormRegisterComponent,
   ],
   imports: [
     BrowserModule,

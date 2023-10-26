@@ -28,6 +28,11 @@ namespace WebApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -41,11 +46,6 @@ namespace WebApp.API.Migrations
 
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
 
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18, 2)");

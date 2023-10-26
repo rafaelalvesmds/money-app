@@ -5,10 +5,10 @@ namespace WebApp.API.Repository.DomainEntity
 {
     public class ExpenseDomain
     {
-        public ExpenseDomain(string email, string name, int expenseType, decimal price, DateTime expenseDate, DateTime includedDate)
+        public ExpenseDomain(string email, string description, int expenseType, decimal price, DateTime expenseDate, DateTime includedDate)
         {
             Email = email;
-            Name = name;
+            Description = description;
             ExpenseType = expenseType;
             Price = price;
             ExpenseDate = expenseDate;
@@ -21,7 +21,7 @@ namespace WebApp.API.Repository.DomainEntity
 
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string Name { get; set; }
+        public string Description { get; set; }
         public int ExpenseType { get; set; }
         public decimal Price { get; set; }
         public DateTime ExpenseDate { get; set; }
@@ -54,9 +54,9 @@ namespace WebApp.API.Repository.DomainEntity
                 Notifications.Add(new Notification { Message = "Invalid email." });
             }
 
-            if (string.IsNullOrWhiteSpace(Name))
+            if (string.IsNullOrWhiteSpace(Description))
             {
-                Notifications.Add(new Notification { Message = "Name is required." });
+                Notifications.Add(new Notification { Message = "Description is required." });
             }
 
             if (ExpenseType < 0)

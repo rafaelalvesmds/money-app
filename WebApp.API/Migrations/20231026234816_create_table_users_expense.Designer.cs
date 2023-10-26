@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231026231446_initial_load_expenseType_domain")]
-    partial class initial_load_expenseType_domain
+    [Migration("20231026234816_create_table_users_expense")]
+    partial class create_table_users_expense
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,11 @@ namespace WebApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -44,11 +49,6 @@ namespace WebApp.API.Migrations
 
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
 
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18, 2)");
