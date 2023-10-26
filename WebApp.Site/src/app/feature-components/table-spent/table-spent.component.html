@@ -2,12 +2,16 @@
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Expenses
-      <p-button icon="pi pi-plus"></p-button>
+      <p-button icon="pi pi-plus" (onClick)="addButton()"></p-button>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let column of columns" [style.width]="column.width">
+      <th
+        *ngFor="let column of columns"
+        [style.width]="column.width"
+        [class]="getAlignmentClass(column)"
+      >
         {{ column.header }}
       </th>
       <th></th>
@@ -16,22 +20,30 @@
   <ng-template pTemplate="body" let-expense>
     <tr>
       <ng-container *ngFor="let column of columns; let last = last">
-        <td *ngIf="!column.useTag">{{ expense[column.field] }}</td>
-        <td *ngIf="column.useTag">
-          <p-tag [value]="expense[column.field]"></p-tag>
+        <td
+          [class]="getAlignmentClass(column)"
+          *ngIf="!column.useTag"
+          class="px-3 p-0"
+        >
+          {{ manipulateValue(expense[column.field], column) }}
         </td>
-        <!-- Se for a última coluna, renderize os botões "pencil" e "trash" -->
-        <td *ngIf="last">
+        <td
+          [class]="getAlignmentClass(column)"
+          *ngIf="column.useTag"
+          class="px-1 p-0"
+        >
+          <p-tag
+            [value]="manipulateValue(expense[column.field], column)"
+          ></p-tag>
+        </td>
+
+        <td [class]="getAlignmentClass(column)" *ngIf="last" class="p-0">
           <div class="btns-field flex flex-row justify-content-end w-full">
             <p-button
-              icon="pi pi-pencil"
-              styleClass="p-button-text p-button-rounded"
-              (click)="onRowClick(expense)"
-            ></p-button>
-            <p-button
-              icon="pi pi-trash"
-              styleClass="p-button-text p-button-rounded"
-              (click)="onRowClick(expense)"
+              *ngFor="let action of actions"
+              [icon]="action.icon"
+              styleClass="p-button-text p-button-rounded "
+              (click)="onRowClick(expense); action?.command()"
             ></p-button>
           </div>
         </td>

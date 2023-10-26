@@ -1,9 +1,17 @@
-<div class="grid-nogutter w-full" class="management-container" style="height: 70vh; overflow: auto">
+<div
+  class="grid-nogutter w-full"
+  class="management-container"
+  style="height: 70vh; overflow: auto"
+>
   <app-analytics-values [cards]="cards" class="col-12"></app-analytics-values>
   <app-table-spent
     class="col-12"
     [expenses]="expenses"
     [columns]="columns"
+    [actions]="actions"
     (expenseSelected)="receiveExpenseSelected($event)"
+    (addExpense)="addExpense()"
   ></app-table-spent>
 </div>
+
+<app-dialog-add-extense [visible]="visibleDialog" (onHide)="onClosedDialog()"></app-dialog-add-extense>

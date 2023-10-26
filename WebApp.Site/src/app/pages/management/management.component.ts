@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { error } from 'console';
+import { ActionsModel } from 'src/app/core/models/actions.model';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
 import { ExpenseService } from 'src/app/core/service/expense.service';
 
@@ -55,11 +56,23 @@ export class ManagementComponent {
   expenses = [];
 
   columns: any[] = [
-    { field: 'name', header: 'Name', width: '50%' },
-    { field: 'price', header: 'Price', width: '20%' },
-    { field: 'expenseType', header: 'Category', useTag: true, width: '30%' },
+    { field: 'name', header: 'Name', width: '60%' },
+    { field: 'expenseType', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
+    { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
   ]
 
+  actions: ActionsModel[] = [
+    {
+      icon: 'pi pi-pencil',
+      command: () => this.updateExpense()
+    },
+    {
+      icon: 'pi pi-trash',
+      command: () => this.deleteExpense()
+    }
+  ]
+
+  visibleDialog: boolean = true;
 
   ngOnInit() {
     this.getExpenses()
@@ -67,8 +80,6 @@ export class ManagementComponent {
 
   receiveExpenseSelected(e: any) {
     this.expenseSelected = e;
-
-    this.deleteExpense();
   }
 
   getExpenses() {
@@ -83,7 +94,16 @@ export class ManagementComponent {
     })
   }
 
+  updateExpense() {
+    this.expenseService.updateExpense(this.expenseSelected).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      }
+    })
+  }
+
   deleteExpense() {
+    console.log(this.expenseSelected, 'delete')
     this.expenseService.deleteExpense(this.expenseSelected.id).subscribe({
       next: (res: any) => {
         console.log(res, 'dele res')
@@ -91,5 +111,13 @@ export class ManagementComponent {
           this.getExpenses()
       }
     })
+  }
+
+  addExpense() {
+    this.visibleDialog = true
+  }
+
+  onClosedDialog() {
+    this.visibleDialog = false
   }
 }
