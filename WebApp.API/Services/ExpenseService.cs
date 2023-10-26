@@ -28,7 +28,7 @@ namespace WebApp.API.Services
             if (expensesFromDatabase.Count == 0)
             {
                 notifications.Add(new Notification { Message = "No expenses found for the specified email." });
-                return (false, notifications, expensesFromDatabase);
+                return (true, notifications, expensesFromDatabase);
             }
 
             return (true, notifications, expensesFromDatabase);

@@ -33,8 +33,14 @@ namespace WebApp.API.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTime>("expenseDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("expenseType")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("includedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("mounth")
                         .HasColumnType("integer");
@@ -78,6 +84,9 @@ namespace WebApp.API.Migrations
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
+
+                    b.Property<DateTime>("registrationDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("id");
 

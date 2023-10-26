@@ -29,6 +29,12 @@ namespace WebApp.API.Repository.DataBase
 
         [Required]
         public int year { get; set; }
+
+        [Required]
+        public DateTime includedDate { get; set; }
+
+        [Required]
+        public DateTime expenseDate { get; set; }
     }
 
 }

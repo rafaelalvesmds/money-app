@@ -23,6 +23,9 @@ namespace WebApp.API.Repository.DataBase
 
         [Range(0, 14)]
         public int? cellphone { get; set; }
+
+        [Required]
+        public DateTime registrationDate { get; set; }
     }
 
 }
