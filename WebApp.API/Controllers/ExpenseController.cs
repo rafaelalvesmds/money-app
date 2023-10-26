@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 using WebApp.API.Repository.DataBase;
 
 namespace WebApp.API.Controllers
 {
-    [Route("api/expenses/[action]")]
+    [Route("api/v1/expenses/[action]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {
@@ -17,7 +18,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetExpenses(string email)
+        public IActionResult GetExpenses([FromQuery] string email)
         {
             (bool, List<Notification>, List<expense>) result = _expenseService.GetAllExpenses(email);
 
@@ -65,7 +66,7 @@ namespace WebApp.API.Controllers
                 return BadRequest(new { Success = false, Notifications = result.Item2 }); 
             }
 
-            return Ok(new { Success = false, Notifications = result.Item2 });
+            return Ok(new { Success = true, Notifications = result.Item2 });
         }
     }
 }
