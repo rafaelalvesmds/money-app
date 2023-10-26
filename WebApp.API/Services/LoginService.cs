@@ -65,26 +65,19 @@ namespace WebApp.API.Services
             }
         }
 
-        public string GenerateJwtToken(string username)
+        public (bool, List<Notification>, User) GetUserById(Guid id)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var user = _context.users.SingleOrDefault(u => u.id == id);
 
-            var claims = new[]
+            if (user == null)
             {
-            new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+                var notifications = new List<Notification> { new Notification { Message = "Usuário não encontrado" } };
+                return (false, notifications, null);
+            }
 
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials
-            );
+            User userResult = _mapper.Map<User>(user);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return (true, new List<Notification>(), userResult);
         }
 
         public ValueTuple<bool, List<Notification>> Register(User user)
@@ -118,6 +111,29 @@ namespace WebApp.API.Services
                 notifications.Add(new Notification { Message = "Usuário cadastrado com sucesso." });
                 return (true, notifications);
             }
+        }
+
+
+        public string GenerateJwtToken(string username)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, username),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         public string HashPassword(string password)

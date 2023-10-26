@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 
@@ -16,7 +17,7 @@ namespace WebApp.API.Controllers
         }
 
 
-        [HttpPost]  
+        [HttpPost]
         public IActionResult Register([FromBody] User user)
         {
             var result = _loginService.Register(user);
@@ -47,11 +48,31 @@ namespace WebApp.API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(Guid id)
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "sub");
+            if (userIdClaim == null || userIdClaim.Value != id.ToString())
+            {
+                return Forbid();
+            }
 
-        //public bool isAuthenticated { get; set; }
-        //public User user { get; set; }
-        //public List<Notification> notifications { get; set; }
-        //public string token { get; set; }
+            var (success, notifications, user) = _loginService.GetUserById(id);
 
+            if (!success)
+            {
+                return NotFound(new { Notifications = notifications });
+            }
+
+            var userResponse = new
+            {
+                id = user.id,
+                nome = user.name,
+                email = user.email,
+                cellphone = user.cellphone
+            };
+
+            return Ok(userResponse);
+        }
     }
 }
