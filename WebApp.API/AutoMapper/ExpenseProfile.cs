@@ -20,8 +20,8 @@ namespace WebApp.API.AutoMapper
                     expense.name,
                     expense.expenseType,
                     expense.price,
-                    expense.mounth,
-                    expense.year
+                    expense.expenseDate,
+                    expense.includedDate
                 ));
         }
     }

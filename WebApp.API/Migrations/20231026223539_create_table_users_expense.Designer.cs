@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231026034617_create-table-users-expenses")]
-    partial class createtableusersexpenses
+    [Migration("20231026223539_create_table_users_expense")]
+    partial class create_table_users_expense
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,9 +45,6 @@ namespace WebApp.API.Migrations
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("mounth")
-                        .HasColumnType("integer");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -55,9 +52,6 @@ namespace WebApp.API.Migrations
 
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("year")
-                        .HasColumnType("integer");
 
                     b.HasKey("id");
 

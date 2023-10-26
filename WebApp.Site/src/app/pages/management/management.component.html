@@ -14,8 +14,12 @@
   ></app-table-spent>
 </div>
 
-
-<p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" [modal]="true">
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+>
   <ng-template pTemplate="header">
     <span class="text-xl font-bold">Header Content</span>
   </ng-template>

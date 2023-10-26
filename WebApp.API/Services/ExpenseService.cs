@@ -78,8 +78,7 @@ namespace WebApp.API.Services
             existingExpense.name = updatedExpense.name;
             existingExpense.expenseType = updatedExpense.expenseType;
             existingExpense.price = updatedExpense.price;
-            existingExpense.mounth = updatedExpense.mounth;
-            existingExpense.year = updatedExpense.year;
+            existingExpense.expenseDate = updatedExpense.expenseDate;
 
             notifications.Add(new Notification { Message = "expense updated" });
 

@@ -7,5 +7,6 @@
         public string email { get; set; }
         public string password { get; set; }
         public int? cellphone { get; set; }
+        public DateTime registrationDate { get; set; }
     }
 }

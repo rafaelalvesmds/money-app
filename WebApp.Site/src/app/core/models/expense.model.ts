@@ -6,4 +6,6 @@ export interface ExpenseModel {
   price: number;
   mounth: number;
   year: number;
+  includedDate: Date;
+  expenseDate: Date;
 }

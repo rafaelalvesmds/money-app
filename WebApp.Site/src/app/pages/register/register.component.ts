@@ -45,6 +45,7 @@ export class RegisterComponent implements OnInit {
       email: form.email,
       cellphone: form.cellphone,
       password: form.password,
+      registrationDate: new Date()
     }
 
     if (form.password === form.passwordConfirm) {

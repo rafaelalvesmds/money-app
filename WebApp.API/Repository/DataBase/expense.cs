@@ -25,12 +25,6 @@ namespace WebApp.API.Repository.DataBase
         public decimal price { get; set; }
 
         [Required]
-        public int mounth { get; set; }
-
-        [Required]
-        public int year { get; set; }
-
-        [Required]
         public DateTime includedDate { get; set; }
 
         [Required]

@@ -42,9 +42,6 @@ namespace WebApp.API.Migrations
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("mounth")
-                        .HasColumnType("integer");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -52,9 +49,6 @@ namespace WebApp.API.Migrations
 
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("year")
-                        .HasColumnType("integer");
 
                     b.HasKey("id");
 

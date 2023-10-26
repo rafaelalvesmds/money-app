@@ -5,14 +5,14 @@ namespace WebApp.API.Repository.DomainEntity
 {
     public class ExpenseDomain
     {
-        public ExpenseDomain(string email, string name, int expenseType, decimal price, int month, int year)
+        public ExpenseDomain(string email, string name, int expenseType, decimal price, DateTime expenseDate, DateTime includedDate)
         {
             Email = email;
             Name = name;
             ExpenseType = expenseType;
             Price = price;
-            Month = month;
-            Year = year;
+            ExpenseDate = expenseDate;
+            IncludedDate = includedDate;
 
             Notifications = new List<Notification>();
 
@@ -24,8 +24,8 @@ namespace WebApp.API.Repository.DomainEntity
         public string Name { get; set; }
         public int ExpenseType { get; set; }
         public decimal Price { get; set; }
-        public int Month { get; set; }
-        public int Year { get; set; }
+        public DateTime ExpenseDate { get; set; }
+        public DateTime IncludedDate { get; set; }
 
         public List<Notification> Notifications { get; private set; }
 
@@ -69,15 +69,16 @@ namespace WebApp.API.Repository.DomainEntity
                 Notifications.Add(new Notification { Message = "Price must be greater than zero." });
             }
 
-            if (Month < 1 || Month > 12)
+            if (ExpenseDate == DateTime.MinValue)
             {
-                Notifications.Add(new Notification { Message = "Invalid month." });
+                Notifications.Add(new Notification { Message = "Expense date is required." });
             }
 
-            if (Year < DateTime.MinValue.Year || Year > DateTime.MaxValue.Year)
+            if (IncludedDate == DateTime.MinValue)
             {
-                Notifications.Add(new Notification { Message = "Invalid year." });
+                Notifications.Add(new Notification { Message = "Included date is required." });
             }
+
         }
     }
 }

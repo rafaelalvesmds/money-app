@@ -104,6 +104,7 @@ namespace WebApp.API.Services
                 user userToRegister = _mapper.Map<User, user>(user);
                 userToRegister.password = HashPassword(user.password);
                 userToRegister.id = Guid.NewGuid();
+                userToRegister.registrationDate = DateTime.UtcNow;
 
                 _context.users.Add(userToRegister);
                 _context.SaveChanges();

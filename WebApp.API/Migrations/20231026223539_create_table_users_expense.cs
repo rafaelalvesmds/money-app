@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApp.API.Migrations
 {
     /// <inheritdoc />
-    public partial class createtableusersexpenses : Migration
+    public partial class create_table_users_expense : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,8 +27,6 @@ namespace WebApp.API.Migrations
                     name = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     expenseType = table.Column<int>(type: "integer", nullable: false),
                     price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    mounth = table.Column<int>(type: "integer", nullable: false),
-                    year = table.Column<int>(type: "integer", nullable: false),
                     includedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     expenseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

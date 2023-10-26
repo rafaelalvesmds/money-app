@@ -7,7 +7,7 @@
         public string name { get; set; }
         public int expenseType { get; set; }
         public decimal price { get; set; }
-        public int mounth { get; set; }
-        public int year { get; set; }
+        public DateTime includedDate { get; set; }
+        public DateTime expenseDate { get; set; }
     }
 }

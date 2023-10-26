@@ -83,7 +83,7 @@ export class ManagementComponent {
   }
 
   getExpenses() {
-    this.expenseService.getExpenses("rafa@123").subscribe({
+    this.expenseService.getExpenses("gau@gau").subscribe({
       next: (res: any) => {
         console.log(res.expenses)
         this.expenses = res.expenses;
