@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { error } from 'console';
+import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
 import { ExpenseService } from 'src/app/core/service/expense.service';
@@ -86,7 +87,9 @@ export class ManagementComponent {
     this.expenseService.getExpenses("gau@gau").subscribe({
       next: (res: any) => {
         console.log(res.expenses)
-        this.expenses = res.expenses;
+        // this.expenses = res.expenses;
+
+        this.expenses = res.expenses.map((item: ExpenseModel) => this.createData(item));
       },
       error: (error: any) => {
         // console.log(error.error.notifications, 'error notifications')
@@ -116,4 +119,24 @@ export class ManagementComponent {
   addExpense() {
     this.visible = true
   }
+
+  createData(item: ExpenseModel) {
+    return {
+      id: item.id,
+      email: item.email,
+      description: item.description,
+      expenseType: ExpenseTypeEnum[item.expenseType],
+      price: item.price,
+      expenseDate: item.expenseDate,
+      includedDate: item.includedDate,
+    };
+  }
 }
+
+// id: number;
+// email: string;
+// description: string;
+// expenseType: number;
+// price: number;
+// includedDate: Date;
+// expenseDate: Date;

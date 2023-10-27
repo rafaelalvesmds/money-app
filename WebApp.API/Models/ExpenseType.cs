@@ -1,11 +1,10 @@
 ﻿namespace WebApp.API.Models
 {
-
     public class ExpenseType
     {
         public enum ExpenseTypeEnum
         {
-            Home,
+            Home = 1,
             Education,
             Electronics,
             Leisure,

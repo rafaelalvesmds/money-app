@@ -13,6 +13,6 @@ namespace WebApp.API.Repository.DataBase
         [Required]
         [Column("name")]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string name { get; set; }
     }
 }

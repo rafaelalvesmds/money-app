@@ -6,7 +6,8 @@ using WebApp.API.Repository.DataBase;
 
 namespace WebApp.API.Controllers
 {
-    [Route("api/v1/expenses/[action]")]
+
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {

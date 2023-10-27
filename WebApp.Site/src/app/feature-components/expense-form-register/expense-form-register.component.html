@@ -1,14 +1,19 @@
 <div [formGroup]="expenseForm" class="flex flex-column gap-4 h-20rem">
   <span class="p-float-label">
-    <input pInputText formControlName="name" class="w-full" />
-    <label htmlFor="name">Name</label>
+    <input pInputText formControlName="description" class="w-full" />
+    <label htmlFor="description">Description</label>
   </span>
+
+  <!-- <p-dropdown
+    formControlName="expenseType"
+    [options]="cities"
+    optionLabel="name"
+  ></p-dropdown> -->
 
   <span class="p-float-label">
-    <input pInputText formControlName="price" class="w-full" type="number">
+    <input pInputText formControlName="price" class="w-full" type="number" />
     <label htmlFor="price">Price</label>
   </span>
-
 </div>
 
 <!-- name: [null, [Validators.required]],

@@ -5,7 +5,8 @@ using WebApp.API.Models;
 
 namespace WebApp.API.Controllers
 {
-    [Route("api/auth/[action]")]
+
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
