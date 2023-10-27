@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiBaseUrl}/api/v1/auth/login`, { email, password })
+    return this.http.post(`${this.apiBaseUrl}/api/v1/user/login`, { email, password })
   }
 
   isAuthenticated(): boolean {
@@ -29,7 +29,11 @@ export class AuthService {
   }
 
   register(user: UserModel): Observable<any> {
-    return this.http.post(`${this.apiBaseUrl}/api/v1/auth/register`, user)
+    return this.http.post(`${this.apiBaseUrl}/api/v1/user/register`, user)
+  }
+
+  getUserById(id: string): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/api/v1/user/GetUserById/${id}`);
   }
 }
 

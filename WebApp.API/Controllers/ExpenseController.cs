@@ -41,7 +41,7 @@ namespace WebApp.API.Controllers
                 return BadRequest(new { Success = false, Notifications = result.Item2 });
             }
 
-            return Ok(new { Success = false, Notifications = result.Item2 });
+            return Ok(new { Success = true, Notifications = result.Item2 });
         }
 
         [HttpPut]

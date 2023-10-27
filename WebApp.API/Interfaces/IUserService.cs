@@ -2,7 +2,7 @@
 
 namespace WebApp.API.Interfaces
 {
-    public interface ILoginService
+    public interface IUserService
     {
         AuthenticationResult Login(LoginRequest request);
         string GenerateJwtToken(string username);

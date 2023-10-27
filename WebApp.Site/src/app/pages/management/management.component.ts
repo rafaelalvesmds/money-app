@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { error } from 'console';
+import { MessageService } from 'primeng/api';
 import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
@@ -12,7 +13,7 @@ import { ExpenseService } from 'src/app/core/service/expense.service';
 })
 export class ManagementComponent {
 
-  constructor(private expenseService: ExpenseService) { }
+  constructor(private expenseService: ExpenseService, private messageService: MessageService,) { }
 
   expenseSelected!: ExpenseModel;
 
@@ -65,7 +66,7 @@ export class ManagementComponent {
   actions: ActionsModel[] = [
     {
       icon: 'pi pi-pencil',
-      command: () => this.updateExpense()
+      command: () => this.editExpense()
     },
     {
       icon: 'pi pi-trash',
@@ -74,6 +75,8 @@ export class ManagementComponent {
   ]
 
   visible: boolean = false;
+
+  typeAction!: "register" | "edit";
 
   ngOnInit() {
     this.getExpenses()
@@ -97,16 +100,24 @@ export class ManagementComponent {
     })
   }
 
-  updateExpense() {
-    this.expenseService.updateExpense(this.expenseSelected).subscribe({
+  updateExpense(e: ExpenseModel) {
+    this.visible = false;
+    this.expenseService.updateExpense(e).subscribe({
       next: (res: any) => {
-        console.log(res)
+        console.log(res, 'update')
       }
     })
   }
 
+  editExpense() {
+    this.typeAction = 'edit'
+    this.visible = true
+    console.log(this.expenseSelected, 'kd')
+
+  }
+
   deleteExpense() {
-    console.log(this.expenseSelected, 'delete')
+
     this.expenseService.deleteExpense(this.expenseSelected.id).subscribe({
       next: (res: any) => {
         console.log(res, 'dele res')
@@ -125,18 +136,22 @@ export class ManagementComponent {
       id: item.id,
       email: item.email,
       description: item.description,
-      expenseType: ExpenseTypeEnum[item.expenseType],
+      expenseType: item.expenseType,
       price: item.price,
       expenseDate: item.expenseDate,
       includedDate: item.includedDate,
     };
   }
+
+  registerExpense(e: any) {
+    this.typeAction = 'edit'
+
+    this.expenseService.createExpense(e.expense).subscribe({
+      next: (res: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
+        this.visible = e.visible;
+      },
+    })
+  }
 }
 
-// id: number;
-// email: string;
-// description: string;
-// expenseType: number;
-// price: number;
-// includedDate: Date;
-// expenseDate: Date;

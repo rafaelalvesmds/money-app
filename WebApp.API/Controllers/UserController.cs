@@ -8,20 +8,20 @@ namespace WebApp.API.Controllers
 
     [Route("api/v1/[controller]/[action]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ILoginService _loginService;
+        private readonly IUserService _userService;
 
-        public LoginController(ILoginService loginService) 
+        public UserController(IUserService userService) 
         {
-            _loginService = loginService;
+            _userService = userService;
         }
 
 
         [HttpPost]
         public IActionResult Register([FromBody] User user)
         {
-            var result = _loginService.Register(user);
+            var result = _userService.Register(user);
 
             if (result.Item1)
             {
@@ -37,7 +37,7 @@ namespace WebApp.API.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            var result = _loginService.Login(request);
+            var result = _userService.Login(request);
 
             if (result.isAuthenticated)
             {
@@ -52,13 +52,7 @@ namespace WebApp.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "sub");
-            if (userIdClaim == null || userIdClaim.Value != id.ToString())
-            {
-                return Forbid();
-            }
-
-            var (success, notifications, user) = _loginService.GetUserById(id);
+            var (success, notifications, user) = _userService.GetUserById(id);
 
             if (!success)
             {

@@ -1,5 +1,5 @@
 export interface ExpenseModel {
-  id: number;
+  id: string;
   email: string;
   description: string;
   expenseType: number;

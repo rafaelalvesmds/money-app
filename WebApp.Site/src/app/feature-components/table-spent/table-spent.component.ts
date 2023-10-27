@@ -19,7 +19,6 @@ export class TableSpentComponent {
   onRowClick(expense: any) {
     // Execute ação aqui
     this.expenseSelected.emit(expense)
-    console.log(expense, 'oi')
   }
 
   getAlignmentClass(column: any): string {

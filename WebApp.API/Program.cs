@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program)); // Registre os perfis do AutoMapper
 
 // Adicione outros serviços necessários, como seu serviço de aplicação
-builder.Services.AddTransient<ILoginService, LoginService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IExpenseService, ExpenseService>();
 
 

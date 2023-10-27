@@ -90,7 +90,7 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.router.navigate(['/login'])
-    this.userService.clearCurrentUser();
+    // this.userService.clearCurrentUser();
     localStorage.removeItem('token');
   }
 

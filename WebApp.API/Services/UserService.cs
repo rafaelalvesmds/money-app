@@ -11,13 +11,13 @@ using WebApp.API.Repository.DomainEntity;
 
 namespace WebApp.API.Services
 {
-    public class LoginService : ILoginService
+    public class UserService : IUserService
     {
         private readonly WebAppContext _context;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public LoginService(WebAppContext context, IConfiguration configuration, IMapper mapper) 
+        public UserService(WebAppContext context, IConfiguration configuration, IMapper mapper) 
         {
             _context = context;
             _configuration = configuration;
