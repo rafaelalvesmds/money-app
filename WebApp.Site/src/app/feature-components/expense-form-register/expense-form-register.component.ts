@@ -31,12 +31,15 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.expenseToEdit, 'oe')
-    if (this.typeAction = 'edit') {
+    if (this.typeAction == 'edit' && this.expenseToEdit) {
+      console.log(this.expenseToEdit, 'to edirt')
       this.expenseToEdit ? this.expenseForm.patchValue(this.expenseToEdit) : '';
-      this.expenseForm.controls['expenseDate'].setValue(new Date(this.expenseToEdit.expenseDate))
-      this.expenseForm.controls['expenseType'].setValue(this.expenseToEdit.expenseType)
+      this.expenseForm?.controls['expenseDate'].setValue(new Date(this.expenseToEdit.expenseDate))
+      this.expenseForm?.controls['expenseType'].setValue(this.expenseToEdit.expenseType)
     }
-
+    else if (this.typeAction = 'register') {
+      // this.expenseForm?.controls['updatedDate'].setValue(new Date())
+    }
   }
 
 
@@ -48,6 +51,7 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
 
   configureForm() {
     this.expenseForm = this.fb.group({
+      id: [null],
       description: [null, [Validators.required]],
       email: [null, [Validators.required]],
       price: [null, [Validators.required]],

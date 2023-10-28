@@ -105,15 +105,16 @@ export class ManagementComponent {
     this.expenseService.updateExpense(e).subscribe({
       next: (res: any) => {
         console.log(res, 'update')
+        this.getExpenses();
       }
     })
   }
 
   editExpense() {
-    this.typeAction = 'edit'
-    this.visible = true
     console.log(this.expenseSelected, 'kd')
 
+    this.typeAction = 'edit'
+    this.visible = true
   }
 
   deleteExpense() {
@@ -136,7 +137,7 @@ export class ManagementComponent {
       id: item.id,
       email: item.email,
       description: item.description,
-      expenseType: item.expenseType,
+      expenseType: ExpenseTypeEnum[item.expenseType],
       price: item.price,
       expenseDate: item.expenseDate,
       includedDate: item.includedDate,
@@ -144,7 +145,7 @@ export class ManagementComponent {
   }
 
   registerExpense(e: any) {
-    this.typeAction = 'edit'
+    this.typeAction = 'register'
 
     this.expenseService.createExpense(e.expense).subscribe({
       next: (res: any) => {
