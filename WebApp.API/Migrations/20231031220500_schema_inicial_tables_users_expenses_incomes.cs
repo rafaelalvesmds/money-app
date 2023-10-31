@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebApp.API.Migrations
 {
     /// <inheritdoc />
-    public partial class create_table_users_expense : Migration
+    public partial class schema_inicial_tables_users_expenses_incomes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,38 @@ namespace WebApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "income",
+                schema: "management",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    description = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
+                    incomeType = table.Column<int>(type: "integer", nullable: false),
+                    price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    includedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    incomeDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_income", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "incomeType",
+                schema: "domain",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_incomeType", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 schema: "auth",
                 columns: table => new
@@ -80,6 +112,14 @@ namespace WebApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "expenseType",
+                schema: "domain");
+
+            migrationBuilder.DropTable(
+                name: "income",
+                schema: "management");
+
+            migrationBuilder.DropTable(
+                name: "incomeType",
                 schema: "domain");
 
             migrationBuilder.DropTable(

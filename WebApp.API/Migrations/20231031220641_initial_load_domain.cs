@@ -5,9 +5,8 @@
 namespace WebApp.API.Migrations
 {
     /// <inheritdoc />
-    public partial class initial_load_expenseType_domain : Migration
+    public partial class initial_load_domain : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData
@@ -29,6 +28,19 @@ namespace WebApp.API.Migrations
                                     { 10, "Clothing" },
                                     { 11, "Trip" }
                     });
+
+            migrationBuilder.InsertData
+                (
+                    schema: "domain",
+                    table: "incomeType",
+                    columns: new string[] { "id", "name" },
+                    values: new object[,]
+                    {
+                                    { 1, "Investment" },
+                                    { 2, "Gift" },
+                                    { 3, "Salary" },
+                                    { 4, "Others" },
+                    });
         }
 
         /// <inheritdoc />
@@ -39,6 +51,13 @@ namespace WebApp.API.Migrations
                 schema: "domain");
 
             migrationBuilder.Sql("DELETE FROM domain.expenseType");
+
+
+            migrationBuilder.DropTable(
+                name: "incomeType",
+                schema: "domain");
+
+            migrationBuilder.Sql("DELETE FROM domain.incomeType");
         }
     }
 }

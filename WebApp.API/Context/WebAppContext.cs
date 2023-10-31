@@ -11,6 +11,7 @@ namespace WebApp.API.Context
         public DbSet<expense> expenses { get; set; }
         public DbSet<expenseType> expenseType { get; set; }
         public DbSet<income> incomes { get; set; }
+        public DbSet<incomeType> incomeType { get; set; }
     }
 
 }

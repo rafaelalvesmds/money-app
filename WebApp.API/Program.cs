@@ -23,6 +23,7 @@ builder.Services.AddAutoMapper(typeof(Program)); // Registre os perfis do AutoMa
 // Adicione outros serviços necessários, como seu serviço de aplicação
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IExpenseService, ExpenseService>();
+builder.Services.AddTransient<IIncomeService, IncomeService>();
 
 
 // Configure a conexão com o banco de dados PostgreSQL

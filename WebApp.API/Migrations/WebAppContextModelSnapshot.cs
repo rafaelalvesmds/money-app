@@ -107,6 +107,25 @@ namespace WebApp.API.Migrations
                     b.ToTable("income", "management");
                 });
 
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.incomeType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("name");
+
+                    b.HasKey("id");
+
+                    b.ToTable("incomeType", "domain");
+                });
+
             modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>
                 {
                     b.Property<Guid>("id")
