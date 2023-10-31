@@ -102,9 +102,9 @@ export class ManagementComponent {
 
   updateExpense(e: ExpenseModel) {
     this.visible = false;
+
     this.expenseService.updateExpense(e).subscribe({
       next: (res: any) => {
-        console.log(res, 'update')
         this.getExpenses();
       }
     })
@@ -121,7 +121,6 @@ export class ManagementComponent {
 
     this.expenseService.deleteExpense(this.expenseSelected.id).subscribe({
       next: (res: any) => {
-        console.log(res, 'dele res')
         if (res.success)
           this.getExpenses()
       }
@@ -132,12 +131,12 @@ export class ManagementComponent {
     this.visible = true
   }
 
-  createData(item: ExpenseModel) {
+  createData(item: ExpenseModel) : ExpenseModel{
     return {
       id: item.id,
       email: item.email,
       description: item.description,
-      expenseType: ExpenseTypeEnum[item.expenseType],
+      expenseType: item.expenseType,
       price: item.price,
       expenseDate: item.expenseDate,
       includedDate: item.includedDate,
@@ -145,12 +144,12 @@ export class ManagementComponent {
   }
 
   registerExpense(e: any) {
-    this.typeAction = 'register'
 
     this.expenseService.createExpense(e.expense).subscribe({
       next: (res: any) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
         this.visible = e.visible;
+        this.getExpenses();
       },
     })
   }

@@ -4,6 +4,7 @@ import { ExpenseModel } from 'src/app/core/models/expense.model';
 import { UserModel } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { DomainService } from 'src/app/core/service/domain.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-expense-form-register',
@@ -30,9 +31,7 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.expenseToEdit, 'oe')
     if (this.typeAction == 'edit' && this.expenseToEdit) {
-      console.log(this.expenseToEdit, 'to edirt')
       this.expenseToEdit ? this.expenseForm.patchValue(this.expenseToEdit) : '';
       this.expenseForm?.controls['expenseDate'].setValue(new Date(this.expenseToEdit.expenseDate))
       this.expenseForm?.controls['expenseType'].setValue(this.expenseToEdit.expenseType)
@@ -72,6 +71,9 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
   emitExpense(registerAnother: boolean) {
     this.expenseForm.controls['email'].setValue(this.user?.email)
     this.expenseForm.controls['includedDate'].setValue(new Date())
+    this.expenseForm.controls['id'].setValue(uuidv4())
+
+    console.log(this.expenseForm.value, 'valie')
 
     if (this.expenseForm.valid) {
       this.expenseEmit.emit({ expense: this.expenseForm.value, visible: registerAnother })
@@ -80,6 +82,7 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
   }
 
   emitEditedExpense() {
+    console.log(this.expenseForm.value, 'value')
     this.expenseEdit.emit(this.expenseForm.value)
   }
 
@@ -89,7 +92,6 @@ export class ExpenseFormRegisterComponent implements OnInit, OnChanges {
     if (userId) {
       this.authService.getUserById(userId).subscribe({
         next: (user: UserModel) => {
-          console.log(user, 'user')
           this.user = user;
         }
       })

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         console.log(response)
       },
       (error: any) => {
-        this.showError(error.error.notifications[0].message);
+        this.showError(error.error.notifications[0]?.message);
       }
     );
   }
