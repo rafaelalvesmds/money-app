@@ -23,8 +23,8 @@
         [values]="expenses"
         [columns]="columns"
         [actions]="actions"
-        (expenseSelected)="receiveExpenseSelected($event)"
-        (addExpense)="addExpense()"
+        (valueSelected)="receiveExpenseSelected($event)"
+        (addValue)="addExpense()"
       ></app-table>
     </p-tabPanel>
     <p-tabPanel [headerStyle]="{ width: '33%' }">

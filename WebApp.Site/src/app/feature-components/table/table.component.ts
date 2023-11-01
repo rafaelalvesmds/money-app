@@ -14,12 +14,12 @@ export class TableComponent {
   @Input() actions!: ActionsModel[]
   @Input() title!: string;
 
-  @Output() expenseSelected = new EventEmitter<ExpenseModel>()
-  @Output() addExpense = new EventEmitter<any>()
+  @Output() valueSelected = new EventEmitter<any>()
+  @Output() addValue = new EventEmitter<any>()
 
-  onRowClick(expense: any) {
+  onRowClick(value: any) {
     // Execute ação aqui
-    this.expenseSelected.emit(expense)
+    this.valueSelected.emit(value)
   }
 
   getAlignmentClass(column: any): string {
@@ -42,6 +42,6 @@ export class TableComponent {
   }
 
   addButton() {
-    this.addExpense.emit();
+    this.addValue.emit();
   }
 }
