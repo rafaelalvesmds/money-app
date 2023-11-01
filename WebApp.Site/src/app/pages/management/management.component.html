@@ -4,14 +4,37 @@
   style="height: 70vh; overflow: auto"
 >
   <app-analytics-values [cards]="cards" class="col-12"></app-analytics-values>
-  <app-table-spent
-    class="col-12"
-    [expenses]="expenses"
-    [columns]="columns"
-    [actions]="actions"
-    (expenseSelected)="receiveExpenseSelected($event)"
-    (addExpense)="addExpense()"
-  ></app-table-spent>
+
+  <p-tabView styleClass="tabview-custom">
+    <p-tabPanel [headerStyle]="{ width: '33%' }">
+      <ng-template pTemplate="header">
+        <i class="pi pi-list mr-2"></i>
+        <span>All</span>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel [headerStyle]="{ width: '33%' }">
+      <ng-template pTemplate="header">
+        <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
+        <span>Expenses</span>
+      </ng-template>
+
+      <app-table
+        class="col-12"
+        [values]="expenses"
+        [columns]="columns"
+        [actions]="actions"
+        (expenseSelected)="receiveExpenseSelected($event)"
+        (addExpense)="addExpense()"
+      ></app-table>
+    </p-tabPanel>
+    <p-tabPanel [headerStyle]="{ width: '33%' }">
+      <ng-template pTemplate="header">
+        <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
+        <span>Incomes</span>
+      </ng-template>
+      <!-- conteudo -->
+    </p-tabPanel>
+  </p-tabView>
 </div>
 
 <p-dialog

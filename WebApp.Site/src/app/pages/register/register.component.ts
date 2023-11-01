@@ -51,10 +51,12 @@ export class RegisterComponent implements OnInit {
     if (form.password === form.passwordConfirm) {
       this.authService.register(user).subscribe({
         next: (res: any) => {
+          console.log(res, 'sucess')
           this.showSuccess(res.notifications[0].message)
           this.router.navigate(['/login'], { queryParams: { message: res.notifications[0].message } });
         },
         error: (error: any) => {
+          console.log(error, 'error')
           if (error.status == 400)
             this.showError(error.error.notifications[0].message)
         }

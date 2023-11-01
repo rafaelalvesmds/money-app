@@ -65,7 +65,7 @@ namespace WebApp.API.Repository.DomainEntity
                 {
                     Notifications.Add(new Notification { Message = "Invalid cellphone number." });
                 }
-                if (Cellphone > 9999999999) 
+                if (Cellphone > 999999999999) 
                 {
                     Notifications.Add(new Notification { Message = "Cellphone number exceeds the maximum allowed value." });
                 }

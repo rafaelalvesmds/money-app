@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
+import { UserModel } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/service/auth.service';
 import { ExpenseService } from 'src/app/core/service/expense.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { ExpenseService } from 'src/app/core/service/expense.service';
 })
 export class ManagementComponent {
 
-  constructor(private expenseService: ExpenseService, private messageService: MessageService,) { }
+  constructor(private expenseService: ExpenseService, private messageService: MessageService, private authService: AuthService) { }
 
   expenseSelected!: ExpenseModel;
 
@@ -78,8 +80,12 @@ export class ManagementComponent {
 
   typeAction!: "register" | "edit";
 
+  user!: UserModel;
+
+  activeIndex: number = 0;
+
   ngOnInit() {
-    this.getExpenses()
+    this.getUser()
   }
 
   receiveExpenseSelected(e: any) {
@@ -87,7 +93,7 @@ export class ManagementComponent {
   }
 
   getExpenses() {
-    this.expenseService.getExpenses("gau@gau").subscribe({
+    this.expenseService.getExpenses(this.user.email).subscribe({
       next: (res: any) => {
         console.log(res.expenses)
         // this.expenses = res.expenses;
@@ -131,7 +137,7 @@ export class ManagementComponent {
     this.visible = true
   }
 
-  createData(item: ExpenseModel) : ExpenseModel{
+  createData(item: ExpenseModel): ExpenseModel {
     return {
       id: item.id,
       email: item.email,
@@ -152,6 +158,22 @@ export class ManagementComponent {
         this.getExpenses();
       },
     })
+  }
+
+  getUser() {
+    let userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.authService.getUserById(userId).subscribe({
+        next: (user: UserModel) => {
+          this.user = user;
+        },
+        complete: () => {
+          this.getExpenses()
+        }
+      })
+
+    }
   }
 }
 

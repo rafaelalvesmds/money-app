@@ -1,7 +1,7 @@
-<p-table [value]="expenses" styleClass="col-12 p-0">
+<p-table [value]="values" styleClass="col-12 p-0">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
-      Expenses
+      <span>{{title}}</span>
       <p-button icon="pi pi-plus" (onClick)="addButton()"></p-button>
     </div>
   </ng-template>

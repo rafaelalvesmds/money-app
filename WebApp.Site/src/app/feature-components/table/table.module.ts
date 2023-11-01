@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableSpentComponent } from './table-spent.component';
+import { TableComponent } from './table.component';
 import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
 
 
 
 @NgModule({
   declarations: [
-    TableSpentComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,
     PrimeNgModule
   ],
   exports: [
-    TableSpentComponent
+    TableComponent
   ]
 })
 export class TableSpentModule { }

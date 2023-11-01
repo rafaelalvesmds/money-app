@@ -3,15 +3,16 @@ import { ActionsModel } from 'src/app/core/models/actions.model';
 import { ExpenseModel } from 'src/app/core/models/expense.model';
 
 @Component({
-  selector: 'app-table-spent',
-  templateUrl: './table-spent.component.html',
-  styleUrls: ['./table-spent.component.css']
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.css']
 })
-export class TableSpentComponent {
+export class TableComponent {
 
   @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date'; useTag?: boolean }[];
-  @Input() expenses!: any[];
+  @Input() values!: any[];
   @Input() actions!: ActionsModel[]
+  @Input() title!: string;
 
   @Output() expenseSelected = new EventEmitter<ExpenseModel>()
   @Output() addExpense = new EventEmitter<any>()

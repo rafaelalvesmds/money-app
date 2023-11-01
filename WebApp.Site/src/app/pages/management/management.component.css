@@ -1,6 +1,6 @@
 .management-container {
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Estilizando a barra de rolagem */

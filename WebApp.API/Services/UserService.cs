@@ -33,7 +33,7 @@ namespace WebApp.API.Services
             //password encryption
             if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
-                notifications.Add(new Notification { Message = "Credenciais inválidas" });
+                notifications.Add(new Notification { Message = "Invalid credentials." });
 
                 var result = new AuthenticationResult
                 {
@@ -49,7 +49,7 @@ namespace WebApp.API.Services
             {
                 var token = GenerateJwtToken(userRequest.email);
 
-                notifications.Add(new Notification { Message = "Usuário autenticado com sucesso" });
+                notifications.Add(new Notification { Message = "User successfully authenticated." });
 
 
                 var successResult = new AuthenticationResult
@@ -71,7 +71,7 @@ namespace WebApp.API.Services
 
             if (user == null)
             {
-                var notifications = new List<Notification> { new Notification { Message = "Usuário não encontrado" } };
+                var notifications = new List<Notification> { new Notification { Message = "User not found." } };
                 return (false, notifications, null);
             }
 
@@ -96,7 +96,7 @@ namespace WebApp.API.Services
 
             if (existingUser != null)
             {
-                notifications.Add(new Notification { Message = "Já existe um usuário com o mesmo email." });
+                notifications.Add(new Notification { Message = "There is already a user with the same email." });
                 return (false, notifications);
             } 
             else
@@ -109,7 +109,7 @@ namespace WebApp.API.Services
                 _context.users.Add(userToRegister);
                 _context.SaveChanges();
 
-                notifications.Add(new Notification { Message = "Usuário cadastrado com sucesso." });
+                notifications.Add(new Notification { Message = "User registered successfully." });
                 return (true, notifications);
             }
         }
