@@ -5,12 +5,23 @@
   </span>
 
   <p-dropdown
+    *ngIf="registryCategory === 1"
     formControlName="type"
     [options]="expenseTypes"
     optionLabel="name"
     optionValue="id"
     styleClass="w-full"
     placeholder="Expense Type"
+  ></p-dropdown>
+
+  <p-dropdown
+    *ngIf="registryCategory === 2"
+    formControlName="type"
+    [options]="incomeTypes"
+    optionLabel="name"
+    optionValue="id"
+    styleClass="w-full"
+    placeholder="Income Type"
   ></p-dropdown>
 
   <span class="p-float-label w-full">

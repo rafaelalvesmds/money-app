@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { error } from 'console';
 import { MessageService } from 'primeng/api';
+import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
@@ -84,20 +85,33 @@ export class ManagementComponent {
 
   activeIndex: number = 0;
 
+  registryCategoryEnum = RegistryCategoryEnum;
+  registryCategory!: number;
+
   ngOnInit() {
     this.getUser()
   }
 
   receiveRegistrySelected(e: any) {
     this.rowSelected = e;
+    this.registryCategory;
   }
 
   getAllRegristries() {
     this.managementService.getAllRegristries(this.user.email).subscribe({
       next: (res: any) => {
-        console.log(res.registries)
+        console.log(res, 'managementService')
 
-        this.registries = res.registries;
+        this.registries = res.registry;
+
+        this.expenses = this.registries.filter((registry: any) => {
+          return registry.category === 1;
+        });
+
+        this.incomes = this.registries.filter((registry: any) => {
+          return registry.category === 2;
+        });
+
       },
       error: (error: any) => {
         // console.log(error.error.notifications, 'error notifications')
@@ -108,6 +122,7 @@ export class ManagementComponent {
   createRegistry(e: any) {
     this.managementService.createRegistry(e.registry).subscribe({
       next: (res: any) => {
+        console.log(res, 'res res create')
         this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
         this.visible = e.visible;
         this.getAllRegristries();
@@ -142,7 +157,9 @@ export class ManagementComponent {
     })
   }
 
-  addRegistry() {
+  addRegistry(registryCategory: RegistryCategoryEnum) {
+    this.registryCategory = registryCategory;
+    console.log(this.registryCategory, 'crrer')
     this.visible = true
   }
 

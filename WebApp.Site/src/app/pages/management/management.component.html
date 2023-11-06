@@ -18,7 +18,6 @@
         [columns]="columns"
         [actions]="actions"
         (valueSelected)="receiveRegistrySelected($event)"
-        (addValue)="addRegistry()"
       ></app-table>
 
     </p-tabPanel>
@@ -27,31 +26,30 @@
         <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
         <span>Expenses</span>
       </ng-template>
-<!--
+
       <app-table
         class="col-12"
         [values]="expenses"
         [columns]="columns"
         [actions]="actions"
-        (valueSelected)="receiveExpenseSelected($event)"
-        (addValue)="addExpense()"
-      ></app-table> -->
+        (valueSelected)="receiveRegistrySelected($event)"
+        (addValue)="addRegistry(registryCategoryEnum.Expense)"
+      ></app-table>
     </p-tabPanel>
     <p-tabPanel [headerStyle]="{ width: '33%' }">
       <ng-template pTemplate="header">
         <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
         <span>Incomes</span>
       </ng-template>
-      <!-- conteudo -->
 
-      <!-- <app-table
+      <app-table
         class="col-12"
         [values]="incomes"
         [columns]="columns"
-        [actions]="incomesActions"
-        (valueSelected)="receiveExpenseSelected($event)"
-        (addValue)="addIncome()"
-      ></app-table> -->
+        [actions]="actions"
+        (valueSelected)="receiveRegistrySelected($event)"
+        (addValue)="addRegistry(registryCategoryEnum.Income)"
+      ></app-table>
     </p-tabPanel>
   </p-tabView>
 </div>
@@ -72,8 +70,8 @@
     [registryToEdit]="rowSelected"
     [typeAction]="typeAction"
     [user]="user"
+    [registryCategory]="registryCategory"
   ></app-registry-form>
-
 </p-dialog>
 
 <p-toast></p-toast>

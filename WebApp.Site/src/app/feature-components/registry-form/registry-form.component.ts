@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/service/auth.service';
@@ -18,12 +19,15 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   @Output() registryEdit = new EventEmitter<any>()
 
   expenseTypes!: { id: number; name: string }[];
+  incomeTypes!: { id: number; name: string }[];
 
   @Input() user!: UserModel;
 
   @Input() typeAction: "register" | "edit" = "register";
 
   @Input() registryToEdit!: RegistryModel;
+
+  @Input() registryCategory!: number;
 
 
   constructor(private fb: FormBuilder, private domainService: DomainService) {
@@ -43,7 +47,7 @@ export class RegistryFormComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
-    this.getExpenseTypes();
+    this.getDomainTypes();
     this.configureForm();
   }
 
@@ -60,10 +64,16 @@ export class RegistryFormComponent implements OnInit, OnChanges {
     })
   }
 
-  getExpenseTypes() {
+  getDomainTypes() {
     this.domainService.getExpenseTypes().subscribe({
       next: (res: any) => {
         this.expenseTypes = res;
+      }
+    })
+
+    this.domainService.getIncomeTypes().subscribe({
+      next: (res: any) => {
+        this.incomeTypes = res;
       }
     })
   }
@@ -71,9 +81,8 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   emitRegistry(registerAnother: boolean) {
     this.registryForm.controls['email'].setValue(this.user?.email)
     this.registryForm.controls['includedDate'].setValue(new Date())
+    this.registryForm.controls['category'].setValue(this.registryCategory)
     this.registryForm.controls['id'].setValue(uuidv4())
-
-    console.log(this.registryForm.value, 'valie')
 
     if (this.registryForm.valid) {
       this.registryEmit.emit({ registry: this.registryForm.value, visible: registerAnother })
