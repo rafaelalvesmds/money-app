@@ -1,13 +1,14 @@
 ﻿namespace WebApp.API.Models
 {
-    public class Income
+    public class Registry
     {
         public Guid id { get; set; }
         public string email { get; set; }
         public string description { get; set; }
-        public int incomeType { get; set; }
+        public int type { get; set; }
+        public int category { get; set; }
         public decimal price { get; set; }
         public DateTime includedDate { get; set; }
-        public DateTime incomeDate { get; set; }
+        public DateTime date { get; set; }
     }
 }

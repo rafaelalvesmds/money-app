@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231031220641_initial_load_domain")]
-    partial class initial_load_domain
+    [Migration("20231106021700_schema_inicial_domain")]
+    partial class schema_inicial_domain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,39 +24,6 @@ namespace WebApp.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApp.API.Repository.DataBase.expense", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("expenseDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("expenseType")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("includedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("expenses", "management");
-                });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.expenseType", b =>
                 {
@@ -77,39 +44,6 @@ namespace WebApp.API.Migrations
                     b.ToTable("expenseType", "domain");
                 });
 
-            modelBuilder.Entity("WebApp.API.Repository.DataBase.income", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("includedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("incomeDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("incomeType")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("income", "management");
-                });
-
             modelBuilder.Entity("WebApp.API.Repository.DataBase.incomeType", b =>
                 {
                     b.Property<int>("id")
@@ -127,6 +61,61 @@ namespace WebApp.API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("incomeType", "domain");
+                });
+
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.registry", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("category")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("includedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.ToTable("registry", "management");
+                });
+
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.registryCategory", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("name");
+
+                    b.HasKey("id");
+
+                    b.ToTable("registryCategory", "domain");
                 });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>

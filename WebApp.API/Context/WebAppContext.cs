@@ -8,10 +8,10 @@ namespace WebApp.API.Context
         public WebAppContext(DbContextOptions<WebAppContext> options) : base(options) { }
 
         public DbSet<user> users { get; set; }
-        public DbSet<expense> expenses { get; set; }
+        public DbSet<registry> registry { get; set; }
         public DbSet<expenseType> expenseType { get; set; }
-        public DbSet<income> incomes { get; set; }
         public DbSet<incomeType> incomeType { get; set; }
+        public DbSet<registryCategory> registryCategory { get; set; }
     }
 
 }
