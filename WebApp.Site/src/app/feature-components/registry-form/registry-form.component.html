@@ -1,11 +1,11 @@
-<div [formGroup]="expenseForm" class="flex flex-column gap-4 h-20rem">
+<div [formGroup]="registryForm" class="flex flex-column gap-4 h-20rem">
   <span class="p-float-label">
     <input pInputText formControlName="description" class="w-full" />
     <label htmlFor="description">Description</label>
   </span>
 
   <p-dropdown
-    formControlName="expenseType"
+    formControlName="type"
     [options]="expenseTypes"
     optionLabel="name"
     optionValue="id"
@@ -29,12 +29,12 @@
     <p-button
       label="register"
       styleClass="p-button-text p-button-rounded"
-      (onClick)="emitExpense(false)"
+      (onClick)="emitRegistry(false)"
     ></p-button>
     <p-button
       label="register and register another"
       styleClass="p-button-text p-button-rounded"
-      (onClick)="emitExpense(true)"
+      (onClick)="emitRegistry(true)"
     ></p-button>
   </div>
 
@@ -42,7 +42,7 @@
     <p-button
       label="save"
       styleClass="p-button-text p-button-rounded"
-      (onClick)="emitEditedExpense()"
+      (onClick)="emitEditedRegistry()"
     ></p-button>
   </div>
 </div>

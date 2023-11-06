@@ -1,9 +1,10 @@
-export interface IncomeModel {
+export interface RegistryModel {
   id: string;
   email: string;
   description: string;
-  incomeType: number;
+  type: number;
+  category: number;
   price: number;
   includedDate: Date;
-  incomeDate: Date;
+  date: Date;
 }

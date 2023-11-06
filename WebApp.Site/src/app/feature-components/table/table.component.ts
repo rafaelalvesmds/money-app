@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActionsModel } from 'src/app/core/models/actions.model';
-import { ExpenseModel } from 'src/app/core/models/expense.model';
 
 @Component({
   selector: 'app-table',

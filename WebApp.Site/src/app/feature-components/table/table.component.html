@@ -17,7 +17,7 @@
       <th></th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-expense>
+  <ng-template pTemplate="body" let-registry>
     <tr>
       <ng-container *ngFor="let column of columns; let last = last">
         <td
@@ -25,7 +25,7 @@
           *ngIf="!column.useTag"
           class="px-3 p-0"
         >
-          {{ manipulateValue(expense[column.field], column) }}
+          {{ manipulateValue(registry[column.field], column) }}
         </td>
         <td
           [class]="getAlignmentClass(column)"
@@ -33,7 +33,7 @@
           class="px-1 p-0"
         >
           <p-tag
-            [value]="manipulateValue(expense[column.field], column)"
+            [value]="manipulateValue(registry[column.field], column)"
           ></p-tag>
         </td>
 
@@ -43,7 +43,7 @@
               *ngFor="let action of actions"
               [icon]="action.icon"
               styleClass="p-button-text p-button-rounded "
-              (click)="onRowClick(expense); action?.command()"
+              (click)="onRowClick(registry); action?.command()"
             ></p-button>
           </div>
         </td>

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExpenseFormRegisterComponent } from './expense-form-register.component';
 import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegistryFormComponent } from './registry-form.component';
 
 
 
 @NgModule({
   declarations: [
-    ExpenseFormRegisterComponent,
+    RegistryFormComponent,
   ],
   imports: [
     CommonModule,
@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    ExpenseFormRegisterComponent
+    RegistryFormComponent
   ]
 })
-export class ExpenseFormRegisterModule { }
+export class RegistryFormModule { }

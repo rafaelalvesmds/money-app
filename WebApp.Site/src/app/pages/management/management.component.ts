@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { error } from 'console';
 import { MessageService } from 'primeng/api';
-import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
-import { ExpenseModel } from 'src/app/core/models/expense.model';
+import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { ExpenseService } from 'src/app/core/service/expense.service';
+import { ManagementService } from 'src/app/core/service/management.service';
 
 @Component({
   selector: 'app-management',
@@ -15,9 +14,9 @@ import { ExpenseService } from 'src/app/core/service/expense.service';
 })
 export class ManagementComponent {
 
-  constructor(private expenseService: ExpenseService, private messageService: MessageService, private authService: AuthService) { }
+  constructor(private managementService: ManagementService, private messageService: MessageService, private authService: AuthService) { }
 
-  expenseSelected!: ExpenseModel;
+  rowSelected!: any;
 
   cards = [
     {
@@ -57,28 +56,29 @@ export class ManagementComponent {
     },
   ];
 
+  registries = [];
   expenses = [];
+  incomes = [];
 
   columns: any[] = [
     { field: 'description', header: 'Description', width: '60%' },
-    { field: 'expenseType', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
+    { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
     { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
   ]
 
   actions: ActionsModel[] = [
     {
       icon: 'pi pi-pencil',
-      command: () => this.editExpense()
+      command: () => this.editRegistry()
     },
     {
       icon: 'pi pi-trash',
-      command: () => this.deleteExpense()
+      command: () => this.deleteRegistry()
     }
   ]
-
   visible: boolean = false;
 
-  typeAction!: "register" | "edit";
+  typeAction: "register" | "edit" = "register";
 
   user!: UserModel;
 
@@ -88,17 +88,16 @@ export class ManagementComponent {
     this.getUser()
   }
 
-  receiveExpenseSelected(e: any) {
-    this.expenseSelected = e;
+  receiveRegistrySelected(e: any) {
+    this.rowSelected = e;
   }
 
-  getExpenses() {
-    this.expenseService.getExpenses(this.user.email).subscribe({
+  getAllRegristries() {
+    this.managementService.getAllRegristries(this.user.email).subscribe({
       next: (res: any) => {
-        console.log(res.expenses)
-        // this.expenses = res.expenses;
+        console.log(res.registries)
 
-        this.expenses = res.expenses.map((item: ExpenseModel) => this.createData(item));
+        this.registries = res.registries;
       },
       error: (error: any) => {
         // console.log(error.error.notifications, 'error notifications')
@@ -106,58 +105,45 @@ export class ManagementComponent {
     })
   }
 
-  updateExpense(e: ExpenseModel) {
+  createRegistry(e: any) {
+    this.managementService.createRegistry(e.registry).subscribe({
+      next: (res: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
+        this.visible = e.visible;
+        this.getAllRegristries();
+      },
+    })
+  }
+
+  updateRegistry(e: RegistryModel) {
     this.visible = false;
 
-    this.expenseService.updateExpense(e).subscribe({
+    this.managementService.updateRegistry(e).subscribe({
       next: (res: any) => {
-        this.getExpenses();
+        this.getAllRegristries();
       }
     })
   }
 
-  editExpense() {
-    console.log(this.expenseSelected, 'kd')
+  editRegistry() {
+    console.log(this.rowSelected, 'kd')
 
     this.typeAction = 'edit'
     this.visible = true
   }
 
-  deleteExpense() {
+  deleteRegistry() {
 
-    this.expenseService.deleteExpense(this.expenseSelected.id).subscribe({
+    this.managementService.deleteRegistry(this.rowSelected.id).subscribe({
       next: (res: any) => {
         if (res.success)
-          this.getExpenses()
+          this.getAllRegristries()
       }
     })
   }
 
-  addExpense() {
+  addRegistry() {
     this.visible = true
-  }
-
-  createData(item: ExpenseModel): ExpenseModel {
-    return {
-      id: item.id,
-      email: item.email,
-      description: item.description,
-      expenseType: item.expenseType,
-      price: item.price,
-      expenseDate: item.expenseDate,
-      includedDate: item.includedDate,
-    };
-  }
-
-  registerExpense(e: any) {
-
-    this.expenseService.createExpense(e.expense).subscribe({
-      next: (res: any) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
-        this.visible = e.visible;
-        this.getExpenses();
-      },
-    })
   }
 
   getUser() {
@@ -169,11 +155,13 @@ export class ManagementComponent {
           this.user = user;
         },
         complete: () => {
-          this.getExpenses()
+          this.getAllRegristries();
         }
       })
 
     }
   }
+
+
 }
 

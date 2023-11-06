@@ -14,4 +14,7 @@ export class DomainService {
     return this.http.get(`${this.apiBaseUrl}/GetExpenseTypes`);
   }
 
+  getIncomeTypes(): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/GetExpenseTypes`);
+  }
 }
