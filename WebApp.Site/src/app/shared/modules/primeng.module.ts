@@ -45,6 +45,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
 import { DockModule } from 'primeng/dock';
 import { TagModule } from 'primeng/tag';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
   exports: [
@@ -100,6 +101,7 @@ import { TagModule } from 'primeng/tag';
     DynamicDialogRef,
     DynamicDialogConfig,
     MessageService,
+    SpeedDialModule
   ]
 })
 export class PrimeNgModule { }

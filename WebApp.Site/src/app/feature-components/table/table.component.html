@@ -1,8 +1,21 @@
 <p-table [value]="values" styleClass="col-12 p-0">
   <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between">
-      <span>{{title}}</span>
-      <p-button icon="pi pi-plus" (onClick)="addButton()"></p-button>
+    <div class="flex align-items-center justify-content-end gap-2">
+      <span>{{ title }}</span>
+      <p-button
+        *ngIf="registryCategory != 2"
+        styleClass="p-button-rounded p-button-danger"
+        icon="pi pi-plus"
+        [pTooltip]="'Add expense'"
+        (onClick)="addButton(registryCategoryEnum.Expense)"
+      ></p-button>
+      <p-button
+        *ngIf="registryCategory != 1"
+        styleClass="p-button-rounded p-button-success"
+        icon="pi pi-plus"
+        [pTooltip]="'Add income'"
+        (onClick)="addButton(registryCategoryEnum.Income)"
+      ></p-button>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
@@ -25,7 +38,9 @@
           *ngIf="!column.useTag"
           class="px-3 p-0"
         >
-          {{ manipulateValue(registry[column.field], column) }}
+          <span [class]="setTextColor(registry, column)">
+            {{ manipulateValue(registry[column.field], column) }}
+          </span>
         </td>
         <td
           [class]="getAlignmentClass(column)"
@@ -37,7 +52,7 @@
           ></p-tag>
         </td>
 
-        <td [class]="getAlignmentClass(column)" *ngIf="last" class="p-0">
+        <td  *ngIf="last" class="p-0">
           <div class="btns-field flex flex-row justify-content-end w-full">
             <p-button
               *ngFor="let action of actions"

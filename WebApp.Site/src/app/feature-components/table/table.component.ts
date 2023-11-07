@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 
 @Component({
@@ -15,6 +16,10 @@ export class TableComponent {
 
   @Output() valueSelected = new EventEmitter<any>()
   @Output() addValue = new EventEmitter<any>()
+
+  @Input() registryCategory!: number;
+
+  registryCategoryEnum = RegistryCategoryEnum
 
   onRowClick(value: any) {
     // Execute ação aqui
@@ -40,7 +45,21 @@ export class TableComponent {
     } else return value
   }
 
-  addButton() {
-    this.addValue.emit();
+  addButton(typeAdd: number) {
+
+    this.addValue.emit(typeAdd);
+  }
+
+  setTextColor(registry: any, column: any): string {
+    console.log(registry, 'kik')
+    if (registry.category == 1 && column.field == 'price') {
+      return 'font-semibold text-red-300'
+    }
+
+    if (registry.category == 2 && column.field == 'price') {
+      return 'font-semibold text-green-300'
+    }
+
+    return ''
   }
 }

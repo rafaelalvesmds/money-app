@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { error } from 'console';
+import { Component, HostListener } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { RegistryModel } from 'src/app/core/models/registry.model';
@@ -19,44 +19,6 @@ export class ManagementComponent {
 
   rowSelected!: any;
 
-  cards = [
-    {
-      title: 'Receita',
-      value: '$2,100',
-      icon: 'pi pi-map-marker',
-      bgColor: 'bg-green-100',
-      changeValue: '+%52',
-      changeText: 'Nov/2023',
-      colorChangeValue: 'red'
-    },
-    {
-      title: 'Gasto',
-      value: '$2,100',
-      icon: 'pi pi-map-marker',
-      bgColor: 'bg-red-100',
-      changeValue: '+%52',
-      changeText: 'Nov/2023',
-      colorChangeValue: 'green'
-    },
-    {
-      title: 'Saldo',
-      value: '$2,100',
-      icon: 'pi pi-map-marker',
-      bgColor: 'bg-orange-100',
-      changeValue: '+%52',
-      changeText: 'Nov/2023',
-      colorChangeValue: 'red'
-    },
-    {
-      title: 'Top 1',
-      value: '$1,100',
-      icon: 'pi pi-map-marker',
-      bgColor: 'bg-orange-400',
-      changeValue: 'Cartão de crédito',
-      colorChangeValue: 'orange'
-    },
-  ];
-
   registries = [];
   expenses = [];
   incomes = [];
@@ -65,6 +27,11 @@ export class ManagementComponent {
     { field: 'description', header: 'Description', width: '60%' },
     { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
     { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
+  ]
+
+  columnsSmallScreen: any[] = [
+    { field: 'description', header: 'Description', width: '70%' },
+    { field: 'price', header: 'Price', width: '30%', alignment: 'right', pipe: 'money' },
   ]
 
   actions: ActionsModel[] = [
@@ -88,13 +55,27 @@ export class ManagementComponent {
   registryCategoryEnum = RegistryCategoryEnum;
   registryCategory!: number;
 
+  totalExpensesPrice: number = 0;
+  totalIncomesPrice: number = 0;
+  balance: number = 0;
+  biggestExpense!: { type: number, value: number };
+
+  cards: any[] = [];
+
+  screenWidth!: number;
+
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
     this.getUser()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
   }
 
   receiveRegistrySelected(e: any) {
     this.rowSelected = e;
-    this.registryCategory;
   }
 
   getAllRegristries() {
@@ -115,6 +96,9 @@ export class ManagementComponent {
       },
       error: (error: any) => {
         // console.log(error.error.notifications, 'error notifications')
+      },
+      complete: () => {
+        this.calculateValues();
       }
     })
   }
@@ -179,6 +163,86 @@ export class ManagementComponent {
     }
   }
 
+  activeIndexChange(e: any) {
+    this.activeIndex = e;
+  }
+
+  calculateValues() {
+    this.totalExpensesPrice = this.expenses.reduce((total: number, expense: any) => {
+      return total + expense.price;
+    }, 0);
+
+    this.totalIncomesPrice = this.incomes.reduce((total: number, income: any) => {
+      return total + income.price;
+    }, 0);
+
+    this.balance = this.totalIncomesPrice - this.totalExpensesPrice;
+
+    this.calculateBiggestExpense()
+    this.setAnalyticsValues();
+  }
+
+  calculateBiggestExpense() {
+    const expensesByType: { [key: string]: number } = {};
+    this.biggestExpense = { type: 0, value: 0 }
+
+    this.expenses.forEach((expense: any) => {
+      if (!expensesByType[expense.type]) {
+        expensesByType[expense.type] = expense.price;
+      } else {
+        expensesByType[expense.type] += expense.price;
+      }
+    });
+
+    for (const type in expensesByType) {
+      if (expensesByType[type] > this.biggestExpense.value) {
+        this.biggestExpense.value = expensesByType[type];
+        this.biggestExpense.type = Number(type);
+      }
+    }
+  }
+
+  setAnalyticsValues() {
+
+    this.cards = [
+      {
+        title: 'Incomes',
+        value: `$${this.totalIncomesPrice},00`,
+        icon: 'pi pi-money-bill',
+        bgColor: 'bg-green-100',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'red'
+      },
+      {
+        title: 'Expenses',
+        value: `$${this.totalExpensesPrice},00`,
+        icon: 'pi pi-money-bill',
+        bgColor: 'bg-red-100',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'green'
+      },
+      {
+        title: 'Balance',
+        value: `$${this.balance},00`,
+        icon: 'pi pi-wallet',
+        bgColor: 'bg-orange-100',
+        textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'red'
+      },
+      {
+        title: 'Top 1',
+        value: `$${this.biggestExpense.value},00`,
+        icon: 'pi pi-star-fill',
+        bgColor: 'bg-blue-300',
+        changeValue: `${ExpenseTypeEnum[this.biggestExpense.type]}`,
+        colorChangeValue: 'blue'
+      },
+    ];
+  }
 
 }
 

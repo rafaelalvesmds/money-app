@@ -5,7 +5,10 @@
 >
   <app-analytics-values [cards]="cards" class="col-12"></app-analytics-values>
 
-  <p-tabView styleClass="tabview-custom">
+  <p-tabView
+    styleClass="tabview-custom"
+    (activeIndexChange)="activeIndexChange($event)"
+  >
     <p-tabPanel [headerStyle]="{ width: '33%' }">
       <ng-template pTemplate="header">
         <i class="pi pi-list mr-2"></i>
@@ -15,11 +18,12 @@
       <app-table
         class="col-12"
         [values]="registries"
-        [columns]="columns"
+        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
         [actions]="actions"
         (valueSelected)="receiveRegistrySelected($event)"
+        [registryCategory]="activeIndex"
+        (addValue)="addRegistry($event)"
       ></app-table>
-
     </p-tabPanel>
     <p-tabPanel [headerStyle]="{ width: '33%' }">
       <ng-template pTemplate="header">
@@ -30,10 +34,11 @@
       <app-table
         class="col-12"
         [values]="expenses"
-        [columns]="columns"
+        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
         [actions]="actions"
         (valueSelected)="receiveRegistrySelected($event)"
-        (addValue)="addRegistry(registryCategoryEnum.Expense)"
+        (addValue)="addRegistry($event)"
+        [registryCategory]="activeIndex"
       ></app-table>
     </p-tabPanel>
     <p-tabPanel [headerStyle]="{ width: '33%' }">
@@ -45,10 +50,11 @@
       <app-table
         class="col-12"
         [values]="incomes"
-        [columns]="columns"
+        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
         [actions]="actions"
         (valueSelected)="receiveRegistrySelected($event)"
-        (addValue)="addRegistry(registryCategoryEnum.Income)"
+        (addValue)="addRegistry($event)"
+        [registryCategory]="activeIndex"
       ></app-table>
     </p-tabPanel>
   </p-tabView>

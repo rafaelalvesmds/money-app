@@ -5,7 +5,7 @@
   </span>
 
   <p-dropdown
-    *ngIf="registryCategory === 1"
+    *ngIf="registryCategory === 1 || registryToEdit.category == 1"
     formControlName="type"
     [options]="expenseTypes"
     optionLabel="name"
@@ -15,7 +15,7 @@
   ></p-dropdown>
 
   <p-dropdown
-    *ngIf="registryCategory === 2"
+    *ngIf="registryCategory === 2 || registryToEdit.category == 2"
     formControlName="type"
     [options]="incomeTypes"
     optionLabel="name"
