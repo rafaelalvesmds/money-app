@@ -91,7 +91,6 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   }
 
   emitEditedRegistry() {
-    console.log(this.registryForm.value, 'value')
     this.registryEdit.emit(this.registryForm.value)
   }
 

@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
+import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { RegistryModel } from 'src/app/core/models/registry.model';
@@ -24,8 +25,9 @@ export class ManagementComponent {
   incomes = [];
 
   columns: any[] = [
-    { field: 'description', header: 'Description', width: '60%' },
+    { field: 'description', header: 'Description', width: '50%' },
     { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
+    { field: 'date', header: 'Date', width: '10%', alignment: 'center', pipe: 'date' },
     { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
   ]
 
@@ -81,9 +83,9 @@ export class ManagementComponent {
   getAllRegristries() {
     this.managementService.getAllRegristries(this.user.email).subscribe({
       next: (res: any) => {
-        console.log(res, 'managementService')
-
         this.registries = res.registry;
+
+        console.log()
 
         this.expenses = this.registries.filter((registry: any) => {
           return registry.category === 1;
@@ -117,6 +119,8 @@ export class ManagementComponent {
   updateRegistry(e: RegistryModel) {
     this.visible = false;
 
+    console.log(e, 'update')
+
     this.managementService.updateRegistry(e).subscribe({
       next: (res: any) => {
         this.getAllRegristries();
@@ -125,8 +129,6 @@ export class ManagementComponent {
   }
 
   editRegistry() {
-    console.log(this.rowSelected, 'kd')
-
     this.typeAction = 'edit'
     this.visible = true
   }
@@ -143,7 +145,6 @@ export class ManagementComponent {
 
   addRegistry(registryCategory: RegistryCategoryEnum) {
     this.registryCategory = registryCategory;
-    console.log(this.registryCategory, 'crrer')
     this.visible = true
   }
 

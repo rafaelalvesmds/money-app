@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
+import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 
@@ -9,7 +11,7 @@ import { ActionsModel } from 'src/app/core/models/actions.model';
 })
 export class TableComponent {
 
-  @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date'; useTag?: boolean }[];
+  @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
   @Input() actions!: ActionsModel[]
   @Input() title!: string;
@@ -22,7 +24,7 @@ export class TableComponent {
   registryCategoryEnum = RegistryCategoryEnum
 
   onRowClick(value: any) {
-    // Execute ação aqui
+
     this.valueSelected.emit(value)
   }
 
@@ -40,9 +42,20 @@ export class TableComponent {
     if (column.pipe) {
       switch (column.pipe) {
         case 'money':
-          return `${value},00`
+          return this.formatValue(value);
+        case 'date':
+          return new Date(value).toLocaleDateString('pt-BR')
       }
     } else return value
+  }
+
+  formatValue(valor: number): string {
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
+    return formatter.format(valor);
   }
 
   addButton(typeAdd: number) {
@@ -51,7 +64,6 @@ export class TableComponent {
   }
 
   setTextColor(registry: any, column: any): string {
-    console.log(registry, 'kik')
     if (registry.category == 1 && column.field == 'price') {
       return 'font-semibold text-red-300'
     }

@@ -4,25 +4,27 @@
     <label htmlFor="description">Description</label>
   </span>
 
-  <p-dropdown
-    *ngIf="registryCategory === 1 || registryToEdit.category == 1"
-    formControlName="type"
-    [options]="expenseTypes"
-    optionLabel="name"
-    optionValue="id"
-    styleClass="w-full"
-    placeholder="Expense Type"
-  ></p-dropdown>
+  <div *ngIf="registryCategory === 1 || registryToEdit?.category == 1">
+    <p-dropdown
+      formControlName="type"
+      [options]="expenseTypes"
+      optionLabel="name"
+      optionValue="id"
+      styleClass="w-full"
+      placeholder="Expense Type"
+    ></p-dropdown>
+  </div>
 
-  <p-dropdown
-    *ngIf="registryCategory === 2 || registryToEdit.category == 2"
-    formControlName="type"
-    [options]="incomeTypes"
-    optionLabel="name"
-    optionValue="id"
-    styleClass="w-full"
-    placeholder="Income Type"
-  ></p-dropdown>
+  <div *ngIf="registryCategory === 2 || registryToEdit?.category == 2">
+    <p-dropdown
+      formControlName="type"
+      [options]="incomeTypes"
+      optionLabel="name"
+      optionValue="id"
+      styleClass="w-full"
+      placeholder="Income Type"
+    ></p-dropdown>
+  </div>
 
   <span class="p-float-label w-full">
     <input pInputText formControlName="price" class="w-full" type="number" />

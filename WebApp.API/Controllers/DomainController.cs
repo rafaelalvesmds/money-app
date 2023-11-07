@@ -28,5 +28,19 @@ namespace WebApp.API.Controllers
 
             return Ok(expenseTypes);
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<IncomeType>> GetIncomeTypes()
+        {
+            var incomeTypes = _context.incomeType
+                .Select(e => new IncomeType
+                {
+                    id = e.id,
+                    name = e.name
+                })
+                .ToList();
+
+            return Ok(incomeTypes);
+        }
     }
 }
