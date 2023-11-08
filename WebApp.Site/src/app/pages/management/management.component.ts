@@ -288,6 +288,7 @@ export class ManagementComponent {
 
     if (card) {
       card.style.height = '43rem'
+      card.style.width = '100%'
     }
 
     if (card && this.screenWidth < 576) {
