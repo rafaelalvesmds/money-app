@@ -1,17 +1,22 @@
-<p-table [value]="values" styleClass="col-12 p-0">
+<p-table
+  [value]="values"
+  styleClass="col-12 p-0"
+  [breakpoint]="'500'"
+  [responsiveLayout]="'stack'"
+>
   <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-end gap-2">
+    <div class="flex align-items-center justify-content-end gap-2 p-0">
       <span>{{ title }}</span>
       <p-button
         *ngIf="registryCategory != 2"
-        styleClass="p-button-rounded p-button-danger"
+        styleClass=" p-button-rounded p-button-danger"
         icon="pi pi-plus"
         [pTooltip]="'Add expense'"
         (onClick)="addButton(registryCategoryEnum.Expense)"
       ></p-button>
       <p-button
         *ngIf="registryCategory != 1"
-        styleClass="p-button-rounded p-button-success"
+        styleClass=" p-button-rounded p-button-success"
         icon="pi pi-plus"
         [pTooltip]="'Add income'"
         (onClick)="addButton(registryCategoryEnum.Income)"

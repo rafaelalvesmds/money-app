@@ -1,8 +1,3 @@
-.management-container {
-  display: flex;
-  flex-direction: column;
-}
-
 /* Estilizando a barra de rolagem */
 .management-container::-webkit-scrollbar {
   width: 8px; /* Largura da barra de rolagem vertical */
@@ -17,5 +12,14 @@
 
 /* Estilizando a trilha (track) da barra de rolagem */
 .management-container::-webkit-scrollbar-track {
-  background: #f0f0f0; /* Cor de fundo da trilha */
+}
+
+.management-container {
+  overflow: scroll;
+}
+
+:host ::ng-deep {
+  .p-tabview .p-tabview-panels {
+    padding: 0rem;
+  }
 }

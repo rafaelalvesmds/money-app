@@ -3,89 +3,27 @@
 }
 
 :host ::ng-deep {
-  .dock-window {
+  .container {
     width: 100%;
     position: relative;
-    background-image: url("https://primefaces.org/cdn/primeng/images/dock/window.jpg");
+    /* background-image: url("https://primefaces.org/cdn/primeng/images/dock/window.jpg"); */
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
+    padding: 0 !important;
   }
 
-  .p-dock {
-    z-index: 1000;
+  .p-card .p-card-content  {
+    padding: 0;
   }
 
-  .dock-advanced {
-    .p-dialog-mask,
-    .p-toast {
-      position: absolute;
-    }
-
-    .p-dialog {
-      .p-dialog-header {
-        padding: 0.2rem;
-      }
-
-      .p-dialog-content {
-        padding: 0;
-      }
-
-      p {
-        margin-top: 0;
-      }
-
-      .p-terminal {
-        background-color: #212121;
-        color: #ffffff;
-        border: 0 none;
-        min-height: 18rem;
-        height: 100%;
-
-        .p-terminal-command {
-          color: #80cbc4;
-        }
-
-        .p-terminal-prompt {
-          color: #ffd54f;
-        }
-
-        .p-terminal-response {
-          color: #9fa8da;
-        }
-      }
-
-      .p-tree {
-        height: 100%;
-        border-radius: 0;
-        border-left-width: 0;
-        border-right-width: 0;
-        border-bottom-width: 0;
-      }
-    }
-
-    .p-toast {
-      top: 20px;
-    }
+  .p-card .p-card-body {
+    padding: 0.5rem;
   }
+
 }
 
-.card-container {
-  position: relative;
-  top: 120px;
-}
-
-/* .dark-tooltip {
-  .p-tooltip {
-      .p-tooltip-arrow {
-          border-top-color: var(--surface-900);
-      }
-
-      .p-tooltip-text {
-          background-color: var(--surface-900);
-      }
-  }
-} */

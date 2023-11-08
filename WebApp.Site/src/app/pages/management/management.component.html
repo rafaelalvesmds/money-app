@@ -1,63 +1,58 @@
-<div
-  class="grid-nogutter w-full"
-  class="management-container"
-  style="height: 70vh; overflow: auto"
->
-  <app-analytics-values [cards]="cards" class="col-12"></app-analytics-values>
+<div class="grid-nogutter w-full" id="full-container">
+  <app-analytics-values [cards]="cards"></app-analytics-values>
 
-  <p-tabView
-    styleClass="tabview-custom"
-    (activeIndexChange)="activeIndexChange($event)"
-  >
-    <p-tabPanel [headerStyle]="{ width: '33%' }">
-      <ng-template pTemplate="header">
-        <i class="pi pi-list mr-2"></i>
-        <span>All</span>
-      </ng-template>
+  <div class="management-container" id="management-container">
+    <p-tabView (activeIndexChange)="activeIndexChange($event)">
+      <p-tabPanel [headerStyle]="{ width: '33%' }">
+        <ng-template pTemplate="header">
+          <i class="pi pi-list mr-2"></i>
+          <span>All</span>
+        </ng-template>
 
-      <app-table
-        class="col-12"
-        [values]="registries"
-        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
-        [actions]="actions"
-        (valueSelected)="receiveRegistrySelected($event)"
-        [registryCategory]="activeIndex"
-        (addValue)="addRegistry($event)"
-      ></app-table>
-    </p-tabPanel>
-    <p-tabPanel [headerStyle]="{ width: '33%' }">
-      <ng-template pTemplate="header">
-        <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
-        <span>Expenses</span>
-      </ng-template>
+        <app-table
+          class="col-12"
+          [values]="registries"
+          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [actions]="actions"
+          (valueSelected)="receiveRegistrySelected($event)"
+          [registryCategory]="activeIndex"
+          (addValue)="addRegistry($event)"
+        ></app-table>
+      </p-tabPanel>
+      <p-tabPanel [headerStyle]="{ width: '33%' }">
+        <ng-template pTemplate="header">
+          <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
+          <span>Expenses</span>
+        </ng-template>
 
-      <app-table
-        class="col-12"
-        [values]="expenses"
-        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
-        [actions]="actions"
-        (valueSelected)="receiveRegistrySelected($event)"
-        (addValue)="addRegistry($event)"
-        [registryCategory]="activeIndex"
-      ></app-table>
-    </p-tabPanel>
-    <p-tabPanel [headerStyle]="{ width: '33%' }">
-      <ng-template pTemplate="header">
-        <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
-        <span>Incomes</span>
-      </ng-template>
+        <app-table
+          class="col-12"
+          [values]="expenses"
+          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [actions]="actions"
+          (valueSelected)="receiveRegistrySelected($event)"
+          (addValue)="addRegistry($event)"
+          [registryCategory]="activeIndex"
+        ></app-table>
+      </p-tabPanel>
+      <p-tabPanel [headerStyle]="{ width: '33%' }">
+        <ng-template pTemplate="header">
+          <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
+          <span>Incomes</span>
+        </ng-template>
 
-      <app-table
-        class="col-12"
-        [values]="incomes"
-        [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
-        [actions]="actions"
-        (valueSelected)="receiveRegistrySelected($event)"
-        (addValue)="addRegistry($event)"
-        [registryCategory]="activeIndex"
-      ></app-table>
-    </p-tabPanel>
-  </p-tabView>
+        <app-table
+          class="col-12"
+          [values]="incomes"
+          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [actions]="actions"
+          (valueSelected)="receiveRegistrySelected($event)"
+          (addValue)="addRegistry($event)"
+          [registryCategory]="activeIndex"
+        ></app-table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
 </div>
 
 <p-dialog

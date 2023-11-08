@@ -1,35 +1,7 @@
-<!-- <div class="card">
-  <div class="dock-window dock-advanced">
-    <p-dock [model]="items" [position]="position">
-      <ng-template pTemplate="item" let-item>
-        <img [src]="item.icon" [alt]="item.label" width="100%" />
-      </ng-template>
-    </p-dock>
-  </div>
-</div> -->
-
-<div class="dock-window dock-advanced">
-  <p-dock
-    *ngIf="screenWidth > 960"
-    [model]="dockItems"
-    position="top"
-    styleClass="fixed"
-  >
-    <ng-template pTemplate="item" let-item>
-      <img
-        class="img-item"
-        [src]="item.icon"
-        [alt]="item.label"
-        width="100%"
-        [pTooltip]="item.tooltip"
-        [tooltipPosition]="item.tooltipPosition"
-      />
-    </ng-template>
-  </p-dock>
-
+<div class="container flex align-items-center justify-content-center h-screen">
   <p-card id="card-container" class="card-container">
     <router-outlet></router-outlet>
   </p-card>
-
-  <p-toast></p-toast>
 </div>
+
+<p-toast></p-toast>

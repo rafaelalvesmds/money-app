@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
-    this.updateCardWidth();
+    this.setResponsitityScreen();
 
     this.userService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
@@ -70,23 +70,21 @@ export class MenuComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.screenWidth = window.innerWidth;
-    this.updateCardWidth();
+    this.setResponsitityScreen();
   }
 
-  updateCardWidth() {
+  setResponsitityScreen() {
     const card = document.getElementById('card-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
     if (card) {
       if (this.screenWidth > 960) {
-        card.style.width = `${this.screenWidth * 0.8}px`;
-        card.style.height = `100vh`;
-        // card.style.marginTop = `${this.screenWidth * 0.1}px`
+        card.style.width = `${this.screenWidth * 0.85}px`;
       } else {
-        card.style.width = `${this.screenWidth * 0.90}px`;
-        card.style.height = `100vh`;
-        // card.style.marginTop = `${this.screenWidth * 0.05}px`
+        card.style.width = `${this.screenWidth * 0.95}px`;
       }
     }
   }
+
+
 
   logout() {
     this.router.navigate(['/login'])

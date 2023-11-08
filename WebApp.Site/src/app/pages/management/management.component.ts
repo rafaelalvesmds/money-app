@@ -65,15 +65,20 @@ export class ManagementComponent {
   cards: any[] = [];
 
   screenWidth!: number;
+  screenHeigth!: number;
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
+    this.screenHeigth = window.innerHeight;
     this.getUser()
+    this.setCardResponsivity();
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.screenWidth = window.innerWidth;
+    this.screenHeigth = window.innerHeight;
+    this.setCardResponsivity();
   }
 
   receiveRegistrySelected(e: any) {
@@ -205,45 +210,92 @@ export class ManagementComponent {
 
   setAnalyticsValues() {
 
-    this.cards = [
-      {
-        title: 'Incomes',
-        value: `$${this.totalIncomesPrice},00`,
-        icon: 'pi pi-money-bill',
-        bgColor: 'bg-green-100',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'red'
-      },
-      {
-        title: 'Expenses',
-        value: `$${this.totalExpensesPrice},00`,
-        icon: 'pi pi-money-bill',
-        bgColor: 'bg-red-100',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'green'
-      },
-      {
-        title: 'Balance',
-        value: `$${this.balance},00`,
-        icon: 'pi pi-wallet',
-        bgColor: 'bg-orange-100',
-        textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'red'
-      },
-      {
-        title: 'Top 1',
-        value: `$${this.biggestExpense.value},00`,
-        icon: 'pi pi-star-fill',
-        bgColor: 'bg-blue-300',
-        changeValue: `${ExpenseTypeEnum[this.biggestExpense.type]}`,
-        colorChangeValue: 'blue'
-      },
-    ];
+
+    if (this.screenWidth > 992) {
+      this.cards = [
+        {
+          title: 'Incomes',
+          value: `$${this.totalIncomesPrice},00`,
+          icon: 'pi pi-money-bill',
+          bgColor: 'bg-green-100',
+          changeValue: '+%52',
+          changeText: 'Nov/2023',
+          colorChangeValue: 'red'
+        },
+        {
+          title: 'Expenses',
+          value: `$${this.totalExpensesPrice},00`,
+          icon: 'pi pi-money-bill',
+          bgColor: 'bg-red-100',
+          changeValue: '+%52',
+          changeText: 'Nov/2023',
+          colorChangeValue: 'green'
+        },
+        {
+          title: 'Balance',
+          value: `$${this.balance},00`,
+          icon: 'pi pi-wallet',
+          bgColor: 'bg-orange-100',
+          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          changeValue: '+%52',
+          changeText: 'Nov/2023',
+          colorChangeValue: 'red'
+        },
+        {
+          title: 'Top 1',
+          value: `$${this.biggestExpense.value},00`,
+          icon: 'pi pi-star-fill',
+          bgColor: 'bg-blue-300',
+          changeValue: `${ExpenseTypeEnum[this.biggestExpense.type]}`,
+          colorChangeValue: 'blue'
+        },
+      ];
+    } else {
+      this.cards = [
+        {
+          title: 'Balance',
+          value: `$${this.balance},00`,
+          icon: 'pi pi-wallet',
+          bgColor: 'bg-orange-100',
+          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          changeValue: '+%52',
+          changeText: 'Nov/2023',
+          colorChangeValue: 'red'
+        },
+        {
+          title: 'Expenses',
+          value: `$${this.totalExpensesPrice},00`,
+          icon: 'pi pi-money-bill',
+          bgColor: 'bg-red-100',
+          changeValue: '+%52',
+          changeText: 'Nov/2023',
+          colorChangeValue: 'green'
+        },
+      ];
+    }
+
+
+
   }
 
+  setCardResponsivity() {
+    const fullCard = document.getElementById('full-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+    const card = document.getElementById('management-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+
+    if (fullCard) {
+      fullCard.style.height = `${this.screenHeigth * 0.9}px`
+    }
+
+    if (card) {
+      card.style.height = '43rem'
+    }
+
+    if (card && this.screenWidth < 576) {
+      card.style.height = '35rem'
+    }
+
+    this.setAnalyticsValues();
+
+  }
 }
 

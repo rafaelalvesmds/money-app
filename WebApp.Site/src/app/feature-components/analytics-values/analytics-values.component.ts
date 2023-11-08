@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 interface Card {
   title: string;
@@ -16,7 +16,19 @@ interface Card {
   templateUrl: './analytics-values.component.html',
   styleUrls: ['./analytics-values.component.css']
 })
-export class AnalyticsValuesComponent {
+export class AnalyticsValuesComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.screenWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+  }
 
   @Input() cards: Card[] = [];
+
+  screenWidth!: number;
+
 }
