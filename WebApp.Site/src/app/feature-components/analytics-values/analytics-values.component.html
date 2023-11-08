@@ -1,6 +1,6 @@
 <div class="surface-ground px-2">
   <div class="grid mt-1">
-    <div class="col-12 sm:col-6 lg:col-3" *ngFor="let card of cards">
+    <div class="col-12 sm:col-6 xl:col-3" *ngFor="let card of cards">
       <div class="surface-card shadow-2 p-3 border-round">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -20,14 +20,10 @@
             <i [ngClass]="card.icon"></i>
           </div>
         </div>
-        <span
-          *ngIf="this.screenWidth > 992"
-          class="text-{{ card.colorChangeValue }}-500 font-medium w-100"
+        <span class="text-{{ card.colorChangeValue }}-500 font-medium w-100"
           >{{ card.changeValue }}
         </span>
-        <span *ngIf="this.screenWidth > 992" class="text-500">{{
-          card.changeText
-        }}</span>
+        <span class="text-500">{{ card.changeText }}</span>
       </div>
     </div>
   </div>

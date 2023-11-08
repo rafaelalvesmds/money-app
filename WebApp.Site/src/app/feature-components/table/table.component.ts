@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
@@ -14,14 +15,24 @@ export class TableComponent {
   @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
   @Input() actions!: ActionsModel[]
-  @Input() title!: string;
 
   @Output() valueSelected = new EventEmitter<any>()
   @Output() addValue = new EventEmitter<any>()
+  @Output() dateSelected = new EventEmitter<any>()
+
+  date: Date[] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1)];
 
   @Input() registryCategory!: number;
 
   registryCategoryEnum = RegistryCategoryEnum
+
+  calendarForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.calendarForm = this.fb.group({
+      date: [new Date(), [Validators.required]]
+    })
+  }
 
   onRowClick(value: any) {
 
@@ -73,5 +84,9 @@ export class TableComponent {
     }
 
     return ''
+  }
+
+  emitDate() {
+    this.dateSelected.emit(this.date)
   }
 }

@@ -211,7 +211,7 @@ export class ManagementComponent {
   setAnalyticsValues() {
 
 
-    if (this.screenWidth > 992) {
+    if (this.screenWidth > 576) {
       this.cards = [
         {
           title: 'Incomes',
@@ -280,20 +280,25 @@ export class ManagementComponent {
 
   setCardResponsivity() {
     const fullCard = document.getElementById('full-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
-    const card = document.getElementById('management-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+    const table = document.getElementById('management-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
 
     if (fullCard) {
       fullCard.style.height = `${this.screenHeigth * 0.9}px`
     }
 
-    if (card && this.screenWidth >= 576) {
-      card.style.height = `${Number(fullCard?.clientHeight) * 0.8}px`
-      card.style.width = '100%'
+    if (table && this.screenWidth >= 1200) {
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`
+      table.style.width = '100%'
     }
 
-    if (card && this.screenWidth < 576) {
-      card.style.height = `${Number(fullCard?.clientHeight) * 0.65}px`
-      card.style.width = '100%'
+    if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.57}px`
+      table.style.width = '100%'
+    }
+
+    if (table && this.screenWidth < 960) {
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.58}px`
+      table.style.width = '100%'
     }
 
     this.setAnalyticsValues();
