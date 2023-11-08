@@ -286,17 +286,17 @@ export class ManagementComponent {
       fullCard.style.height = `${this.screenHeigth * 0.9}px`
     }
 
-    if (card) {
-      card.style.height = '43rem'
+    if (card && this.screenWidth >= 576) {
+      card.style.height = `${Number(fullCard?.clientHeight) * 0.8}px`
       card.style.width = '100%'
     }
 
     if (card && this.screenWidth < 576) {
-      card.style.height = '35rem'
+      card.style.height = `${Number(fullCard?.clientHeight) * 0.65}px`
+      card.style.width = '100%'
     }
 
     this.setAnalyticsValues();
-
   }
 }
 
