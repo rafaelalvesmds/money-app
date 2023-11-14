@@ -69,6 +69,8 @@ export class ManagementComponent {
 
   dateSelected!: any;
 
+  widthDialog!: string;
+
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     this.screenHeigth = window.innerHeight;
@@ -269,16 +271,19 @@ export class ManagementComponent {
     if (table && this.screenWidth >= 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`
       table.style.width = '100%'
+      this.widthDialog = '50vw'
     }
 
     if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.57}px`
       table.style.width = '100%'
+      this.widthDialog = '65vw'
     }
 
     if (table && this.screenWidth < 960) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.58}px`
       table.style.width = '100%'
+      this.widthDialog = '80vw'
     }
 
     this.setAnalyticsValues();

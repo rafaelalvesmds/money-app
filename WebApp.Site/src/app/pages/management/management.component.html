@@ -59,11 +59,17 @@
 <p-dialog
   header="Header"
   [(visible)]="visible"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: widthDialog }"
   [draggable]="false"
+  styleClass="h-30rem"
 >
   <ng-template pTemplate="header">
-    <span class="text-xl font-bold">Header Content</span>
+    <span
+      class="text-xl font-bold {{
+        registryCategory == 1 ? 'text-red-400' : 'text-green-400'
+      }}"
+      >{{ registryCategory == 1 ? "Add Expense" : "Add Income" }}</span
+    >
   </ng-template>
 
   <app-registry-form

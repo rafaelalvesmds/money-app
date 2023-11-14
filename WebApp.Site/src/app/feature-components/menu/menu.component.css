@@ -6,8 +6,8 @@
   .container {
     width: 100%;
     position: relative;
-    background-image: url("https://primefaces.org/cdn/primeng/images/dock/window.jpg");
-    /* background-color: black; */
+    /* background-image: url("https://primefaces.org/cdn/primeng/images/dock/window.jpg"); */
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
