@@ -210,69 +210,46 @@ export class ManagementComponent {
 
   setAnalyticsValues() {
 
+    // if (this.screenWidth > 576)
 
-    if (this.screenWidth > 576) {
-      this.cards = [
-        {
-          title: 'Incomes',
-          value: `$${this.totalIncomesPrice},00`,
-          icon: 'pi pi-money-bill',
-          bgColor: 'bg-green-100',
-          changeValue: '+%52',
-          changeText: 'Nov/2023',
-          colorChangeValue: 'red'
-        },
-        {
-          title: 'Expenses',
-          value: `$${this.totalExpensesPrice},00`,
-          icon: 'pi pi-money-bill',
-          bgColor: 'bg-red-100',
-          changeValue: '+%52',
-          changeText: 'Nov/2023',
-          colorChangeValue: 'green'
-        },
-        {
-          title: 'Balance',
-          value: `$${this.balance},00`,
-          icon: 'pi pi-wallet',
-          bgColor: 'bg-orange-100',
-          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
-          changeValue: '+%52',
-          changeText: 'Nov/2023',
-          colorChangeValue: 'red'
-        },
-        {
-          title: 'Top 1',
-          value: `$${this.biggestExpense?.value},00`,
-          icon: 'pi pi-star-fill',
-          bgColor: 'bg-blue-300',
-          changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
-          colorChangeValue: 'blue'
-        },
-      ];
-    } else {
-      this.cards = [
-        {
-          title: 'Balance',
-          value: `$${this.balance},00`,
-          icon: 'pi pi-wallet',
-          bgColor: 'bg-orange-100',
-          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
-          changeValue: '+%52',
-          changeText: 'Nov/2023',
-          colorChangeValue: 'red'
-        },
-        {
-          title: 'Expenses',
-          value: `$${this.totalExpensesPrice},00`,
-          icon: 'pi pi-money-bill',
-          bgColor: 'bg-red-100',
-          changeValue: '+%52',
-          changeText: 'Nov/2023',
-          colorChangeValue: 'green'
-        },
-      ];
-    }
+    this.cards = [
+      {
+        title: 'Incomes',
+        value: `$${this.totalIncomesPrice},00`,
+        icon: 'pi pi-money-bill',
+        bgColor: 'bg-green-100',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'red'
+      },
+      {
+        title: 'Expenses',
+        value: `$${this.totalExpensesPrice},00`,
+        icon: 'pi pi-money-bill',
+        bgColor: 'bg-red-100',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'green'
+      },
+      {
+        title: 'Balance',
+        value: `$${this.balance},00`,
+        icon: 'pi pi-wallet',
+        bgColor: 'bg-orange-100',
+        textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+        // changeValue: '+%52',
+        // changeText: 'Nov/2023',
+        // colorChangeValue: 'red'
+      },
+      // {
+      //   title: 'Top 1',
+      //   value: `$${this.biggestExpense?.value},00`,
+      //   icon: 'pi pi-star-fill',
+      //   bgColor: 'bg-blue-300',
+      //   changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
+      //   colorChangeValue: 'blue'
+      // },
+    ];
 
 
 

@@ -8,6 +8,7 @@
     <div class="flex flex-row justify-content-between align-items-center">
       <form [formGroup]="calendarForm">
         <p-calendar
+          styleClass="w-8rem"
           formControlName="date"
           view="month"
           dateFormat="mm/yy"
@@ -18,14 +19,14 @@
       <div class="flex align-items-center justify-content-end gap-2 p-0">
         <p-button
           *ngIf="registryCategory != 2"
-          styleClass=" p-button-rounded p-button-danger"
+          styleClass="p-button-rounded p-button-danger"
           icon="pi pi-plus"
           [pTooltip]="'Add expense'"
           (onClick)="addButton(registryCategoryEnum.Expense)"
         ></p-button>
         <p-button
           *ngIf="registryCategory != 1"
-          styleClass=" p-button-rounded p-button-success"
+          styleClass="p-button-rounded p-button-success"
           icon="pi pi-plus"
           [pTooltip]="'Add income'"
           (onClick)="addButton(registryCategoryEnum.Income)"
