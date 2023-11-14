@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
 import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
@@ -10,9 +10,9 @@ import { ActionsModel } from 'src/app/core/models/actions.model';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 
-  @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date'; useTag?: boolean, enum: any }[];
+  @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date' | 'enum'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
   @Input() actions!: ActionsModel[]
 
@@ -34,6 +34,18 @@ export class TableComponent {
     })
   }
 
+  ngOnInit(): void {
+    this.emitDate()
+
+    this.calendarForm.valueChanges.subscribe({
+      next: (res: any) => {
+        console.log(this.calendarForm.value, 'teste')
+        console.log(res);
+        this.emitDate()
+      }
+    })
+  }
+
   onRowClick(value: any) {
 
     this.valueSelected.emit(value)
@@ -49,13 +61,20 @@ export class TableComponent {
     }
   }
 
-  manipulateValue(value: any, column: any) {
+  manipulateValue(registry: any, column: any) {
+
+    let value = registry[column.field]
+
     if (column.pipe) {
       switch (column.pipe) {
         case 'money':
           return this.formatValue(value);
         case 'date':
           return new Date(value).toLocaleDateString('pt-BR')
+        case 'enum':
+          if (registry.category == 1)
+            return ExpenseTypeEnum[value]
+          else return IncomeTypeEnum[value]
       }
     } else return value
   }
@@ -87,6 +106,7 @@ export class TableComponent {
   }
 
   emitDate() {
+    this.date = this.calendarForm.value.date;
     this.dateSelected.emit(this.date)
   }
 }

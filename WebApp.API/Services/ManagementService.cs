@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
@@ -18,15 +19,17 @@ namespace WebApp.API.Services
             _mapper = mapper;
         }
 
-        public (bool, List<Notification>, List<registry>) GetAllRegristries(string email)
+        public (bool, List<Notification>, List<registry>) GetAllRegristries(string email, DateTime date)
         {
-            var registryDatabase = _context.registry.Where(e => e.email == email).ToList();
-
             var notifications = new List<Notification>();
+
+            var registryDatabase = _context.registry
+                .Where(e => e.email == email && e.date.Year == date.Year && e.date.Month == date.Month)
+                .ToList();
 
             if (registryDatabase.Count == 0)
             {
-                notifications.Add(new Notification { Message = "No registry found for the specified email." });
+                notifications.Add(new Notification { Message = "No registry found for the specified email, year, and month." });
                 return (true, notifications, registryDatabase);
             }
 

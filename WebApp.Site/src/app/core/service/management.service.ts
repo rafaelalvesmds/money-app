@@ -10,9 +10,9 @@ export class ManagementService {
   private apiBaseUrl = 'https://localhost:5001/api/v1/management';
 
   constructor(private http: HttpClient) { }
-
-  getAllRegristries(email: string): Observable<any> {
-    return this.http.get(`${this.apiBaseUrl}/GetAllRegristries?email=${email}`);
+  getAllRegristries(email: string, date: any): Observable<any> {
+    console.log(date, 'oq to recebendo')
+    return this.http.get(`${this.apiBaseUrl}/GetAllRegristries?email=${email}&date=${date}`);
   }
 
   createRegistry(registry: RegistryModel): Observable<any> {

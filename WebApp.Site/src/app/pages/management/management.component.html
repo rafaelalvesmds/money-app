@@ -17,6 +17,7 @@
           (valueSelected)="receiveRegistrySelected($event)"
           [registryCategory]="activeIndex"
           (addValue)="addRegistry($event)"
+          (dateSelected)="receiveDateSelected($event)"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
@@ -72,6 +73,7 @@
     [typeAction]="typeAction"
     [user]="user"
     [registryCategory]="registryCategory"
+    [date]="dateSelected"
   ></app-registry-form>
 </p-dialog>
 

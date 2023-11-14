@@ -54,7 +54,7 @@
           class="px-3 p-0"
         >
           <span [class]="setTextColor(registry, column)">
-            {{ manipulateValue(registry[column.field], column) }}
+            {{ manipulateValue(registry, column) }}
           </span>
         </td>
         <td
@@ -62,9 +62,7 @@
           *ngIf="column.useTag"
           class="px-1 p-0"
         >
-          <p-tag
-            [value]="manipulateValue(registry[column.field], column)"
-          ></p-tag>
+          <p-tag [value]="manipulateValue(registry, column)"></p-tag>
         </td>
 
         <td *ngIf="last" class="p-0">

@@ -18,9 +18,9 @@ namespace WebApp.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllRegristries([FromQuery] string email)
+        public IActionResult GetAllRegristries([FromQuery] string email, DateTime date)
         {
-            (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(email);
+            (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(email, date);
 
             if (!result.Item1)
             {

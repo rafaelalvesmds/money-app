@@ -26,7 +26,7 @@ export class ManagementComponent {
 
   columns: any[] = [
     { field: 'description', header: 'Description', width: '50%' },
-    { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center' },
+    { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center', pipe: 'enum' },
     { field: 'date', header: 'Date', width: '10%', alignment: 'center', pipe: 'date' },
     { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
   ]
@@ -67,6 +67,8 @@ export class ManagementComponent {
   screenWidth!: number;
   screenHeigth!: number;
 
+  dateSelected!: any;
+
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     this.screenHeigth = window.innerHeight;
@@ -86,7 +88,7 @@ export class ManagementComponent {
   }
 
   getAllRegristries() {
-    this.managementService.getAllRegristries(this.user.email).subscribe({
+    this.managementService.getAllRegristries(this.user?.email, this.dateSelected).subscribe({
       next: (res: any) => {
         this.registries = res.registry;
 
@@ -123,8 +125,6 @@ export class ManagementComponent {
 
   updateRegistry(e: RegistryModel) {
     this.visible = false;
-
-    console.log(e, 'update')
 
     this.managementService.updateRegistry(e).subscribe({
       next: (res: any) => {
@@ -243,10 +243,10 @@ export class ManagementComponent {
         },
         {
           title: 'Top 1',
-          value: `$${this.biggestExpense.value},00`,
+          value: `$${this.biggestExpense?.value},00`,
           icon: 'pi pi-star-fill',
           bgColor: 'bg-blue-300',
-          changeValue: `${ExpenseTypeEnum[this.biggestExpense.type]}`,
+          changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
           colorChangeValue: 'blue'
         },
       ];
@@ -286,6 +286,9 @@ export class ManagementComponent {
       fullCard.style.height = `${this.screenHeigth * 0.9}px`
     }
 
+    if (table)
+      table.style.overflowX = 'hidden'
+
     if (table && this.screenWidth >= 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`
       table.style.width = '100%'
@@ -302,6 +305,11 @@ export class ManagementComponent {
     }
 
     this.setAnalyticsValues();
+  }
+
+  receiveDateSelected(date: Date) {
+    this.dateSelected = date.toISOString();
+    this.getAllRegristries()
   }
 }
 
