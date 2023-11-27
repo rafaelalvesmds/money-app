@@ -12,11 +12,14 @@ import { ManagementService } from 'src/app/core/service/management.service';
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
-  styleUrls: ['./management.component.css']
+  styleUrls: ['./management.component.css'],
 })
 export class ManagementComponent {
-
-  constructor(private managementService: ManagementService, private messageService: MessageService, private authService: AuthService) { }
+  constructor(
+    private managementService: ManagementService,
+    private messageService: MessageService,
+    private authService: AuthService
+  ) {}
 
   rowSelected!: any;
 
@@ -26,29 +29,54 @@ export class ManagementComponent {
 
   columns: any[] = [
     { field: 'description', header: 'Description', width: '50%' },
-    { field: 'type', header: 'Category', useTag: true, width: '20%', alignment: 'center', pipe: 'enum' },
-    { field: 'date', header: 'Date', width: '10%', alignment: 'center', pipe: 'date' },
-    { field: 'price', header: 'Price', width: '20%', alignment: 'right', pipe: 'money' },
-  ]
+    {
+      field: 'type',
+      header: 'Category',
+      useTag: true,
+      width: '20%',
+      alignment: 'center',
+      pipe: 'enum',
+    },
+    {
+      field: 'date',
+      header: 'Date',
+      width: '10%',
+      alignment: 'center',
+      pipe: 'date',
+    },
+    {
+      field: 'price',
+      header: 'Price',
+      width: '20%',
+      alignment: 'right',
+      pipe: 'money',
+    },
+  ];
 
   columnsSmallScreen: any[] = [
     { field: 'description', header: 'Description', width: '70%' },
-    { field: 'price', header: 'Price', width: '30%', alignment: 'right', pipe: 'money' },
-  ]
+    {
+      field: 'price',
+      header: 'Price',
+      width: '30%',
+      alignment: 'right',
+      pipe: 'money',
+    },
+  ];
 
   actions: ActionsModel[] = [
     {
       icon: 'pi pi-pencil',
-      command: () => this.editRegistry()
+      command: () => this.editRegistry(),
     },
     {
       icon: 'pi pi-trash',
-      command: () => this.deleteRegistry()
-    }
-  ]
+      command: () => this.deleteRegistry(),
+    },
+  ];
   visible: boolean = false;
 
-  typeAction: "register" | "edit" = "register";
+  typeAction: 'register' | 'edit' = 'register';
 
   user!: UserModel;
 
@@ -60,7 +88,7 @@ export class ManagementComponent {
   totalExpensesPrice: number = 0;
   totalIncomesPrice: number = 0;
   balance: number = 0;
-  biggestExpense!: { type: number, value: number };
+  biggestExpense!: { type: number; value: number };
 
   cards: any[] = [];
 
@@ -74,7 +102,7 @@ export class ManagementComponent {
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     this.screenHeigth = window.innerHeight;
-    this.getUser()
+    this.getUser();
     this.setCardResponsivity();
   }
 
@@ -90,39 +118,44 @@ export class ManagementComponent {
   }
 
   getAllRegristries() {
-    this.managementService.getAllRegristries(this.user?.email, this.dateSelected).subscribe({
-      next: (res: any) => {
-        this.registries = res.registry;
+    this.managementService
+      .getAllRegristries(this.user?.email, this.dateSelected)
+      .subscribe({
+        next: (res: any) => {
+          this.registries = res.registry;
 
-        console.log()
+          console.log();
 
-        this.expenses = this.registries.filter((registry: any) => {
-          return registry.category === 1;
-        });
+          this.expenses = this.registries.filter((registry: any) => {
+            return registry.category === 1;
+          });
 
-        this.incomes = this.registries.filter((registry: any) => {
-          return registry.category === 2;
-        });
-
-      },
-      error: (error: any) => {
-        // console.log(error.error.notifications, 'error notifications')
-      },
-      complete: () => {
-        this.calculateValues();
-      }
-    })
+          this.incomes = this.registries.filter((registry: any) => {
+            return registry.category === 2;
+          });
+        },
+        error: (error: any) => {
+          // console.log(error.error.notifications, 'error notifications')
+        },
+        complete: () => {
+          this.calculateValues();
+        },
+      });
   }
 
   createRegistry(e: any) {
     this.managementService.createRegistry(e.registry).subscribe({
       next: (res: any) => {
-        console.log(res, 'res res create')
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.notifications[0].message });
+        console.log(res, 'res res create');
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: res.notifications[0].message,
+        });
         this.visible = e.visible;
         this.getAllRegristries();
       },
-    })
+    });
   }
 
   updateRegistry(e: RegistryModel) {
@@ -131,28 +164,26 @@ export class ManagementComponent {
     this.managementService.updateRegistry(e).subscribe({
       next: (res: any) => {
         this.getAllRegristries();
-      }
-    })
+      },
+    });
   }
 
   editRegistry() {
-    this.typeAction = 'edit'
-    this.visible = true
+    this.typeAction = 'edit';
+    this.visible = true;
   }
 
   deleteRegistry() {
-
     this.managementService.deleteRegistry(this.rowSelected.id).subscribe({
       next: (res: any) => {
-        if (res.success)
-          this.getAllRegristries()
-      }
-    })
+        if (res.success) this.getAllRegristries();
+      },
+    });
   }
 
   addRegistry(registryCategory: RegistryCategoryEnum) {
     this.registryCategory = registryCategory;
-    this.visible = true
+    this.visible = true;
   }
 
   getUser() {
@@ -165,9 +196,8 @@ export class ManagementComponent {
         },
         complete: () => {
           this.getAllRegristries();
-        }
-      })
-
+        },
+      });
     }
   }
 
@@ -176,23 +206,29 @@ export class ManagementComponent {
   }
 
   calculateValues() {
-    this.totalExpensesPrice = this.expenses.reduce((total: number, expense: any) => {
-      return total + expense.price;
-    }, 0);
+    this.totalExpensesPrice = this.expenses.reduce(
+      (total: number, expense: any) => {
+        return total + expense.price;
+      },
+      0
+    );
 
-    this.totalIncomesPrice = this.incomes.reduce((total: number, income: any) => {
-      return total + income.price;
-    }, 0);
+    this.totalIncomesPrice = this.incomes.reduce(
+      (total: number, income: any) => {
+        return total + income.price;
+      },
+      0
+    );
 
     this.balance = this.totalIncomesPrice - this.totalExpensesPrice;
 
-    this.calculateBiggestExpense()
+    this.calculateBiggestExpense();
     this.setAnalyticsValues();
   }
 
   calculateBiggestExpense() {
     const expensesByType: { [key: string]: number } = {};
-    this.biggestExpense = { type: 0, value: 0 }
+    this.biggestExpense = { type: 0, value: 0 };
 
     this.expenses.forEach((expense: any) => {
       if (!expensesByType[expense.type]) {
@@ -211,50 +247,59 @@ export class ManagementComponent {
   }
 
   setAnalyticsValues() {
-
-    // if (this.screenWidth > 576)
-
-    this.cards = [
-      {
-        title: 'Incomes',
-        value: `$${this.totalIncomesPrice},00`,
-        icon: 'pi pi-money-bill',
-        bgColor: 'bg-green-100',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'red'
-      },
-      {
-        title: 'Expenses',
-        value: `$${this.totalExpensesPrice},00`,
-        icon: 'pi pi-money-bill',
-        bgColor: 'bg-red-100',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'green'
-      },
-      {
-        title: 'Balance',
-        value: `$${this.balance},00`,
-        icon: 'pi pi-wallet',
-        bgColor: 'bg-orange-100',
-        textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
-        // changeValue: '+%52',
-        // changeText: 'Nov/2023',
-        // colorChangeValue: 'red'
-      },
-      // {
-      //   title: 'Top 1',
-      //   value: `$${this.biggestExpense?.value},00`,
-      //   icon: 'pi pi-star-fill',
-      //   bgColor: 'bg-blue-300',
-      //   changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
-      //   colorChangeValue: 'blue'
-      // },
-    ];
-
-
-
+    if (this.screenWidth > 576) {
+      this.cards = [
+        {
+          title: 'Incomes',
+          value: `$${this.totalIncomesPrice},00`,
+          icon: 'pi pi-money-bill',
+          bgColor: 'bg-green-100',
+          // changeValue: '+%52',
+          // changeText: 'Nov/2023',
+          // colorChangeValue: 'red'
+        },
+        {
+          title: 'Expenses',
+          value: `$${this.totalExpensesPrice},00`,
+          icon: 'pi pi-money-bill',
+          bgColor: 'bg-red-100',
+          // changeValue: '+%52',
+          // changeText: 'Nov/2023',
+          // colorChangeValue: 'green'
+        },
+        {
+          title: 'Balance',
+          value: `$${this.balance},00`,
+          icon: 'pi pi-wallet',
+          bgColor: 'bg-orange-100',
+          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          // changeValue: '+%52',
+          // changeText: 'Nov/2023',
+          // colorChangeValue: 'red'
+        },
+        // {
+        //   title: 'Top 1',
+        //   value: `$${this.biggestExpense?.value},00`,
+        //   icon: 'pi pi-star-fill',
+        //   bgColor: 'bg-blue-300',
+        //   changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
+        //   colorChangeValue: 'blue'
+        // },
+      ];
+    } else {
+      this.cards = [
+        {
+          title: 'Balance',
+          value: `$${this.balance},00`,
+          icon: 'pi pi-wallet',
+          bgColor: 'bg-orange-100',
+          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          // changeValue: '+%52',
+          // changeText: 'Nov/2023',
+          // colorChangeValue: 'red'
+        },
+      ];
+    }
   }
 
   setCardResponsivity() {
@@ -262,28 +307,27 @@ export class ManagementComponent {
     const table = document.getElementById('management-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
 
     if (fullCard) {
-      fullCard.style.height = `${this.screenHeigth * 0.9}px`
+      fullCard.style.height = `${this.screenHeigth * 0.9}px`;
     }
 
-    if (table)
-      table.style.overflowX = 'hidden'
+    if (table) table.style.overflowX = 'hidden';
 
     if (table && this.screenWidth >= 1200) {
-      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`
-      table.style.width = '100%'
-      this.widthDialog = '50vw'
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
+      table.style.width = '100%';
+      this.widthDialog = '50vw';
     }
 
     if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
-      table.style.height = `${Number(fullCard?.clientHeight) * 0.57}px`
-      table.style.width = '100%'
-      this.widthDialog = '65vw'
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
+      table.style.width = '100%';
+      this.widthDialog = '65vw';
     }
 
     if (table && this.screenWidth < 960) {
-      table.style.height = `${Number(fullCard?.clientHeight) * 0.58}px`
-      table.style.width = '100%'
-      this.widthDialog = '80vw'
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
+      table.style.width = '100%';
+      this.widthDialog = '80vw';
     }
 
     this.setAnalyticsValues();
@@ -291,7 +335,6 @@ export class ManagementComponent {
 
   receiveDateSelected(date: Date) {
     this.dateSelected = date.toISOString();
-    this.getAllRegristries()
+    this.getAllRegristries();
   }
 }
-

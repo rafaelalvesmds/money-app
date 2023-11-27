@@ -6,8 +6,8 @@
   .container {
     width: 100%;
     position: relative;
-    /* background-image: url("https://primefaces.org/cdn/primeng/images/dock/window.jpg"); */
-    background-color: black;
+    background-image: url("../../../assets/images/background-primary.jpeg");
+    /* background-color: black; */
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -25,5 +25,34 @@
     padding: 0.1rem;
   }
 
+}
+
+.menu-bar {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+/* Reset de estilos para remover margens e paddings padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos do botão circular */
+.logout-button {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; /* Torna o botão um círculo */
+  border: 2px solid #ff5f57; /* Cor vermelha similar ao botão de fechar do MacBook */
+  background-color: #ff5f57; /* Cor vermelha do botão */
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efeito de transição ao passar o mouse */
+}
+
+/* Efeito de hover */
+.logout-button:hover {
+  background-color: #e81123; /* Altera a cor de fundo no hover para um tom mais escuro de vermelho */
 }
 

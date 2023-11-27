@@ -16,7 +16,7 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  background-image: url('https://primefaces.org/cdn/primeng/images/dock/window.jpg');
+  background-image: url('./assets/images/background-login.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }

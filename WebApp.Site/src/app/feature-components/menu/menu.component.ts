@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/service/auth.service';
 import { UserService } from 'src/app/core/service/user.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
   displayTerminal!: boolean;
@@ -23,48 +24,69 @@ export class MenuComponent implements OnInit {
 
   nodes!: any[];
 
+  user!: UserModel;
   currentUser!: UserModel;
 
   screenWidth!: number;
   screenHeigth!: number;
 
-  constructor(private messageService: MessageService, private router: Router, private userService: UserService) { }
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     this.setResponsitityScreen();
 
+    this.getUser();
+
     this.userService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
     });
 
-    this.dockItems = [
-      {
-        label: 'Dashboard',
-        // tooltip: 'Dashboard',
-        tooltipPosition: 'bottom',
-        icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
-        routerLink: '/dashboard'
-      },
-      {
-        label: 'Management',
-        // tooltip: 'Management',
-        tooltipPosition: 'bottom',
-        icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
-        routerLink: '/management'
-      },
-      {
-        label: 'Exit',
-        // tooltip: 'Exit',
-        tooltipPosition: 'bottom',
-        icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
-        command: () => {
-          this.logout()
-        }
-      }
-    ];
+    // this.dockItems = [
+    //   {
+    //     label: 'Dashboard',
+    //     // tooltip: 'Dashboard',
+    //     tooltipPosition: 'bottom',
+    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
+    //     routerLink: '/dashboard'
+    //   },
+    //   {
+    //     label: 'Management',
+    //     // tooltip: 'Management',
+    //     tooltipPosition: 'bottom',
+    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
+    //     routerLink: '/management'
+    //   },
+    //   {
+    //     label: 'Exit',
+    //     // tooltip: 'Exit',
+    //     tooltipPosition: 'bottom',
+    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
+    //     command: () => {
+    //       this.logout()
+    //     }
+    //   }
+    // ];
+  }
 
+  getUser() {
+    let userId = localStorage.getItem('userId');
 
+    if (userId) {
+      this.authService.getUserById(userId).subscribe({
+        next: (user: UserModel) => {
+          this.user = user;
+        },
+        complete: () => {
+          console.log(this.user, 'user');
+        },
+      });
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -84,12 +106,9 @@ export class MenuComponent implements OnInit {
     }
   }
 
-
-
   logout() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
     // this.userService.clearCurrentUser();
     localStorage.removeItem('token');
   }
-
 }
