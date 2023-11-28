@@ -4,5 +4,4 @@ export interface UserModel {
   password: string;
   cellphone?: number;
   registrationDate: Date;
-
 }

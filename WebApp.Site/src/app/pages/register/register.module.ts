@@ -6,6 +6,7 @@ import { RegisterComponent } from './register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
+import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
     HttpClientModule,
     ReactiveFormsModule,
     PrimeNgModule,
+    SpinnerModule
   ],
 })
 export class RegisterModule { }

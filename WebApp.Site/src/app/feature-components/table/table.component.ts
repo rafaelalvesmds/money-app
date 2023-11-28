@@ -39,8 +39,6 @@ export class TableComponent implements OnInit {
 
     this.calendarForm.valueChanges.subscribe({
       next: (res: any) => {
-        console.log(this.calendarForm.value, 'teste')
-        console.log(res);
         this.emitDate()
       }
     })

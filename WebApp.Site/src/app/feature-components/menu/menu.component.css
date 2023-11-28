@@ -30,6 +30,7 @@
 .menu-bar {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+  padding: 1px;
 }
 
 /* Reset de estilos para remover margens e paddings padrão */

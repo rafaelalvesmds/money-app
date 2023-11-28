@@ -11,7 +11,6 @@ export class ManagementService {
 
   constructor(private http: HttpClient) { }
   getAllRegristries(email: string, date: any): Observable<any> {
-    console.log(date, 'oq to recebendo')
     return this.http.get(`${this.apiBaseUrl}/GetAllRegristries?email=${email}&date=${date}`);
   }
 

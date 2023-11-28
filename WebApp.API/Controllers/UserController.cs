@@ -62,7 +62,7 @@ namespace WebApp.API.Controllers
             var userResponse = new
             {
                 id = user.id,
-                nome = user.name,
+                name = user.name,
                 email = user.email,
                 cellphone = user.cellphone
             };

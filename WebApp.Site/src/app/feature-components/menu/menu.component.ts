@@ -1,10 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { MenuItem } from 'primeng/api';
 import { UserModel } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { UserService } from 'src/app/core/service/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -25,16 +23,14 @@ export class MenuComponent implements OnInit {
   nodes!: any[];
 
   user!: UserModel;
-  currentUser!: UserModel;
+  // currentUser!: UserModel;
 
   screenWidth!: number;
   screenHeigth!: number;
 
   constructor(
     private authService: AuthService,
-    private messageService: MessageService,
     private router: Router,
-    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -42,36 +38,6 @@ export class MenuComponent implements OnInit {
     this.setResponsitityScreen();
 
     this.getUser();
-
-    this.userService.currentUser.subscribe((user: any) => {
-      this.currentUser = user;
-    });
-
-    // this.dockItems = [
-    //   {
-    //     label: 'Dashboard',
-    //     // tooltip: 'Dashboard',
-    //     tooltipPosition: 'bottom',
-    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
-    //     routerLink: '/dashboard'
-    //   },
-    //   {
-    //     label: 'Management',
-    //     // tooltip: 'Management',
-    //     tooltipPosition: 'bottom',
-    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
-    //     routerLink: '/management'
-    //   },
-    //   {
-    //     label: 'Exit',
-    //     // tooltip: 'Exit',
-    //     tooltipPosition: 'bottom',
-    //     icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
-    //     command: () => {
-    //       this.logout()
-    //     }
-    //   }
-    // ];
   }
 
   getUser() {
@@ -83,7 +49,6 @@ export class MenuComponent implements OnInit {
           this.user = user;
         },
         complete: () => {
-          console.log(this.user, 'user');
         },
       });
     }
@@ -108,7 +73,7 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.router.navigate(['/login']);
-    // this.userService.clearCurrentUser();
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   }
 }

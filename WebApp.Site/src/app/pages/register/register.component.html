@@ -2,20 +2,22 @@
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
   <p-card styleClass="w-20rem h-30rem">
-    <p-button
-      icon="pi pi-arrow-left"
-      (onClick)="back()"
-      styleClass="p-button-rounded p-button-text"
-      class="back-btn"
-    ></p-button>
+    <div class="h-4rem">
+      <p-button
+        icon="pi pi-arrow-left"
+        (onClick)="back()"
+        styleClass="p-button-rounded p-button-text"
+        class="back-btn"
+      ></p-button>
 
-    <div class="flex flex-row justify-content-center mb-2">
-      <span class="text-2xl font-bold font-style adjust-position"
-        >Register</span
-      >
+      <div class="flex flex-row justify-content-center mb-2">
+        <span class="text-2xl font-bold font-style adjust-position"
+          >Register</span
+        >
+      </div>
     </div>
 
-    <div [formGroup]="registerForm" class="flex flex-column gap-4 h-20rem">
+    <div [formGroup]="registerForm" class="flex flex-column gap-4 h-19rem">
       <span class="p-float-label">
         <input pInputText formControlName="name" class="w-full" />
         <label htmlFor="name">Name</label>
@@ -26,16 +28,17 @@
         <label htmlFor="email">Email</label>
       </span>
 
-      <span class="p-float-label">
+      <!-- <span class="p-float-label">
         <input pInputText formControlName="cellphone" class="w-full" type="number">
         <label htmlFor="cellphone">Cellphone</label>
-      </span>
+      </span> -->
 
       <span class="p-float-label w-full">
         <p-password
           [formControlName]="'password'"
           [toggleMask]="true"
           styleClass="w-full"
+          [feedback]="false"
         ></p-password>
         <label for="password">Password</label>
       </span>
@@ -45,6 +48,7 @@
           [formControlName]="'passwordConfirm'"
           [toggleMask]="true"
           styleClass="w-full"
+          [feedback]="false"
         ></p-password>
         <label for="passwordConfirm">Password Confirm</label>
       </span>
@@ -53,7 +57,7 @@
       [pTooltip]="!registerForm.valid ? 'Preencha os campos' : ''"
       [disabled]="!registerForm.valid"
       label="Save"
-      styleClass="p-button-rounded col-12"
+      styleClass="p-button-raised col-12"
       class="btn-save"
       (onClick)="save()"
     ></p-button>
@@ -61,3 +65,5 @@
 </div>
 
 <p-toast></p-toast>
+
+<app-spinner *ngIf="showSpinner"></app-spinner>

@@ -124,8 +124,6 @@ export class ManagementComponent {
         next: (res: any) => {
           this.registries = res.registry;
 
-          console.log();
-
           this.expenses = this.registries.filter((registry: any) => {
             return registry.category === 1;
           });

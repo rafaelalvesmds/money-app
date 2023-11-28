@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
+import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module';
+
 @NgModule({
   declarations: [
     LoginComponent
@@ -18,7 +17,8 @@ import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    PrimeNgModule
+    PrimeNgModule,
+    SpinnerModule
   ]
 })
 

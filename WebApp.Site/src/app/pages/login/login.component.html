@@ -28,16 +28,16 @@
       <div class="col-12">
         <div>
           <p-button
-            styleClass="p-button-rounded"
-            label="Entrar"
+            styleClass="p-button-raised"
+            label="Login"
             (onClick)="onLoginSubmit()"
             [disabled]="!loginForm.valid"
           ></p-button>
         </div>
         <div class="mt-3">
           <p-button
-            label="Cadastrar"
-            styleClass="p-button-text p-button-rounded"
+            label="Register"
+            styleClass="p-button-text p-button-raised"
             (onClick)="register()"
           ></p-button>
         </div>
@@ -47,3 +47,5 @@
 </div>
 
 <p-toast></p-toast>
+
+<app-spinner *ngIf="showSpinner"></app-spinner>

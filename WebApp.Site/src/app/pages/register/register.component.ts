@@ -9,13 +9,19 @@ import { AuthService } from 'src/app/core/service/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css', '../../../styles.css']
+  styleUrls: ['./register.component.css', '../../../styles.css'],
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private messageService: MessageService) {
-  }
+  showSpinner: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -23,14 +29,14 @@ export class RegisterComponent implements OnInit {
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],
       passwordConfirm: [null, [Validators.required]],
-      cellphone: [null, []]
-    })
+      cellphone: [null, []],
+    });
 
     this.registerForm.valueChanges.subscribe({
       next: () => {
         this.registerForm.clearValidators();
-      }
-    })
+      },
+    });
   }
 
   back() {
@@ -38,40 +44,61 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    var form = this.registerForm.value
+    this.showSpinner = true;
+
+    var form = this.registerForm.value;
 
     var user: UserModel = {
       name: form.name,
       email: form.email,
       cellphone: form.cellphone,
       password: form.password,
-      registrationDate: new Date()
-    }
+      registrationDate: new Date(),
+    };
 
     if (form.password === form.passwordConfirm) {
       this.authService.register(user).subscribe({
         next: (res: any) => {
-          console.log(res, 'sucess')
-          this.showSuccess(res.notifications[0].message)
-          this.router.navigate(['/login'], { queryParams: { message: res.notifications[0].message } });
+          console.log(res, 'sucess');
+          this.showSuccess(res.notifications[0].message);
+          this.router.navigate(['/login'], {
+            queryParams: { message: res.notifications[0].message },
+          });
         },
         error: (error: any) => {
-          console.log(error, 'error')
+          console.log(error, 'error');
           if (error.status == 400)
-            this.showError(error.error.notifications[0].message)
-        }
-      })
+            this.showError(error.error.notifications[0].message);
+
+          this.showSpinner = false;
+        },
+        complete: () => {
+          this.showSpinner = false;
+        },
+      });
     } else {
-      this.registerForm.controls['passwordConfirm'].setErrors({ invalid: true })
-      this.showError("As senhas devem ser iguais")
+      this.registerForm.controls['passwordConfirm'].setErrors({
+        invalid: true,
+      });
+      this.showError('As senhas devem ser iguais');
+
+      this.showSpinner = false;
     }
   }
 
   showError(message: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
   }
 
   showSuccess(message: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: message,
+    });
   }
 }
