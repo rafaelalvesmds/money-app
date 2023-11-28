@@ -270,7 +270,7 @@ export class ManagementComponent {
           value: `$${this.balance},00`,
           icon: 'pi pi-wallet',
           bgColor: 'bg-orange-100',
-          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
           // changeValue: '+%52',
           // changeText: 'Nov/2023',
           // colorChangeValue: 'red'
@@ -291,7 +291,7 @@ export class ManagementComponent {
           value: `$${this.balance},00`,
           icon: 'pi pi-wallet',
           bgColor: 'bg-orange-100',
-          textColor: this.balance > 0 ? 'text-green-300' : 'text-red-300',
+          textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
           // changeValue: '+%52',
           // changeText: 'Nov/2023',
           // colorChangeValue: 'red'

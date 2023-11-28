@@ -43,12 +43,12 @@
   <div class="w-full grid-nogutter formgrid p-fluid" *ngIf="typeAction == 'register'">
     <p-button
       label="register"
-      styleClass="p-button p-button-rounded col-12 mb-2"
+      styleClass="p-button p-button-raised col-12 mb-2"
       (onClick)="emitRegistry(false)"
     ></p-button>
     <p-button
       label="register and register another"
-      styleClass="p-button-text p-button-secondary p-button-rounded col-12"
+      styleClass="p-button-text p-button-secondary p-button-raised col-12"
       (onClick)="emitRegistry(true)"
     ></p-button>
   </div>
@@ -56,7 +56,7 @@
   <div *ngIf="typeAction == 'edit'">
     <p-button
       label="save"
-      styleClass="p-button-text p-button-rounded"
+      styleClass="p-button-text p-button-raised"
       (onClick)="emitEditedRegistry()"
     ></p-button>
   </div>

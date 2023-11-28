@@ -5,8 +5,10 @@
     <p-tabView (activeIndexChange)="activeIndexChange($event)">
       <p-tabPanel [headerStyle]="{ width: '33%' }">
         <ng-template pTemplate="header">
-          <i class="pi pi-list mr-2"></i>
-          <span>All</span>
+          <div class="w-full flex align-items-center justify-content-center">
+            <i class="pi pi-list mr-2"></i>
+            <span *ngIf="screenWidth > 576">All</span>
+          </div>
         </ng-template>
 
         <app-table
@@ -22,8 +24,10 @@
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
         <ng-template pTemplate="header">
-          <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
-          <span>Expenses</span>
+          <div class="w-full flex align-items-center justify-content-center">
+            <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
+            <span *ngIf="screenWidth > 576">Expenses</span>
+          </div>
         </ng-template>
 
         <app-table
@@ -38,8 +42,10 @@
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
         <ng-template pTemplate="header">
-          <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
-          <span>Incomes</span>
+          <div class="w-full flex align-items-center justify-content-center">
+            <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
+            <span *ngIf="screenWidth > 576">Incomes</span>
+          </div>
         </ng-template>
 
         <app-table
@@ -62,6 +68,7 @@
   [style]="{ width: widthDialog }"
   [draggable]="false"
   styleClass="h-30rem"
+  [modal]="true"
 >
   <ng-template pTemplate="header">
     <span
