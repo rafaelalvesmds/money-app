@@ -46,28 +46,28 @@ namespace WebApp.API.Repository.DomainEntity
         {
             if (string.IsNullOrWhiteSpace(Name))
             {
-                Notifications.Add(new Notification { Message = "Name is required." });
+                Notifications.Add(new Notification { message = "Name is required." });
             }
 
             if (string.IsNullOrWhiteSpace(Email) || !IsValidEmail(Email))
             {
-                Notifications.Add(new Notification { Message = "invalid email." });
+                Notifications.Add(new Notification { message = "invalid email." });
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                Notifications.Add(new Notification { Message = "Password is required." });
+                Notifications.Add(new Notification { message = "Password is required." });
             }
 
             if (Cellphone != null)
             {
                 if (Cellphone < 0)
                 {
-                    Notifications.Add(new Notification { Message = "Invalid cellphone number." });
+                    Notifications.Add(new Notification { message = "Invalid cellphone number." });
                 }
-                if (Cellphone > 999999999999) 
+                if (Cellphone > 999999999999)
                 {
-                    Notifications.Add(new Notification { Message = "Cellphone number exceeds the maximum allowed value." });
+                    Notifications.Add(new Notification { message = "Cellphone number exceeds the maximum allowed value." });
                 }
             }
         }

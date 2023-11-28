@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
@@ -29,7 +28,7 @@ namespace WebApp.API.Services
 
             if (registryDatabase.Count == 0)
             {
-                notifications.Add(new Notification { Message = "No registry found for the specified email, year, and month." });
+                notifications.Add(new Notification { message = "No registry found for the specified email, year, and month." });
                 return (true, notifications, registryDatabase);
             }
 
@@ -51,7 +50,7 @@ namespace WebApp.API.Services
             var registryToRegister = _mapper.Map<Registry, registry>(registry);
             registryToRegister.id = Guid.NewGuid();
 
-            notifications.Add(new Notification { Message = "registered event." });
+            notifications.Add(new Notification { message = "Registered event." });
             _context.registry.Add(registryToRegister);
             _context.SaveChanges();
             return (true, notifications);
@@ -64,15 +63,13 @@ namespace WebApp.API.Services
             var notifications = new List<Notification>();
 
             if (registryDomain.HasNotifications())
-            {
                 return (false, registryDomain.Notifications);
-            }
 
             var existingRegistry = _context.registry.FirstOrDefault(e => e.id == registry.id);
 
             if (existingRegistry == null)
             {
-                notifications.Add(new Notification { Message = "Registry not found" });
+                notifications.Add(new Notification { message = "Registry not found" });
                 return (false, notifications);
             }
 
@@ -83,7 +80,7 @@ namespace WebApp.API.Services
             existingRegistry.price = registry.price;
             existingRegistry.date = registry.date;
 
-            notifications.Add(new Notification { Message = "Registry updated" });
+            notifications.Add(new Notification { message = "Registry updated" });
 
             _context.SaveChanges();
             return (true, notifications);
@@ -96,11 +93,11 @@ namespace WebApp.API.Services
 
             if (existingRegistry == null)
             {
-                notifications.Add(new Notification { Message = "Registry not found" });
+                notifications.Add(new Notification { message = "Registry not found" });
                 return (false, notifications);
             }
 
-            notifications.Add(new Notification { Message = "spent was successfully deleted" });
+            notifications.Add(new Notification { message = "spent was successfully deleted" });
 
             _context.registry.Remove(existingRegistry);
             _context.SaveChanges();

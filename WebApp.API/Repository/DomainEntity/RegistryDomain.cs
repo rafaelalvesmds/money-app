@@ -53,37 +53,37 @@ namespace WebApp.API.Repository.DomainEntity
         {
             if (string.IsNullOrWhiteSpace(Email) || !IsValidEmail(Email))
             {
-                Notifications.Add(new Notification { Message = "Invalid email." });
+                Notifications.Add(new Notification { message = "Invalid email." });
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                Notifications.Add(new Notification { Message = "Description is required." });
+                Notifications.Add(new Notification { message = "Description is required." });
             }
 
             if (Type < 0)
             {
-                Notifications.Add(new Notification { Message = "Invalid registry type." });
+                Notifications.Add(new Notification { message = "Invalid registry type." });
             }
 
             if (Category < 0)
             {
-                Notifications.Add(new Notification { Message = "Invalid registry category." });
+                Notifications.Add(new Notification { message = "Invalid registry category." });
             }
 
             if (Price <= 0)
             {
-                Notifications.Add(new Notification { Message = "Price must be greater than zero." });
+                Notifications.Add(new Notification { message = "Price must be greater than zero." });
             }
 
             if (Date == DateTime.MinValue)
             {
-                Notifications.Add(new Notification { Message = "Registry date is required." });
+                Notifications.Add(new Notification { message = "Registry date is required." });
             }
 
             if (IncludedDate == DateTime.MinValue)
             {
-                Notifications.Add(new Notification { Message = "Included date is required." });
+                Notifications.Add(new Notification { message = "Included date is required." });
             }
 
         }

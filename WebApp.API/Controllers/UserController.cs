@@ -12,7 +12,7 @@ namespace WebApp.API.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService) 
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -24,13 +24,9 @@ namespace WebApp.API.Controllers
             var result = _userService.Register(user);
 
             if (result.Item1)
-            {
                 return Ok(new { success = true, notifications = result.Item2 });
-            }
             else
-            {
                 return BadRequest(new { success = false, notifications = result.Item2 });
-            }
         }
 
 
@@ -40,13 +36,9 @@ namespace WebApp.API.Controllers
             var result = _userService.Login(request);
 
             if (result.isAuthenticated)
-            {
-                return Ok(new { sucess = true, userId = result.user.id, notifications = result.notifications, token  = result.token });
-            }
-            else 
-            {
+                return Ok(new { sucess = true, userId = result.user.id, notifications = result.notifications, token = result.token });
+            else
                 return BadRequest(new { sucess = false, notifications = result.notifications });
-            }
         }
 
         [HttpGet("{id}")]
@@ -55,9 +47,7 @@ namespace WebApp.API.Controllers
             var (success, notifications, user) = _userService.GetUserById(id);
 
             if (!success)
-            {
                 return NotFound(new { Notifications = notifications });
-            }
 
             var userResponse = new
             {

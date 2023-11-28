@@ -23,9 +23,7 @@ namespace WebApp.API.Controllers
             (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(email, date);
 
             if (!result.Item1)
-            {
                 return BadRequest(new { Success = false, Notifications = result.Item2, Registry = result.Item3 });
-            }
 
             return Ok(new { Success = false, Notifications = result.Item2, Registry = result.Item3 });
         }
@@ -36,9 +34,7 @@ namespace WebApp.API.Controllers
             (bool, List<Notification>) result = _managementService.CreateRegistry(registry);
 
             if (!result.Item1)
-            {
                 return BadRequest(new { Success = false, Notifications = result.Item2 });
-            }
 
             return Ok(new { Success = true, Notifications = result.Item2 });
         }
@@ -49,9 +45,7 @@ namespace WebApp.API.Controllers
             (bool, List<Notification>) result = _managementService.UpdateRegistry(registry);
 
             if (!result.Item1)
-            {
                 return BadRequest(new { Success = false, Notifications = result.Item2 });
-            }
 
             return Ok(new { Success = true, Notifications = result.Item2 });
         }
@@ -62,9 +56,7 @@ namespace WebApp.API.Controllers
             (bool, List<Notification>) result = _managementService.DeleteRegistry(id);
 
             if (!result.Item1)
-            {
-                return BadRequest(new { Success = false, Notifications = result.Item2 }); 
-            }
+                return BadRequest(new { Success = false, Notifications = result.Item2 });
 
             return Ok(new { Success = true, Notifications = result.Item2 });
         }
