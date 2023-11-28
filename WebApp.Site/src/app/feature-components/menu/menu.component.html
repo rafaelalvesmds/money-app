@@ -2,11 +2,11 @@
   <p-card id="card-container" class="card-container">
     <div class="menu-bar px-1 flex flex-row justify-content-between align-items-center bg-gray-300">
       <div class="flex flex-row align-items-center">
-        <i class="pi pi-user " style="font-size: 14px"></i>
+        <i class="pi pi-user " style="font-size: 13px"></i>
         <p class="ml-1 font-semibold" style="font-size: 14px">{{user?.name}}</p>
       </div>
 
-      <button class="logout-button" (click)="logout()"></button>
+      <button class="logout-button" (click)="logout()" [pTooltip]="'Logout'"></button>
     </div>
     <router-outlet></router-outlet>
   </p-card>
