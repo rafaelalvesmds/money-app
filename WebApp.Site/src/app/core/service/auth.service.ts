@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiBaseUrl = 'https://localhost:5001'; // Substitua pela URL da sua API
+  private apiBaseUrl = 'https://localhost:5001';
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
 

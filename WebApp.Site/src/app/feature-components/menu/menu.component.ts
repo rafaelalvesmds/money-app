@@ -23,7 +23,6 @@ export class MenuComponent implements OnInit {
   nodes!: any[];
 
   user!: UserModel;
-  // currentUser!: UserModel;
 
   screenWidth!: number;
   screenHeigth!: number;

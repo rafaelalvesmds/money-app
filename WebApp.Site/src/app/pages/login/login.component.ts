@@ -32,18 +32,6 @@ export class LoginComponent implements OnInit {
     this.checkQueryParams();
   }
 
-  // onLoginSubmit() {
-  //   this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
-  //     (response: any) => {
-  //       this.router.navigate(['/management']);
-  //       this.saveToken(response)
-  //     },
-  //     (error: any) => {
-  //       this.showError(error.error.notifications[0]?.message);
-  //     }
-  //   );
-  // }
-
   onLoginSubmit() {
     this.showSpinner = true;
 

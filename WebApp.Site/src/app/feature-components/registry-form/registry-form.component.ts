@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
-import { AuthService } from 'src/app/core/service/auth.service';
 import { DomainService } from 'src/app/core/service/domain.service';
 import { v4 as uuidv4 } from 'uuid';
 

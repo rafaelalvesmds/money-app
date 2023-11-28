@@ -18,6 +18,10 @@ interface Card {
 })
 export class AnalyticsValuesComponent implements OnInit {
 
+  @Input() cards: Card[] = [];
+
+  screenWidth!: number;
+
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
   }
@@ -26,9 +30,4 @@ export class AnalyticsValuesComponent implements OnInit {
   onWindowResize() {
     this.screenWidth = window.innerWidth;
   }
-
-  @Input() cards: Card[] = [];
-
-  screenWidth!: number;
-
 }

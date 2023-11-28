@@ -1,7 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
-import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 import { RegistryModel } from 'src/app/core/models/registry.model';
@@ -133,7 +131,6 @@ export class ManagementComponent {
           });
         },
         error: (error: any) => {
-          // console.log(error.error.notifications, 'error notifications')
         },
         complete: () => {
           this.calculateValues();
@@ -301,8 +298,8 @@ export class ManagementComponent {
   }
 
   setCardResponsivity() {
-    const fullCard = document.getElementById('full-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
-    const table = document.getElementById('management-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+    const fullCard = document.getElementById('full-container'); 
+    const table = document.getElementById('management-container'); 
 
     if (fullCard) {
       fullCard.style.height = `${this.screenHeigth * 0.9}px`;
