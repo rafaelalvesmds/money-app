@@ -87,7 +87,7 @@ export class ManagementComponent {
 
   totalExpensesPrice: number = 0;
   totalIncomesPrice: number = 0;
-  balance: number = 0;
+  balance: any = 0;
   biggestExpense!: { type: number; value: number };
 
   cards: any[] = [];
@@ -248,7 +248,7 @@ export class ManagementComponent {
       0
     );
 
-    this.balance = this.totalIncomesPrice - this.totalExpensesPrice;
+    this.balance = (this.totalIncomesPrice - this.totalExpensesPrice).toFixed(2);
 
     this.calculateBiggestExpense();
     this.setAnalyticsValues();
@@ -279,7 +279,7 @@ export class ManagementComponent {
       this.cards = [
         {
           title: 'Incomes',
-          value: `$${this.totalIncomesPrice},00`,
+          value: `$${this.totalIncomesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-green-100',
           // changeValue: '+%52',
@@ -288,7 +288,7 @@ export class ManagementComponent {
         },
         {
           title: 'Expenses',
-          value: `$${this.totalExpensesPrice},00`,
+          value: `$${this.totalExpensesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-red-100',
           // changeValue: '+%52',
@@ -297,7 +297,7 @@ export class ManagementComponent {
         },
         {
           title: 'Balance',
-          value: `$${this.balance},00`,
+          value: `$${this.balance}`,
           icon: 'pi pi-wallet',
           bgColor: 'bg-orange-100',
           textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
@@ -307,7 +307,7 @@ export class ManagementComponent {
         },
         // {
         //   title: 'Top 1',
-        //   value: `$${this.biggestExpense?.value},00`,
+        //   value: `$${this.biggestExpense?.value}`,
         //   icon: 'pi pi-star-fill',
         //   bgColor: 'bg-blue-300',
         //   changeValue: `${ExpenseTypeEnum[this.biggestExpense?.type]}`,
@@ -318,7 +318,7 @@ export class ManagementComponent {
       this.cards = [
         {
           title: 'Balance',
-          value: `$${this.balance},00`,
+          value: `$${this.balance}`,
           icon: 'pi pi-wallet',
           bgColor: 'bg-orange-100',
           textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',

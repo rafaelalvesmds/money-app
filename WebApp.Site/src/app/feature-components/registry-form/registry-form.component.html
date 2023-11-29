@@ -26,8 +26,16 @@
     ></p-dropdown>
   </div>
 
-  <span class="p-float-label w-full">
-    <input pInputText formControlName="price" class="w-full" type="number" />
+  <span class="p-float-label w-full flex flex-column">
+    <p-inputNumber
+      formControlName="price"
+      inputId="currency-us"
+      mode="currency"
+      currency="USD"
+      locale="en-US"
+      styleClass="w-full"
+    >
+    </p-inputNumber>
     <label htmlFor="price">Price</label>
   </span>
 
@@ -40,7 +48,10 @@
     [appendTo]="'body'"
   ></p-calendar>
 
-  <div class="w-full grid-nogutter formgrid p-fluid" *ngIf="typeAction == 'register'">
+  <div
+    class="w-full grid-nogutter formgrid p-fluid"
+    *ngIf="typeAction == 'register'"
+  >
     <p-button
       label="Register"
       styleClass="p-button p-button-raised col-12 mb-2"
