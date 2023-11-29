@@ -3,7 +3,7 @@
     <div class="menu-bar px-1 flex flex-row justify-content-between align-items-center bg-gray-300">
       <div class="flex flex-row align-items-center">
         <i class="pi pi-user " style="font-size: 13px"></i>
-        <p class="ml-1 font-semibold" style="font-size: 14px">{{user?.name}}</p>
+        <p class="ml-1 font-semibold" style="font-size: 14px" *ngIf="user">{{user.name}}</p>
       </div>
 
       <button class="logout-button" (click)="logout()" [pTooltip]="'Logout'"></button>

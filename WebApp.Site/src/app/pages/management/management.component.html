@@ -71,11 +71,17 @@
   [modal]="true"
 >
   <ng-template pTemplate="header">
-    <span class="text-xl font-bold {{registryCategory == 1 ? 'text-red-400' : 'text-green-400'}}">
+    <span
+      class="text-xl font-bold {{
+        registryCategory == 1 ? 'text-red-400' : 'text-green-400'
+      }}"
+    >
       {{ typeAction == "edit" ? "Edit" : "Add" }}
       {{ registryCategory == 1 ? "Expense" : "Income" }}
     </span>
   </ng-template>
+  
+  <br />
 
   <app-registry-form
     (registryEmit)="createRegistry($event)"

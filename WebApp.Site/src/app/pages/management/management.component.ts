@@ -120,6 +120,8 @@ export class ManagementComponent {
   }
 
   getAllRegristries() {
+    this.showSpinner = true;
+
     this.managementService
       .getAllRegristries(this.user?.email, this.dateSelected)
       .subscribe({
@@ -134,34 +136,55 @@ export class ManagementComponent {
             return registry.category === 2;
           });
         },
-        error: (error: any) => {},
+        error: (error: any) => {
+          this.showSpinner = false;
+        },
         complete: () => {
           this.calculateValues();
+          this.showSpinner = false;
         },
       });
   }
 
   createRegistry(e: any) {
-    this.managementService.createRegistry(e.registry).subscribe({
-      next: (res: any) => {
-        console.log(res, 'res res create');
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: res.notifications[0].message,
-        });
-        this.visible = e.visible;
-        this.getAllRegristries();
-      },
-    });
+    this.showSpinner = true;
+
+    if (e == false) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'The fields are invalid',
+      });
+      this.showSpinner = false;
+    } else {
+      this.managementService.createRegistry(e.registry).subscribe({
+        next: (res: any) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: res.notifications[0].message,
+          });
+          this.visible = e.visible;
+          this.getAllRegristries();
+        },
+        error: (error: any) => {
+          console.log(error, 'erro');
+          this.showSpinner = false;
+        },
+      });
+    }
   }
 
   updateRegistry(e: RegistryModel) {
+    this.showSpinner = true;
     this.visible = false;
 
     this.managementService.updateRegistry(e).subscribe({
       next: (res: any) => {
         this.getAllRegristries();
+      },
+      error: (error: any) => {
+        this.showSpinner = false;
       },
     });
   }
@@ -173,9 +196,14 @@ export class ManagementComponent {
   }
 
   deleteRegistry() {
+    this.showSpinner = true;
+
     this.managementService.deleteRegistry(this.rowSelected.id).subscribe({
       next: (res: any) => {
         if (res.success) this.getAllRegristries();
+      },
+      error: (error: any) => {
+        this.showSpinner = false;
       },
     });
   }

@@ -41,7 +41,7 @@ export class RegistryFormComponent implements OnInit, OnChanges {
       this.registryForm?.controls['type'].setValue(this.registryToEdit.type)
     }
     else if (this.typeAction = 'register') {
-      this.registryForm.reset();
+      this.registryForm?.reset();
       // this.registryForm?.controls['updatedDate'].setValue(new Date())
     }
   }
@@ -89,6 +89,8 @@ export class RegistryFormComponent implements OnInit, OnChanges {
     if (this.registryForm.valid) {
       this.registryEmit.emit({ registry: this.registryForm.value, visible: registerAnother })
       this.registryForm.reset();
+    } else {
+      this.registryEmit.emit(false)
     }
   }
 
