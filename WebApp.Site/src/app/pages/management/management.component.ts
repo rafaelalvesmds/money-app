@@ -65,7 +65,9 @@ export class ManagementComponent {
   actions: ActionsModel[] = [
     {
       icon: 'pi pi-pencil',
-      command: () => this.editRegistry(),
+      command: () => {
+        this.editRegistry(this.rowSelected.category);
+      },
     },
     {
       icon: 'pi pi-trash',
@@ -96,6 +98,8 @@ export class ManagementComponent {
   dateSelected!: any;
 
   widthDialog!: string;
+
+  showSpinner: boolean = false;
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
@@ -130,8 +134,7 @@ export class ManagementComponent {
             return registry.category === 2;
           });
         },
-        error: (error: any) => {
-        },
+        error: (error: any) => {},
         complete: () => {
           this.calculateValues();
         },
@@ -163,8 +166,9 @@ export class ManagementComponent {
     });
   }
 
-  editRegistry() {
+  editRegistry(registryCategory: RegistryCategoryEnum) {
     this.typeAction = 'edit';
+    this.registryCategory = registryCategory;
     this.visible = true;
   }
 
@@ -177,6 +181,7 @@ export class ManagementComponent {
   }
 
   addRegistry(registryCategory: RegistryCategoryEnum) {
+    this.typeAction = 'register';
     this.registryCategory = registryCategory;
     this.visible = true;
   }
@@ -298,8 +303,8 @@ export class ManagementComponent {
   }
 
   setCardResponsivity() {
-    const fullCard = document.getElementById('full-container'); 
-    const table = document.getElementById('management-container'); 
+    const fullCard = document.getElementById('full-container');
+    const table = document.getElementById('management-container');
 
     if (fullCard) {
       fullCard.style.height = `${this.screenHeigth * 0.9}px`;

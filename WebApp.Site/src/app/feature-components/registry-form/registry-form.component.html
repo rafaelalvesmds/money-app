@@ -1,10 +1,10 @@
-<div [formGroup]="registryForm" class="flex flex-column gap-4 h-20rem">
+<div [formGroup]="registryForm" class="flex flex-column gap-4 h-auto">
   <span class="p-float-label">
     <input pInputText formControlName="description" class="w-full" />
     <label htmlFor="description">Description</label>
   </span>
 
-  <div *ngIf="registryCategory === 1 || registryToEdit?.category == 1">
+  <div *ngIf="registryCategory === 1">
     <p-dropdown
       formControlName="type"
       [options]="expenseTypes"
@@ -15,7 +15,7 @@
     ></p-dropdown>
   </div>
 
-  <div *ngIf="registryCategory === 2 || registryToEdit?.category == 2">
+  <div *ngIf="registryCategory === 2">
     <p-dropdown
       formControlName="type"
       [options]="incomeTypes"
@@ -42,12 +42,12 @@
 
   <div class="w-full grid-nogutter formgrid p-fluid" *ngIf="typeAction == 'register'">
     <p-button
-      label="register"
+      label="Register"
       styleClass="p-button p-button-raised col-12 mb-2"
       (onClick)="emitRegistry(false)"
     ></p-button>
     <p-button
-      label="register and register another"
+      label="Register and register another"
       styleClass="p-button-text p-button-secondary p-button-raised col-12"
       (onClick)="emitRegistry(true)"
     ></p-button>
@@ -55,8 +55,8 @@
 
   <div *ngIf="typeAction == 'edit'">
     <p-button
-      label="save"
-      styleClass="p-button-text p-button-raised"
+      label="Save"
+      styleClass="p-button p-button-raised col-12"
       (onClick)="emitEditedRegistry()"
     ></p-button>
   </div>

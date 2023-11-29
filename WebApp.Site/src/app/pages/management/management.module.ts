@@ -6,6 +6,7 @@ import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
 import { AnalyticsValuesModule } from 'src/app/feature-components/analytics-values/analytics-values.module';
 import { TableSpentModule } from 'src/app/feature-components/table/table.module';
 import { RegistryFormModule } from 'src/app/feature-components/registry-form/registry-form.module';
+import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { RegistryFormModule } from 'src/app/feature-components/registry-form/reg
     AnalyticsValuesModule,
     TableSpentModule,
     RegistryFormModule,
+    SpinnerModule
   ]
 })
 export class ManagementModule { }

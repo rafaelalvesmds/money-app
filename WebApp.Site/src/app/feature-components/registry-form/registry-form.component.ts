@@ -41,6 +41,7 @@ export class RegistryFormComponent implements OnInit, OnChanges {
       this.registryForm?.controls['type'].setValue(this.registryToEdit.type)
     }
     else if (this.typeAction = 'register') {
+      this.registryForm.reset();
       // this.registryForm?.controls['updatedDate'].setValue(new Date())
     }
   }
