@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System.IdentityModel.Tokens.Jwt;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 
@@ -42,6 +45,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetUserById(Guid id)
         {
             var (success, notifications, user) = _userService.GetUserById(id);
@@ -59,5 +63,19 @@ namespace WebApp.API.Controllers
 
             return Ok(userResponse);
         }
+
+        [HttpGet("{email}/{token}")]
+        public IActionResult ConfirmEmail(string email, string token)
+        {
+            var result = _userService.ConfirmEmail(email, token);
+
+            if (result.Item1)
+            {
+                return Ok(result.Item2);
+            }
+
+            return BadRequest(result.Item2);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
 using WebApp.API.Repository.DataBase;
@@ -18,6 +19,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllRegristries([FromQuery] string email, DateTime date)
         {
             (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(email, date);
@@ -29,6 +31,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateRegistry([FromBody] Registry registry)
         {
             (bool, List<Notification>) result = _managementService.CreateRegistry(registry);
@@ -40,6 +43,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult UpdateRegistry(Registry registry)
         {
             (bool, List<Notification>) result = _managementService.UpdateRegistry(registry);
@@ -51,6 +55,7 @@ namespace WebApp.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteRegistry(Guid id)
         {
             (bool, List<Notification>) result = _managementService.DeleteRegistry(id);

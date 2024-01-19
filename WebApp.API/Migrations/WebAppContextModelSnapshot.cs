@@ -124,6 +124,9 @@ namespace WebApp.API.Migrations
                     b.Property<int?>("cellphone")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("confirmedEmail")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(100)

@@ -12,7 +12,7 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20231106021700_schema_inicial_domain")]
+    [Migration("20240116004701_schema_inicial_domain")]
     partial class schema_inicial_domain
     {
         /// <inheritdoc />
@@ -126,6 +126,9 @@ namespace WebApp.API.Migrations
 
                     b.Property<int?>("cellphone")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("confirmedEmail")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("email")
                         .IsRequired()

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   queryParams: any;
   showSpinner: boolean = false;
@@ -72,6 +72,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  showInfo(message: string) {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: message,
+    });
+  }
+
   showSuccess(message: string) {
     this.messageService.add({
       severity: 'success',
@@ -85,10 +93,22 @@ export class LoginComponent implements OnInit {
       this.queryParams = params;
     });
 
+    console.log(this.queryParams)
+
     if (this.queryParams.message != undefined) {
       setTimeout(() => {
-        this.showSuccess(this.queryParams.message);
+        this.showInfo(this.queryParams.message);
       }, 100);
+    } else if (this.queryParams.email != undefined) {
+      this.authService.ConfirmEmail(this.queryParams.email, this.queryParams.token).subscribe({
+        next: (res: any) => {
+          console.log(res,' entrei')
+          this.showSuccess(res[0].message);
+        },
+        error: (error: any) => {
+          this.showError(error.error[0].message);
+        }
+      })
     }
   }
 }

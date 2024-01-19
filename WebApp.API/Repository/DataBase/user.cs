@@ -26,6 +26,9 @@ namespace WebApp.API.Repository.DataBase
 
         [Required]
         public DateTime registrationDate { get; set; }
+
+        [Required]
+        public bool confirmedEmail { get; set; }
     }
 
 }

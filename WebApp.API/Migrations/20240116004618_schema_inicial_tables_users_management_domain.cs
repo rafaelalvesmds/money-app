@@ -92,7 +92,8 @@ namespace WebApp.API.Migrations
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     password = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     cellphone = table.Column<int>(type: "integer", nullable: true),
-                    registrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    registrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    confirmedEmail = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

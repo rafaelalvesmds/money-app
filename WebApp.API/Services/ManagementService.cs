@@ -24,6 +24,7 @@ namespace WebApp.API.Services
 
             var registryDatabase = _context.registry
                 .Where(e => e.email == email && e.date.Year == date.Year && e.date.Month == date.Month)
+                .OrderBy(e => e.date)
                 .ToList();
 
             if (registryDatabase.Count == 0)

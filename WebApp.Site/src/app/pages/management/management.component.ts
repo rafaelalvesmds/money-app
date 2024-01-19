@@ -17,7 +17,7 @@ export class ManagementComponent {
     private managementService: ManagementService,
     private messageService: MessageService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   rowSelected!: any;
 
@@ -122,28 +122,32 @@ export class ManagementComponent {
   getAllRegristries() {
     this.showSpinner = true;
 
-    this.managementService
-      .getAllRegristries(this.user?.email, this.dateSelected)
-      .subscribe({
-        next: (res: any) => {
-          this.registries = res.registry;
+    if (this.user?.email) {
+      this.managementService
+        .getAllRegristries(this.user?.email, this.dateSelected)
+        .subscribe({
+          next: (res: any) => {
+            this.registries = res.registry;
 
-          this.expenses = this.registries.filter((registry: any) => {
-            return registry.category === 1;
-          });
+            console.log(this.registries, 'rere')
 
-          this.incomes = this.registries.filter((registry: any) => {
-            return registry.category === 2;
-          });
-        },
-        error: (error: any) => {
-          this.showSpinner = false;
-        },
-        complete: () => {
-          this.calculateValues();
-          this.showSpinner = false;
-        },
-      });
+            this.expenses = this.registries.filter((registry: any) => {
+              return registry.category === 1;
+            });
+
+            this.incomes = this.registries.filter((registry: any) => {
+              return registry.category === 2;
+            });
+          },
+          error: (error: any) => {
+            this.showSpinner = false;
+          },
+          complete: () => {
+            this.calculateValues();
+            this.showSpinner = false;
+          },
+        });
+    }
   }
 
   createRegistry(e: any) {

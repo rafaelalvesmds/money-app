@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using WebApp.API.Context;
 using WebApp.API.Interfaces;
 using WebApp.API.Models;
@@ -14,26 +10,61 @@ namespace WebApp.API.Services
     public class UserService : IUserService
     {
         private readonly WebAppContext _context;
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
+        private readonly ITokenService _tokenService;
 
-        public UserService(WebAppContext context, IConfiguration configuration, IMapper mapper)
+
+        public UserService(WebAppContext context, IMapper mapper, IEmailService emailService, ITokenService tokenService)
         {
             _context = context;
-            _configuration = configuration;
             _mapper = mapper;
+            _emailService = emailService;
+            _tokenService = tokenService;
         }
 
         public AuthenticationResult Login(LoginRequest request)
         {
             var userRequest = _context.users.SingleOrDefault(u => u.email == request.email);
-
             List<Notification> notifications = new List<Notification>();
 
-            //password encryption
-            if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
+            if (userRequest.confirmedEmail)
             {
-                notifications.Add(new Notification { message = "Invalid credentials." });
+
+                //password encryption
+                if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
+                {
+                    notifications.Add(new Notification { message = "Invalid credentials." });
+
+                    var result = new AuthenticationResult
+                    {
+                        isAuthenticated = false,
+                        user = new User(),
+                        notifications = notifications,
+                        token = ""
+                    };
+
+                    return result;
+                }
+                else
+                {
+                    var token = _tokenService.GenerateJwtToken(userRequest.email);
+
+                    notifications.Add(new Notification { message = "User successfully authenticated." });
+
+                    var successResult = new AuthenticationResult
+                    {
+                        isAuthenticated = true,
+                        user = _mapper.Map<user, User>(userRequest),
+                        notifications = notifications,
+                        token = token
+                    };
+
+                    return successResult;
+                }
+            } else
+            {
+                notifications.Add(new Notification { message = "confirm your email please." });
 
                 var result = new AuthenticationResult
                 {
@@ -45,22 +76,8 @@ namespace WebApp.API.Services
 
                 return result;
             }
-            else
-            {
-                var token = GenerateJwtToken(userRequest.email);
 
-                notifications.Add(new Notification { message = "User successfully authenticated." });
-
-                var successResult = new AuthenticationResult
-                {
-                    isAuthenticated = true,
-                    user = _mapper.Map<user, User>(userRequest),
-                    notifications = notifications,
-                    token = token
-                };
-
-                return successResult;
-            }
+            
         }
 
         public (bool, List<Notification>, User) GetUserById(Guid id)
@@ -92,51 +109,68 @@ namespace WebApp.API.Services
 
             if (existingUser != null)
             {
+                if (!existingUser.confirmedEmail)
+                {
+                    notifications.Add(new Notification { message = "Email already registered. To complete registration, please confirm your email." });
+                    return (false, notifications);
+                }
+
                 notifications.Add(new Notification { message = "There is already a user with the same email." });
                 return (false, notifications);
             }
             else
             {
                 user userToRegister = _mapper.Map<User, user>(user);
-                userToRegister.password = HashPassword(user.password);
+                userToRegister.password = _tokenService.HashPassword(user.password);
                 userToRegister.id = Guid.NewGuid();
                 userToRegister.registrationDate = DateTime.UtcNow;
+                userToRegister.confirmedEmail = false;
+
+                _emailService.SendConfirmationEmail(userToRegister.email, userToRegister.name);
 
                 _context.users.Add(userToRegister);
                 _context.SaveChanges();
 
-                notifications.Add(new Notification { message = "User registered successfully." });
+                notifications.Add(new Notification { message = "Confirm your email to complete your registration." });
                 return (true, notifications);
             }
         }
 
-
-        public string GenerateJwtToken(string username)
+        public ValueTuple<bool, List<Notification>> ConfirmEmail(string email,string token)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            user existingUser = _context.users.SingleOrDefault(u => u.email == email);
+            List<Notification> notifications = new List<Notification>();
 
-            var claims = new[]
+
+            if (existingUser != null)
             {
-                new Claim(JwtRegisteredClaimNames.Sub, username),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
+                if(!existingUser.confirmedEmail)
+                {
+                    bool result = _tokenService.ValidateJwtToken(email, token);
 
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials
-            );
+                    if (result)
+                    {
+                        existingUser.confirmedEmail = true;
+                        _context.SaveChanges();
+                        notifications.Add(new Notification { message = "email confirmed successfully." });
+                        return (true, notifications);
+                    }
+                    else
+                    {
+                        notifications.Add(new Notification { message = "expired token." });
+                        return (false, notifications);
+                    }
+                } else
+                    notifications.Add(new Notification { message = "email is already confirmed." });
+                    return (false, notifications);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            } else
+            {
+                notifications.Add(new Notification { message = "email not registered." });
+                return (false, notifications);
+            }
         }
 
-        public string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password);
-        }
     }
 }
 

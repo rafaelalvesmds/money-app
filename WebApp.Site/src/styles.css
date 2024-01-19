@@ -10,13 +10,15 @@
 
 * {
   margin: 0;
+  user-select: none;
 }
 
 .background-page {
   width: 100%;
   height: 100vh;
   position: relative;
-  background-image: url('./assets/images/background-login.jpeg');
+  background-image: url("./assets/images/background-login.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
 }
+

@@ -35,5 +35,8 @@ export class AuthService {
   getUserById(id: string): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/api/v1/user/GetUserById/${id}`);
   }
-}
 
+  ConfirmEmail(email: string, token: string): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/api/v1/user/ConfirmEmail/${email}/${token}`);
+  }
+}

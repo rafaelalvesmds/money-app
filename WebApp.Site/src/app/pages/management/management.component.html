@@ -38,6 +38,7 @@
           (valueSelected)="receiveRegistrySelected($event)"
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
+          (dateSelected)="receiveDateSelected($event)"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
@@ -56,6 +57,7 @@
           (valueSelected)="receiveRegistrySelected($event)"
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
+          (dateSelected)="receiveDateSelected($event)"
         ></app-table>
       </p-tabPanel>
     </p-tabView>
@@ -80,7 +82,7 @@
       {{ registryCategory == 1 ? "Expense" : "Income" }}
     </span>
   </ng-template>
-  
+
   <br />
 
   <app-registry-form

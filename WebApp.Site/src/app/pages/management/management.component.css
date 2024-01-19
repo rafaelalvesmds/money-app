@@ -1,13 +1,14 @@
 .management-container::-webkit-scrollbar {
-  width: 8px;
-  height: 12px; 
+  width: 8px; /* Largura da barra de rolagem vertical */
+  height: 12px; /* Altura da barra de rolagem horizontal */
 }
 
 .management-container::-webkit-scrollbar-thumb {
-  background: #b4b4b4;
-  border-radius: 6px; 
+  background: #b4b4b4; /* Cor de fundo da alça */
+  border-radius: 6px; /* Raio da borda da alça */
 }
 
+/* Estilizando a trilha (track) da barra de rolagem */
 .management-container::-webkit-scrollbar-track {
 }
 
@@ -20,3 +21,5 @@
     padding: 0rem;
   }
 }
+
+
