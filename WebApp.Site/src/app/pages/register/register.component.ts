@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.controls['passwordConfirm'].setErrors({
         invalid: true,
       });
-      this.showError('As senhas devem ser iguais');
+      this.showError('Passwords must be the same');
 
       this.showSpinner = false;
     }
