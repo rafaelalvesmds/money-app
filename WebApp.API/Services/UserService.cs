@@ -28,41 +28,24 @@ namespace WebApp.API.Services
             var userRequest = _context.users.SingleOrDefault(u => u.email == request.email);
             List<Notification> notifications = new List<Notification>();
 
-            if (userRequest.confirmedEmail)
+
+
+            //password encryption
+            if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
+                notifications.Add(new Notification { message = "Invalid credentials." });
 
-                //password encryption
-                if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
+                var result = new AuthenticationResult
                 {
-                    notifications.Add(new Notification { message = "Invalid credentials." });
+                    isAuthenticated = false,
+                    user = new User(),
+                    notifications = notifications,
+                    token = ""
+                };
 
-                    var result = new AuthenticationResult
-                    {
-                        isAuthenticated = false,
-                        user = new User(),
-                        notifications = notifications,
-                        token = ""
-                    };
-
-                    return result;
-                }
-                else
-                {
-                    var token = _tokenService.GenerateJwtToken(userRequest.email);
-
-                    notifications.Add(new Notification { message = "User successfully authenticated." });
-
-                    var successResult = new AuthenticationResult
-                    {
-                        isAuthenticated = true,
-                        user = _mapper.Map<user, User>(userRequest),
-                        notifications = notifications,
-                        token = token
-                    };
-
-                    return successResult;
-                }
-            } else
+                return result;
+            }
+            else if (!userRequest.confirmedEmail)
             {
                 notifications.Add(new Notification { message = "confirm your email please." });
 
@@ -76,8 +59,22 @@ namespace WebApp.API.Services
 
                 return result;
             }
+            else
+            {
+                var token = _tokenService.GenerateJwtToken(userRequest.email);
 
-            
+                notifications.Add(new Notification { message = "User successfully authenticated." });
+
+                var successResult = new AuthenticationResult
+                {
+                    isAuthenticated = true,
+                    user = _mapper.Map<user, User>(userRequest),
+                    notifications = notifications,
+                    token = token
+                };
+
+                return successResult;
+            }
         }
 
         public (bool, List<Notification>, User) GetUserById(Guid id)

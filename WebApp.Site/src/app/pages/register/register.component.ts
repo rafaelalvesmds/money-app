@@ -64,7 +64,6 @@ export class RegisterComponent implements OnInit {
           });
         },
         error: (error: any) => {
-          console.log(error, 'error');
           if (error.status == 400)
             this.showError(error.error.notifications[0].message);
 

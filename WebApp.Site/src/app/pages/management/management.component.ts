@@ -129,8 +129,6 @@ export class ManagementComponent {
           next: (res: any) => {
             this.registries = res.registry;
 
-            console.log(this.registries, 'rere')
-
             this.expenses = this.registries.filter((registry: any) => {
               return registry.category === 1;
             });
@@ -172,7 +170,6 @@ export class ManagementComponent {
           this.getAllRegristries();
         },
         error: (error: any) => {
-          console.log(error, 'erro');
           this.showSpinner = false;
         },
       });
@@ -366,7 +363,7 @@ export class ManagementComponent {
   }
 
   receiveDateSelected(date: Date) {
-    this.dateSelected = date.toISOString();
+    this.dateSelected = date.toLocaleDateString();
     this.getAllRegristries();
   }
 }

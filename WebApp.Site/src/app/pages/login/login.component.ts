@@ -100,7 +100,6 @@ export class LoginComponent implements OnInit {
     } else if (this.queryParams.email != undefined) {
       this.authService.ConfirmEmail(this.queryParams.email, this.queryParams.token).subscribe({
         next: (res: any) => {
-          console.log(res, ' entrei')
           this.showSuccess(res[0].message);
         },
         error: (error: any) => {
