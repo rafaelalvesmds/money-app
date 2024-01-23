@@ -151,6 +151,7 @@ export class ManagementComponent {
   createRegistry(e: any) {
     this.showSpinner = true;
 
+    console.log(e, 'resgistry')
     if (e == false) {
       this.messageService.add({
         severity: 'error',
@@ -363,7 +364,7 @@ export class ManagementComponent {
   }
 
   receiveDateSelected(date: Date) {
-    this.dateSelected = date.toLocaleDateString();
+    this.dateSelected = date.toISOString();
     this.getAllRegristries();
   }
 }
