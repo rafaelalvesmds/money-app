@@ -345,7 +345,7 @@ export class ManagementComponent {
     if (table && this.screenWidth >= 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
       table.style.width = '100%';
-      this.widthDialog = '50vw';
+      this.widthDialog = '40vw';
     }
 
     if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
