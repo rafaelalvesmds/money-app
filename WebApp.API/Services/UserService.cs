@@ -28,8 +28,6 @@ namespace WebApp.API.Services
             var userRequest = _context.users.SingleOrDefault(u => u.email == request.email);
             List<Notification> notifications = new List<Notification>();
 
-
-
             //password encryption
             if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
