@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20240116004701_schema_inicial_domain")]
-    partial class schema_inicial_domain
+    [Migration("20240306223714_schema_inicial_tables_users_management_domain")]
+    partial class schema_inicial_tables_users_management_domain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

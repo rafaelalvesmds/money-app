@@ -1,7 +1,7 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <p-card styleClass="w-20rem h-30rem">
+  <p-card styleClass="w-20rem h-29rem">
     <div class="h-4rem">
       <p-button
         icon="pi pi-arrow-left"
@@ -17,40 +17,35 @@
       </div>
     </div>
 
-    <div [formGroup]="registerForm" class="flex flex-column gap-4 h-19rem">
-      <span class="p-float-label">
+    <div [formGroup]="registerForm" class="flex flex-column gap-1 h-19rem">
+      <span>
+        <label>Name</label>
         <input pInputText formControlName="name" class="w-full" />
-        <label htmlFor="name">Name</label>
       </span>
 
-      <span class="p-float-label">
+      <span>
+        <label>Email</label>
         <input pInputText formControlName="email" class="w-full" />
-        <label htmlFor="email">Email</label>
       </span>
 
-      <!-- <span class="p-float-label">
-        <input pInputText formControlName="cellphone" class="w-full" type="number">
-        <label htmlFor="cellphone">Cellphone</label>
-      </span> -->
-
-      <span class="p-float-label w-full">
+      <span>
+        <label>Password</label>
         <p-password
           [formControlName]="'password'"
           [toggleMask]="true"
           styleClass="w-full"
           [feedback]="false"
         ></p-password>
-        <label for="password">Password</label>
       </span>
 
-      <span class="p-float-label">
+      <span>
+        <label>Password Confirm</label>
         <p-password
           [formControlName]="'passwordConfirm'"
           [toggleMask]="true"
           styleClass="w-full"
           [feedback]="false"
         ></p-password>
-        <label for="passwordConfirm">Password Confirm</label>
       </span>
     </div>
     <p-button

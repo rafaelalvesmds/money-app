@@ -1,27 +1,22 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <p-card styleClass="w-20rem h-25rem">
+  <p-card styleClass="w-20rem h-21rem">
     <div class="flex flex-row justify-content-center mb-5">
       <span class="text-2xl font-bold font-style adjust-position"
         >Money Control App</span
       >
     </div>
-    <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-20rem">
-      <div class="col-12 mt-3">
-        <span class="p-float-label">
+    <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-14rem">
+      <div class="col-12">
+        <span>
+          <label>Email</label>
           <input pInputText pInputText formControlName="email" />
-          <label htmlFor="email">Email</label>
         </span>
 
-        <span class="p-float-label mt-4">
-          <input
-            pInputText
-            pInputText
-            formControlName="password"
-            type="password"
-          />
-          <label htmlFor="password">Password</label>
+        <span>
+          <label>Password</label>
+          <input pInputText formControlName="password" type="password" />
         </span>
       </div>
 
@@ -34,15 +29,13 @@
             [disabled]="!loginForm.valid"
           ></p-button>
         </div>
-        <div class="mt-3">
-          <p-button
-            label="Register"
-            styleClass="p-button-text p-button-raised"
-            (onClick)="register()"
-          ></p-button>
-        </div>
       </div>
     </form>
+    <div class="flex align-items-center justify-content-center">
+      <p class="text-123 mt-3">
+        Join us! <a class="register-link" (click)="register()">Register</a> now.
+      </p>
+    </div>
   </p-card>
 </div>
 

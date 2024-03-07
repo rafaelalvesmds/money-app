@@ -151,7 +151,6 @@ export class ManagementComponent {
   createRegistry(e: any) {
     this.showSpinner = true;
 
-    console.log(e, 'resgistry')
     if (e == false) {
       this.messageService.add({
         severity: 'error',
@@ -233,6 +232,7 @@ export class ManagementComponent {
 
   activeIndexChange(e: any) {
     this.activeIndex = e;
+    this.setAnalyticsValues()
   }
 
   calculateValues() {
@@ -317,18 +317,45 @@ export class ManagementComponent {
         // },
       ];
     } else {
-      this.cards = [
-        {
-          title: 'Balance',
-          value: `$${this.balance}`,
-          icon: 'pi pi-wallet',
-          bgColor: 'bg-orange-100',
-          textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
-          // changeValue: '+%52',
-          // changeText: 'Nov/2023',
-          // colorChangeValue: 'red'
-        },
-      ];
+      if (this.activeIndex == 1) {
+        this.cards = [
+          {
+            title: 'Expenses',
+            value: `$${this.totalExpensesPrice.toFixed(2)}`,
+            icon: 'pi pi-money-bill',
+            bgColor: 'bg-red-100',
+            // changeValue: '+%52',
+            // changeText: 'Nov/2023',
+            // colorChangeValue: 'green'
+          },
+        ]
+      } else if (this.activeIndex == 2) {
+        this.cards = [
+          {
+            title: 'Incomes',
+            value: `$${this.totalIncomesPrice.toFixed(2)}`,
+            icon: 'pi pi-money-bill',
+            bgColor: 'bg-green-100',
+            // changeValue: '+%52',
+            // changeText: 'Nov/2023',
+            // colorChangeValue: 'red'
+          },
+        ]
+      } else {
+        this.cards = [
+          {
+            title: 'Balance',
+            value: `$${this.balance}`,
+            icon: 'pi pi-wallet',
+            bgColor: 'bg-orange-100',
+            textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
+            // changeValue: '+%52',
+            // changeText: 'Nov/2023',
+            // colorChangeValue: 'red'
+          },
+        ];
+      }
+
     }
   }
 
