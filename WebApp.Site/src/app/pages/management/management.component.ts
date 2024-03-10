@@ -26,10 +26,10 @@ export class ManagementComponent {
   incomes = [];
 
   columns: any[] = [
-    { field: 'description', header: 'Description', width: '50%' },
+    { field: 'description', header: 'Descrição', width: '50%' },
     {
       field: 'type',
-      header: 'Category',
+      header: 'Categoria',
       useTag: true,
       width: '20%',
       alignment: 'center',
@@ -37,14 +37,14 @@ export class ManagementComponent {
     },
     {
       field: 'date',
-      header: 'Date',
+      header: 'Data',
       width: '10%',
       alignment: 'center',
       pipe: 'date',
     },
     {
       field: 'price',
-      header: 'Price',
+      header: 'Preço',
       width: '20%',
       alignment: 'right',
       pipe: 'money',
@@ -52,10 +52,10 @@ export class ManagementComponent {
   ];
 
   columnsSmallScreen: any[] = [
-    { field: 'description', header: 'Description', width: '70%' },
+    { field: 'description', header: 'Descrição', width: '70%' },
     {
       field: 'price',
-      header: 'Price',
+      header: 'Preço',
       width: '30%',
       alignment: 'right',
       pipe: 'money',
@@ -280,8 +280,8 @@ export class ManagementComponent {
     if (this.screenWidth > 576) {
       this.cards = [
         {
-          title: 'Incomes',
-          value: `$${this.totalIncomesPrice}`,
+          title: 'Entradas',
+          value: `R$${this.totalIncomesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-green-100',
           // changeValue: '+%52',
@@ -289,8 +289,8 @@ export class ManagementComponent {
           // colorChangeValue: 'red'
         },
         {
-          title: 'Expenses',
-          value: `$${this.totalExpensesPrice}`,
+          title: 'Saídas',
+          value: `R$${this.totalExpensesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-red-100',
           // changeValue: '+%52',
@@ -298,8 +298,8 @@ export class ManagementComponent {
           // colorChangeValue: 'green'
         },
         {
-          title: 'Balance',
-          value: `$${this.balance}`,
+          title: 'Saldo',
+          value: `R$${this.balance}`,
           icon: 'pi pi-wallet',
           bgColor: 'bg-orange-100',
           textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',
@@ -320,8 +320,8 @@ export class ManagementComponent {
       if (this.activeIndex == 1) {
         this.cards = [
           {
-            title: 'Expenses',
-            value: `$${this.totalExpensesPrice.toFixed(2)}`,
+            title: 'Saídas',
+            value: `R$${this.totalExpensesPrice.toFixed(2)}`,
             icon: 'pi pi-money-bill',
             bgColor: 'bg-red-100',
             // changeValue: '+%52',
@@ -332,8 +332,8 @@ export class ManagementComponent {
       } else if (this.activeIndex == 2) {
         this.cards = [
           {
-            title: 'Incomes',
-            value: `$${this.totalIncomesPrice.toFixed(2)}`,
+            title: 'Entradas',
+            value: `R$${this.totalIncomesPrice.toFixed(2)}`,
             icon: 'pi pi-money-bill',
             bgColor: 'bg-green-100',
             // changeValue: '+%52',
@@ -344,8 +344,8 @@ export class ManagementComponent {
       } else {
         this.cards = [
           {
-            title: 'Balance',
-            value: `$${this.balance}`,
+            title: 'Saldo',
+            value: `R$${this.balance}`,
             icon: 'pi pi-wallet',
             bgColor: 'bg-orange-100',
             textColor: this.balance >= 0 ? 'text-green-300' : 'text-red-300',

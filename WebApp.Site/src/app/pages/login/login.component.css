@@ -6,7 +6,7 @@
 }
 
 .register-link {
-  text-decoration:underline;
+  text-decoration: underline;
   transition: color 0.3s ease; /* Adiciona uma transição suave de cor */
 }
 

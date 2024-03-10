@@ -3,9 +3,7 @@
 >
   <p-card styleClass="w-20rem h-21rem">
     <div class="flex flex-row justify-content-center mb-5">
-      <span class="text-2xl font-bold font-style adjust-position"
-        >Money App</span
-      >
+      <h1 class="text-2xl font-bold font-style adjust-position">Money App</h1>
     </div>
     <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-14rem">
       <div class="col-12">
@@ -15,7 +13,7 @@
         </span>
 
         <span>
-          <label>Password</label>
+          <label>Senha</label>
           <input pInputText formControlName="password" type="password" />
         </span>
       </div>
@@ -24,7 +22,7 @@
         <div>
           <p-button
             styleClass="p-button-raised"
-            label="Login"
+            label="Entrar"
             (onClick)="onLoginSubmit()"
             [disabled]="!loginForm.valid"
           ></p-button>
@@ -33,7 +31,12 @@
     </form>
     <div class="flex align-items-center justify-content-center">
       <p class="text-123 mt-3">
-        Join us! <a class="register-link" (click)="register()">Register</a> now.
+        <!-- Join us! <a class="register-link" (click)="register()">Register</a> now. -->
+        <p-button
+          label="Registrar"
+          styleClass="p-button-link text-white"
+          (onClick)="register()"
+        ></p-button>
       </p>
     </div>
   </p-card>

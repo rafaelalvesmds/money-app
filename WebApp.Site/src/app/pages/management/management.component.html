@@ -7,7 +7,7 @@
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-list mr-2"></i>
-            <span *ngIf="screenWidth > 576">All</span>
+            <span *ngIf="screenWidth > 576">Todos</span>
           </div>
         </ng-template>
 
@@ -26,7 +26,7 @@
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Expenses</span>
+            <span *ngIf="screenWidth > 576">Saídas</span>
           </div>
         </ng-template>
 
@@ -45,7 +45,7 @@
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Incomes</span>
+            <span *ngIf="screenWidth > 576">Entradas</span>
           </div>
         </ng-template>
 
@@ -78,8 +78,8 @@
         registryCategory == 1 ? 'text-red-400' : 'text-green-400'
       }}"
     >
-      {{ typeAction == "edit" ? "Edit" : "Add" }}
-      {{ registryCategory == 1 ? "Expense" : "Income" }}
+      {{ typeAction == "edit" ? "Editar" : "Adicionar" }}
+      {{ registryCategory == 1 ? "saída" : "entrada" }}
     </span>
   </ng-template>
 

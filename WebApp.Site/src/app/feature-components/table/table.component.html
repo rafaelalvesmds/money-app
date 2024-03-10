@@ -22,14 +22,14 @@
           *ngIf="registryCategory != 2"
           styleClass="h-2rem w-2rem md:h-3rem md:w-3rem p-button-rounded p-button-danger"
           icon="pi pi-plus"
-          [pTooltip]="'Add expense'"
+          [pTooltip]="'Adicionar saída'"
           (onClick)="addButton(registryCategoryEnum.Expense)"
         ></p-button>
         <p-button
           *ngIf="registryCategory != 1"
           styleClass="h-2rem w-2rem md:h-3rem md:w-3rem p-button-rounded p-button-success"
           icon="pi pi-plus"
-          [pTooltip]="'Add income'"
+          [pTooltip]="'Adicionar entrada'"
           (onClick)="addButton(registryCategoryEnum.Income)"
         ></p-button>
       </div>

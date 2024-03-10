@@ -2,29 +2,26 @@
   cursor: pointer;
 }
 
-:host ::ng-deep {
-  .container {
-    width: 100%;
-    position: relative;
-    background-image: url("../../../assets/images/background-primary.jpeg");
-    /* background-color: black; */
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    padding: 0 !important;
-  }
+::ng-deep .container {
+  width: 100%;
+  position: relative;
+  background-image: url("../../../assets/images/background-primary.jpeg");
+  /* background-color: black; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  padding: 0 !important;
+}
 
-  .p-card .p-card-content  {
-    padding: 0;
-  }
+::ng-deep .p-card .p-card-content {
+  padding: 0 !important;
+}
 
-  .p-card .p-card-body {
-    padding: 0rem;
-  }
-
+::ng-deep .p-card .p-card-body {
+  padding: 0rem !important;
 }
 
 .menu-bar {
@@ -42,15 +39,14 @@
 .logout-button {
   width: 15px;
   height: 15px;
-  border-radius: 50%; 
-  border: 2px solid #ff5f57; 
-  background-color: #ff5f57; 
+  border-radius: 50%;
+  border: 2px solid #ff5f57;
+  background-color: #ff5f57;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
   background-color: #e81123;
 }
-

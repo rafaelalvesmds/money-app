@@ -12,14 +12,14 @@
 
       <div class="flex flex-row justify-content-center mb-2">
         <span class="text-2xl font-bold font-style adjust-position"
-          >Register</span
+          >Registrar</span
         >
       </div>
     </div>
 
     <div [formGroup]="registerForm" class="flex flex-column gap-1 h-19rem">
       <span>
-        <label>Name</label>
+        <label>Nome</label>
         <input pInputText formControlName="name" class="w-full" />
       </span>
 
@@ -29,7 +29,7 @@
       </span>
 
       <span>
-        <label>Password</label>
+        <label>Senha</label>
         <p-password
           [formControlName]="'password'"
           [toggleMask]="true"
@@ -39,7 +39,7 @@
       </span>
 
       <span>
-        <label>Password Confirm</label>
+        <label>Confirmar senha</label>
         <p-password
           [formControlName]="'passwordConfirm'"
           [toggleMask]="true"

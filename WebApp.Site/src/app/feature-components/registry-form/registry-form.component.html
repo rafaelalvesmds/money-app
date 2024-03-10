@@ -1,7 +1,7 @@
 <div [formGroup]="registryForm" class="flex flex-column gap-4 h-auto">
   <span class="p-float-label">
     <input pInputText formControlName="description" class="w-full" />
-    <label htmlFor="description">Description</label>
+    <label htmlFor="description">Descrição</label>
   </span>
 
   <div *ngIf="registryCategory === 1">
@@ -11,7 +11,7 @@
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
-      placeholder="Expense Type"
+      placeholder="Tipo"
     ></p-dropdown>
   </div>
 
@@ -22,7 +22,7 @@
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
-      placeholder="Income Type"
+      placeholder="Tipo entrada"
     ></p-dropdown>
   </div>
 
@@ -31,17 +31,17 @@
       formControlName="price"
       inputId="currency-us"
       mode="currency"
-      currency="USD"
+      currency="BRL"
       locale="en-US"
       styleClass="w-full"
     >
     </p-inputNumber>
-    <label htmlFor="price">Price</label>
+    <label htmlFor="price">Preço</label>
   </span>
 
   <p-calendar
     formControlName="date"
-    placeholder="Date"
+    placeholder="Data"
     dateFormat="dd/mm/yy"
     styleClass="w-full"
     [showIcon]="true"
@@ -53,12 +53,12 @@
     *ngIf="typeAction == 'register'"
   >
     <p-button
-      label="Register"
+      label="Salvar"
       styleClass="p-button p-button-raised col-12 mb-2"
       (onClick)="emitRegistry(false)"
     ></p-button>
     <p-button
-      label="Register and register another"
+      label="Salvar e registrar outra"
       styleClass="p-button-text p-button-secondary p-button-raised col-12"
       (onClick)="emitRegistry(true)"
     ></p-button>
@@ -66,7 +66,7 @@
 
   <div *ngIf="typeAction == 'edit'">
     <p-button
-      label="Save"
+      label="Salvar"
       styleClass="p-button p-button-raised col-12"
       (onClick)="emitEditedRegistry()"
     ></p-button>

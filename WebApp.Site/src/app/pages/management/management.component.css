@@ -16,10 +16,6 @@
   overflow: scroll;
 }
 
-:host ::ng-deep {
-  .p-tabview .p-tabview-panels {
-    padding: 0rem;
-  }
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0rem !important;
 }
-
-

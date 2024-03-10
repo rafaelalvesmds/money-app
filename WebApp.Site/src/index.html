@@ -2,10 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>WebApp.Site</title>
+    <title>Moneyapp</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-B9G5LRTXBY"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-B9G5LRTXBY");
+    </script>
   </head>
   <body>
     <app-root></app-root>

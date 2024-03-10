@@ -20,7 +20,7 @@ namespace WebApp.API.Services
         public string GenerateConfirmationLink(string email) 
         {
             string token = _tokenService.GenerateJwtToken(email);
-            return $"http://localhost:4200/login?email={email}&token={token}";
+            return $"http://moneyapp.com.br/login?email={email}&token={token}";
 
         }
 

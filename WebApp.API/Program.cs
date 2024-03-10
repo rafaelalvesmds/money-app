@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -120,4 +119,12 @@ app.UseCors();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+     using var webAppContext = scope.ServiceProvider.GetRequiredService<WebAppContext>();
+     webAppContext.Database.Migrate();
+}
+
+
 app.Run();
+
