@@ -1,10 +1,7 @@
-<div
-  class="grid-nogutter w-full full-container bg-gray-50"
-  id="full-container"
->
+<div class="grid-nogutter w-full full-container bg-gray-50" id="full-container">
   <app-analytics-values [cards]="cards"></app-analytics-values>
 
-  <div class="management-container"  id="management-container">
+  <div class="management-container" id="management-container">
     <p-tabView (activeIndexChange)="activeIndexChange($event)">
       <p-tabPanel [headerStyle]="{ width: '33.98%' }">
         <ng-template pTemplate="header">
@@ -23,6 +20,7 @@
           [registryCategory]="activeIndex"
           (addValue)="addRegistry($event)"
           (dateSelected)="receiveDateSelected($event)"
+          [emptyMessage]="'Não há entradas ou saídas registradas'"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
@@ -42,6 +40,7 @@
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
           (dateSelected)="receiveDateSelected($event)"
+          [emptyMessage]="'Não há saídas registradas'"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
@@ -61,6 +60,7 @@
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
           (dateSelected)="receiveDateSelected($event)"
+          [emptyMessage]="'Não há entradas registradas'"
         ></app-table>
       </p-tabPanel>
     </p-tabView>

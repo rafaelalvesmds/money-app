@@ -15,6 +15,7 @@ export class TableComponent implements OnInit {
   @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date' | 'enum'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
   @Input() actions!: ActionsModel[]
+  @Input() emptyMessage!: string;
 
   @Output() valueSelected = new EventEmitter<any>()
   @Output() addValue = new EventEmitter<any>()
