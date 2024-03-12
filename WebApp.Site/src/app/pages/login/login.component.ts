@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -22,6 +22,13 @@ export class LoginComponent implements OnInit {
 
   queryParams: any;
   showSpinner: boolean = false;
+
+
+  @HostListener('document:keydown.enter', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (this.loginForm.valid)
+      this.onLoginSubmit();
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({

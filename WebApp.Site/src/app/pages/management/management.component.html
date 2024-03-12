@@ -1,9 +1,12 @@
-<div class="grid-nogutter w-full full-container" id="full-container">
+<div
+  class="grid-nogutter w-full full-container bg-gray-50"
+  id="full-container"
+>
   <app-analytics-values [cards]="cards"></app-analytics-values>
 
-  <div class="management-container" id="management-container">
+  <div class="management-container"  id="management-container">
     <p-tabView (activeIndexChange)="activeIndexChange($event)">
-      <p-tabPanel [headerStyle]="{ width: '33%' }">
+      <p-tabPanel [headerStyle]="{ width: '33.98%' }">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-list mr-2"></i>

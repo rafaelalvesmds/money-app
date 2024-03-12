@@ -1,32 +1,33 @@
-<div [formGroup]="registryForm" class="flex flex-column gap-4 h-auto">
-  <span class="p-float-label">
+<div [formGroup]="registryForm" class="flex flex-column gap-1 h-auto">
+  <span>
+    <label>Descrição</label>
     <input pInputText formControlName="description" class="w-full" />
-    <label htmlFor="description">Descrição</label>
   </span>
 
   <div *ngIf="registryCategory === 1">
+    <label>Tipo</label>
     <p-dropdown
       formControlName="type"
       [options]="expenseTypes"
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
-      placeholder="Tipo"
     ></p-dropdown>
   </div>
 
   <div *ngIf="registryCategory === 2">
+    <label>Tipo</label>
     <p-dropdown
       formControlName="type"
       [options]="incomeTypes"
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
-      placeholder="Tipo entrada"
     ></p-dropdown>
   </div>
 
-  <span class="p-float-label w-full flex flex-column">
+  <span class="flex flex-column">
+    <label>Preço</label>
     <p-inputNumber
       formControlName="price"
       inputId="currency-us"
@@ -36,20 +37,21 @@
       styleClass="w-full"
     >
     </p-inputNumber>
-    <label htmlFor="price">Preço</label>
   </span>
 
-  <p-calendar
-    formControlName="date"
-    placeholder="Data"
-    dateFormat="dd/mm/yy"
-    styleClass="w-full"
-    [showIcon]="true"
-    [appendTo]="'body'"
-  ></p-calendar>
+  <div>
+    <label>Data</label>
+    <p-calendar
+      formControlName="date"
+      dateFormat="dd/mm/yy"
+      styleClass="w-full"
+      [showIcon]="true"
+      [appendTo]="'body'"
+    ></p-calendar>
+  </div>
 
   <div
-    class="w-full grid-nogutter formgrid p-fluid"
+    class="w-full grid-nogutter formgrid p-fluid mt-2"
     *ngIf="typeAction == 'register'"
   >
     <p-button
@@ -64,7 +66,7 @@
     ></p-button>
   </div>
 
-  <div *ngIf="typeAction == 'edit'">
+  <div *ngIf="typeAction == 'edit'" class="mt-2">
     <p-button
       label="Salvar"
       styleClass="p-button p-button-raised col-12"

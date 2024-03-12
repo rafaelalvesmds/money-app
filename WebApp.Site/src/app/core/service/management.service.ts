@@ -8,6 +8,7 @@ import { RegistryModel } from '../models/registry.model';
 })
 export class ManagementService {
   private apiBaseUrl = 'https://moneyapp.com.br/api/v1/management';
+  // private apiBaseUrl = 'https://localhost:5001/api/v1/management';
 
   constructor(private http: HttpClient) { }
   getAllRegristries(email: string, date: any): Observable<any> {

@@ -1,7 +1,7 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <p-card styleClass="w-20rem h-29rem">
+  <div class="w-20rem h-27rem bg-gray-50 p-3 border-round-lg">
     <div class="h-4rem">
       <p-button
         icon="pi pi-arrow-left"
@@ -12,12 +12,12 @@
 
       <div class="flex flex-row justify-content-center mb-2">
         <span class="text-2xl font-bold font-style adjust-position"
-          >Registrar</span
+          >Cadastrar</span
         >
       </div>
     </div>
 
-    <div [formGroup]="registerForm" class="flex flex-column gap-1 h-19rem">
+    <div [formGroup]="registerForm" class="flex flex-column gap-1 h-18rem">
       <span>
         <label>Nome</label>
         <input pInputText formControlName="name" class="w-full" />
@@ -56,7 +56,7 @@
       class="btn-save"
       (onClick)="save()"
     ></p-button>
-  </p-card>
+  </div>
 </div>
 
 <p-toast></p-toast>

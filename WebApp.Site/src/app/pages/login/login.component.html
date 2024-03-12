@@ -1,12 +1,12 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <p-card styleClass="w-20rem h-21rem">
+  <div class="w-20rem h-19rem bg-gray-50 p-3 border-round-lg">
     <div class="flex flex-row justify-content-center mb-5">
       <h1 class="text-2xl font-bold font-style adjust-position">Money App</h1>
     </div>
     <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-14rem">
-      <div class="col-12">
+      <div class="col-12 h-9rem flex flex-column justify-content-around">
         <span>
           <label>Email</label>
           <input pInputText pInputText formControlName="email" />
@@ -31,15 +31,14 @@
     </form>
     <div class="flex align-items-center justify-content-center">
       <p class="text-123 mt-3">
-        <!-- Join us! <a class="register-link" (click)="register()">Register</a> now. -->
         <p-button
-          label="Registrar"
+          label="Cadastrar"
           styleClass="p-button-link text-white"
           (onClick)="register()"
         ></p-button>
       </p>
     </div>
-  </p-card>
+  </div>
 </div>
 
 <p-toast></p-toast>

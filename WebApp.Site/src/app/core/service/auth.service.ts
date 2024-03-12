@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private apiBaseUrl = 'https://moneyapp.com.br';
+  // private apiBaseUrl = 'https://localhost:5001';
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
 

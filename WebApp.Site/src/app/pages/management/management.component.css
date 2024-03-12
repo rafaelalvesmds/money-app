@@ -1,5 +1,9 @@
+.full-container {
+  margin-top: -4px;
+}
+
 .management-container::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem vertical */
+  width: 7px; /* Largura da barra de rolagem vertical */
   height: 12px; /* Altura da barra de rolagem horizontal */
 }
 
@@ -14,8 +18,10 @@
 
 .management-container {
   overflow: scroll;
+  padding-left: 7px;
 }
 
 ::ng-deep .p-tabview .p-tabview-panels {
   padding: 0rem !important;
+
 }

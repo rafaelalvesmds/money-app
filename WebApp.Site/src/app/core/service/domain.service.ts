@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 })
 export class DomainService {
   private apiBaseUrl = 'https://moneyapp.com.br/api/v1/domain';
+  // private apiBaseUrl = 'https://localhost:5001/api/v1/domain';
 
   constructor(private http: HttpClient) { }
 
