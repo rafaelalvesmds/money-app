@@ -17,7 +17,7 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  background-image: url("./assets/images/background-login.jpeg");
+  background-image: url("./assets/images/background-login.webp");
   background-repeat: no-repeat;
   background-size: cover;
 }
