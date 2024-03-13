@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MenuItem } from 'primeng/api';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
 import { DomainService } from 'src/app/core/service/domain.service';
@@ -11,28 +12,31 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./registry-form.component.css']
 })
 export class RegistryFormComponent implements OnInit, OnChanges {
-  @Input() registryForm!: FormGroup;
 
   @Output() registryEmit = new EventEmitter<any>()
   @Output() registryEdit = new EventEmitter<any>()
 
+  @Input() registryForm!: FormGroup;
+  @Input() user!: UserModel;
+  @Input() typeAction: "register" | "edit" = "register";
+  @Input() registryToEdit!: RegistryModel;
+  @Input() registryCategory!: number;
+  @Input() date!: any;
+
   expenseTypes!: { id: number; name: string }[];
   incomeTypes!: { id: number; name: string }[];
 
-  @Input() user!: UserModel;
+  items: MenuItem[] = [
+    {
+      label: 'Salvar e registrar outra',
+      icon: 'pi pi-save',
+      command: () => {
+        this.emitRegistry(true)
+      }
+    }
+  ];
 
-  @Input() typeAction: "register" | "edit" = "register";
-
-  @Input() registryToEdit!: RegistryModel;
-
-  @Input() registryCategory!: number;
-
-  @Input() date!: any;
-
-
-  constructor(private fb: FormBuilder, private domainService: DomainService) {
-
-  }
+  constructor(private fb: FormBuilder, private domainService: DomainService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.typeAction == 'edit' && this.registryToEdit) {
@@ -97,5 +101,4 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   emitEditedRegistry() {
     this.registryEdit.emit(this.registryForm.value)
   }
-
 }

@@ -47,6 +47,7 @@ import { DockModule } from 'primeng/dock';
 import { TagModule } from 'primeng/tag';
 import { SpeedDialModule } from 'primeng/speeddial';
 
+
 @NgModule({
   exports: [
     AccordionModule,

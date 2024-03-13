@@ -14,53 +14,53 @@
         <app-table
           class="col-12"
           [values]="registries"
-          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [columns]="screenWidth >= 768 ? columns : columnsSmallScreen"
           [actions]="actions"
           (valueSelected)="receiveRegistrySelected($event)"
           [registryCategory]="activeIndex"
           (addValue)="addRegistry($event)"
           (dateSelected)="receiveDateSelected($event)"
-          [emptyMessage]="'Não há entradas ou saídas registradas'"
+          [emptyMessage]="'Não há receitas ou despesas registradas'"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Saídas</span>
+            <span *ngIf="screenWidth > 576">Despesas</span>
           </div>
         </ng-template>
 
         <app-table
           class="col-12"
           [values]="expenses"
-          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [columns]="screenWidth >= 768 ? columns : columnsSmallScreen"
           [actions]="actions"
           (valueSelected)="receiveRegistrySelected($event)"
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
           (dateSelected)="receiveDateSelected($event)"
-          [emptyMessage]="'Não há saídas registradas'"
+          [emptyMessage]="'Não há despesas registradas'"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '33%' }">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Entradas</span>
+            <span *ngIf="screenWidth > 576">Receitas</span>
           </div>
         </ng-template>
 
         <app-table
           class="col-12"
           [values]="incomes"
-          [columns]="screenWidth > 800 ? columns : columnsSmallScreen"
+          [columns]="screenWidth >= 768 ? columns : columnsSmallScreen"
           [actions]="actions"
           (valueSelected)="receiveRegistrySelected($event)"
           (addValue)="addRegistry($event)"
           [registryCategory]="activeIndex"
           (dateSelected)="receiveDateSelected($event)"
-          [emptyMessage]="'Não há entradas registradas'"
+          [emptyMessage]="'Não há receitas registradas'"
         ></app-table>
       </p-tabPanel>
     </p-tabView>
@@ -68,21 +68,18 @@
 </div>
 
 <p-dialog
-  header="Header"
   [(visible)]="visible"
   [style]="{ width: widthDialog }"
   [draggable]="false"
-  styleClass="h-auto"
+  styleClass="h-auto {{headerDialogLoading ? '' : 'hidden'}}"
   [modal]="true"
+  (onShow)="setStyleHeaderDialog()"
+  (onHide)="onHideDialog()"
 >
   <ng-template pTemplate="header">
-    <span
-      class="text-xl font-bold {{
-        registryCategory == 1 ? 'text-red-400' : 'text-green-400'
-      }}"
-    >
+    <span class="text-xl font-bold text-white">
       {{ typeAction == "edit" ? "Editar" : "Adicionar" }}
-      {{ registryCategory == 1 ? "saída" : "entrada" }}
+      {{ registryCategory == 1 ? "despesa" : "receita" }}
     </span>
   </ng-template>
 

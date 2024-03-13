@@ -87,9 +87,8 @@ export class TableComponent implements OnInit {
     return formatter.format(valor);
   }
 
-  addButton(typeAdd: number) {
-
-    this.addValue.emit(typeAdd);
+  addButton(categoryAdd: number) {
+    this.addValue.emit(categoryAdd);
   }
 
   setTextColor(registry: any, column: any): string {

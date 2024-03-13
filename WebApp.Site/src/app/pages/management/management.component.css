@@ -23,5 +23,8 @@
 
 ::ng-deep .p-tabview .p-tabview-panels {
   padding: 0rem !important;
+}
 
+::ng-deep .p-icon {
+  color: white !important;
 }

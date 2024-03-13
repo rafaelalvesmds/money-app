@@ -7,6 +7,7 @@
   <div *ngIf="registryCategory === 1">
     <label>Tipo</label>
     <p-dropdown
+      placeholder="Selecione um tipo"
       formControlName="type"
       [options]="expenseTypes"
       optionLabel="name"
@@ -18,6 +19,7 @@
   <div *ngIf="registryCategory === 2">
     <label>Tipo</label>
     <p-dropdown
+      placeholder="Selecione um tipo"
       formControlName="type"
       [options]="incomeTypes"
       optionLabel="name"
@@ -27,8 +29,9 @@
   </div>
 
   <span class="flex flex-column">
-    <label>Preço</label>
+    <label>Valor</label>
     <p-inputNumber
+      placeholder="R$ 0,00"
       formControlName="price"
       inputId="currency-us"
       mode="currency"
@@ -42,6 +45,7 @@
   <div>
     <label>Data</label>
     <p-calendar
+      placeholder="Selecione uma data"
       formControlName="date"
       dateFormat="dd/mm/yy"
       styleClass="w-full"
@@ -50,26 +54,18 @@
     ></p-calendar>
   </div>
 
-  <div
-    class="w-full grid-nogutter formgrid p-fluid mt-2"
+  <p-splitButton
     *ngIf="typeAction == 'register'"
-  >
-    <p-button
-      label="Salvar"
-      styleClass="p-button p-button-raised col-12 mb-2"
-      (onClick)="emitRegistry(false)"
-    ></p-button>
-    <p-button
-      label="Salvar e registrar outra"
-      styleClass="p-button-text p-button-secondary p-button-raised col-12"
-      (onClick)="emitRegistry(true)"
-    ></p-button>
-  </div>
+    label="Salvar"
+    [model]="items"
+    (onClick)="emitRegistry(false)"
+    styleClass=" p-button-success mt-4 w-full"
+  ></p-splitButton>
 
-  <div *ngIf="typeAction == 'edit'" class="mt-2">
+  <div *ngIf="typeAction == 'edit'" class="mt-4">
     <p-button
       label="Salvar"
-      styleClass="p-button p-button-raised col-12"
+      styleClass=" p-button-success col-12"
       (onClick)="emitEditedRegistry()"
     ></p-button>
   </div>

@@ -1,5 +1,17 @@
-:host ::ng-deep {
-  .p-datatable .p-datatable-header {
-    padding: 0.5rem;
+:host ::ng-deep .p-datatable .p-datatable-header {
+  padding: 0.5rem;
+}
+
+:host ::ng-deep .p-calendar-w-btn .p-datepicker-trigger {
+  width: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+  :host ::ng-deep .p-calendar-w-btn .p-datepicker-trigger {
+    width: 2rem;
   }
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  padding: 0.5rem 1rem;
 }

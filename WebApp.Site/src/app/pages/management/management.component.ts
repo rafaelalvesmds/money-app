@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
@@ -16,7 +16,9 @@ export class ManagementComponent {
   constructor(
     private managementService: ManagementService,
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private elRef: ElementRef,
+    private renderer: Renderer2
   ) { }
 
   rowSelected!: any;
@@ -29,7 +31,7 @@ export class ManagementComponent {
     { field: 'description', header: 'Descrição', width: '50%' },
     {
       field: 'type',
-      header: 'Categoria',
+      header: 'Tipo',
       useTag: true,
       width: '20%',
       alignment: 'center',
@@ -44,7 +46,7 @@ export class ManagementComponent {
     },
     {
       field: 'price',
-      header: 'Preço',
+      header: 'Valor',
       width: '20%',
       alignment: 'right',
       pipe: 'money',
@@ -55,7 +57,7 @@ export class ManagementComponent {
     { field: 'description', header: 'Descrição', width: '70%' },
     {
       field: 'price',
-      header: 'Preço',
+      header: 'Valor',
       width: '30%',
       alignment: 'right',
       pipe: 'money',
@@ -100,6 +102,8 @@ export class ManagementComponent {
   widthDialog!: string;
 
   showSpinner: boolean = false;
+
+  headerDialogLoading: boolean = false;
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
@@ -280,7 +284,7 @@ export class ManagementComponent {
     if (this.screenWidth > 576) {
       this.cards = [
         {
-          title: 'Entradas',
+          title: 'Receitas',
           value: `R$${this.totalIncomesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-green-100',
@@ -289,7 +293,7 @@ export class ManagementComponent {
           // colorChangeValue: 'red'
         },
         {
-          title: 'Saídas',
+          title: 'Despesas',
           value: `R$${this.totalExpensesPrice}`,
           icon: 'pi pi-money-bill',
           bgColor: 'bg-red-100',
@@ -320,7 +324,7 @@ export class ManagementComponent {
       if (this.activeIndex == 1) {
         this.cards = [
           {
-            title: 'Saídas',
+            title: 'Despesas',
             value: `R$${this.totalExpensesPrice.toFixed(2)}`,
             icon: 'pi pi-money-bill',
             bgColor: 'bg-red-100',
@@ -332,7 +336,7 @@ export class ManagementComponent {
       } else if (this.activeIndex == 2) {
         this.cards = [
           {
-            title: 'Entradas',
+            title: 'Receitas',
             value: `R$${this.totalIncomesPrice.toFixed(2)}`,
             icon: 'pi pi-money-bill',
             bgColor: 'bg-green-100',
@@ -372,20 +376,28 @@ export class ManagementComponent {
     if (table && this.screenWidth >= 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
       table.style.width = '100%';
-      this.widthDialog = '40vw';
+      this.widthDialog = '30vw';
     }
 
     if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
       table.style.width = '100%';
-      this.widthDialog = '65vw';
+      this.widthDialog = '45vw';
     }
 
-    if (table && this.screenWidth < 960) {
+    if (table && this.screenWidth >= 576 && this.screenWidth < 960) {
+      table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
+      table.style.width = '100%';
+      this.widthDialog = '55vw';
+    }
+
+    if (table && this.screenWidth < 576) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
       table.style.width = '100%';
       this.widthDialog = '80vw';
     }
+
+
 
     this.setAnalyticsValues();
   }
@@ -393,5 +405,21 @@ export class ManagementComponent {
   receiveDateSelected(date: Date) {
     this.dateSelected = date.toISOString();
     this.getAllRegristries();
+  }
+
+  setStyleHeaderDialog(): void {
+    let dialogHeader = this.elRef.nativeElement.querySelector('.p-dialog .p-dialog-header');
+
+    if (this.registryCategory == 1) {
+      this.renderer.setStyle(dialogHeader, 'background-color', 'rgb(187 15 15)');
+    } else {
+      this.renderer.setStyle(dialogHeader, 'background-color', 'rgb(38 131 72)');
+    }
+
+    this.headerDialogLoading = true;
+  }
+
+  onHideDialog() {
+    this.headerDialogLoading = false;
   }
 }

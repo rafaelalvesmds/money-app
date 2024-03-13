@@ -9,6 +9,7 @@ const routes: Routes = [
     component: MenuComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', redirectTo: 'management', pathMatch: 'full' },
       // { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
       { path: 'management', loadChildren: () => import('./pages/management/management.module').then(m => m.ManagementModule), canActivate: [AuthGuard] }
     ],
