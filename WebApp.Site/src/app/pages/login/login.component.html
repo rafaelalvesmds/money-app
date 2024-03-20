@@ -1,7 +1,7 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <div class="w-20rem h-19rem bg-gray-50 p-3 border-round-lg">
+  <div class="w-20rem h-21rem bg-gray-50 p-3 border-round-lg">
     <div class="flex flex-row justify-content-center mb-5">
       <h1 class="text-2xl font-style">Moneyapp</h1>
     </div>
@@ -18,10 +18,17 @@
         </span>
       </div>
 
+      <div class="col-12 flex flex-row justify-content-end">
+        <a
+          class="text-blue-500 hover:text-blue-400 font-semibold no-underline hover:underline cursor-pointer mt-2 mb-4 mr-1 text-xs"
+          >Esqueci a senha</a
+        >
+      </div>
       <div class="col-12">
         <div>
           <p-button
-            styleClass="p-button-raised"
+            [raised]="true"
+            severity="secondary"
             label="Entrar"
             (onClick)="onLoginSubmit()"
             [disabled]="!loginForm.valid"
@@ -30,13 +37,13 @@
       </div>
     </form>
     <div class="flex align-items-center justify-content-center">
-      <p class="text-123 mt-3">
-        <p-button
-          label="Cadastrar"
-          styleClass="p-button-link text-white"
-          (onClick)="register()"
-        ></p-button>
-      </p>
+      <p-button
+        styleClass="text-white mt-6"
+        label="Cadastrar"
+        [link]="true"
+        size="small"
+        (onClick)="register()"
+      ></p-button>
     </div>
   </div>
 </div>

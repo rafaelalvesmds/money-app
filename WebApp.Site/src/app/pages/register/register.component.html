@@ -1,12 +1,14 @@
 <div
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
-  <div class="w-20rem h-27rem bg-gray-50 p-3 border-round-lg">
+  <div class="w-20rem h-28rem bg-gray-50 p-3 border-round-lg">
     <div class="h-4rem">
       <p-button
         icon="pi pi-arrow-left"
+        severity="secondary"
         (onClick)="back()"
-        styleClass="p-button-rounded p-button-text"
+        [rounded]="true"
+        [text]="true"
         class="back-btn"
       ></p-button>
 
@@ -51,8 +53,9 @@
     <p-button
       [pTooltip]="!registerForm.valid ? 'Fill in the fields' : ''"
       [disabled]="!registerForm.valid"
-      label="Save"
-      styleClass="p-button-raised col-12"
+      label="Salvar"
+      styleClass="p-button-raised col-12 mt-3"
+      severity="secondary"
       class="btn-save"
       (onClick)="save()"
     ></p-button>
