@@ -25,6 +25,10 @@
   padding: 0rem !important;
 }
 
-::ng-deep .p-icon {
+::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
   color: white !important;
+}
+
+::ng-deep span {
+  font-size: 0.9rem;
 }

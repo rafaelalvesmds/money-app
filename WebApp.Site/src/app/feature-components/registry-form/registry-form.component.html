@@ -1,7 +1,12 @@
 <div [formGroup]="registryForm" class="flex flex-column gap-1 h-auto">
   <span>
     <label>Descrição</label>
-    <input pInputText formControlName="description" class="w-full" />
+    <input
+      pInputText
+      formControlName="description"
+      class="w-full"
+      placeholder="Insira uma descrição"
+    />
   </span>
 
   <div *ngIf="registryCategory === 1">
@@ -59,13 +64,13 @@
     label="Salvar"
     [model]="items"
     (onClick)="emitRegistry(false)"
-    styleClass=" p-button-success mt-4 w-full"
+    styleClass="p-button-raised p-button-text p-button-secondary mt-4 w-full"
   ></p-splitButton>
 
   <div *ngIf="typeAction == 'edit'" class="mt-4">
     <p-button
       label="Salvar"
-      styleClass=" p-button-success col-12"
+      styleClass="p-button-raised p-button-text p-button-secondary col-12"
       (onClick)="emitEditedRegistry()"
     ></p-button>
   </div>

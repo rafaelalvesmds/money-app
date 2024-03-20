@@ -1,14 +1,3 @@
-:host ::ng-deep .p-tieredmenu .p-menuitem {
-  /* position: relative !important;
-bottom: 100px !important; */
-}
-
-:host
-  ::ng-deep
-  .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c2949931874-7.p-tieredmenu.p-component.p-tieredmenu-overlay.ng-star-inserted {
-  top: -47px !important;
-  width: 250px !important;
-}
 
 :host ::ng-deep .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
   width: 250px !important;

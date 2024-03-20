@@ -6,9 +6,9 @@
 >
   <ng-template pTemplate="caption">
     <div class="flex flex-row justify-content-between align-items-center">
-      <form [formGroup]="calendarForm">
+      <div [formGroup]="calendarForm">
         <p-calendar
-          styleClass="w-10rem md:w-13rem h-2rem md:h-3rem"
+          styleClass="w-10rem md:w-13rem input-calendar"
           formControlName="date"
           view="month"
           dateFormat="mm/yy"
@@ -16,23 +16,23 @@
           [showIcon]="true"
           (ngModelChange)="emitDate()"
         ></p-calendar>
-      </form>
+      </div>
 
       <div class="flex align-items-center justify-content-end gap-2 p-0">
         <p-button
-          [label]="columns.length != 2 ? 'Despesa' : ''"
+          [label]="columns.length != 2 ? '  Despesa' : ''"
           *ngIf="registryCategory != 2"
-          styleClass="h-2rem w-2rem md:w-auto p-button-danger"
+          styleClass="w-auto p-button-danger add-button"
           icon="pi pi-plus"
-          [pTooltip]="'Adicionar despesa'"
+          [pTooltip]="columns.length != 2 ? '' : 'Adicionar despesa'"
           (onClick)="addButton(registryCategoryEnum.Expense)"
         ></p-button>
         <p-button
-          [label]="columns.length != 2 ? 'Receita' : ''"
+          [label]="columns.length != 2 ? '  Receita' : ''"
           *ngIf="registryCategory != 1"
-          styleClass="h-2rem w-2rem md:w-auto p-button-success"
+          styleClass="w-auto p-button-success add-button"
           icon="pi pi-plus"
-          [pTooltip]="'Adicionar receita'"
+          [pTooltip]="columns.length != 2 ? '' : ''"
           (onClick)="addButton(registryCategoryEnum.Income)"
         ></p-button>
       </div>
@@ -74,13 +74,14 @@
         </td>
 
         <td *ngIf="last" class="p-0">
-          <div class="btns-field flex flex-row justify-content-end w-full">
-            <p-button
+          <div class="flex flex-row justify-content-end w-full">
+            <a
               *ngFor="let action of actions"
-              [icon]="action.icon"
-              styleClass="p-button-text p-button-rounded "
+              class="actions-btn-row"
               (click)="onRowClick(registry); action?.command()"
-            ></p-button>
+            >
+              <i class="pi {{ action.icon }}"></i>
+            </a>
           </div>
         </td>
       </ng-container>
