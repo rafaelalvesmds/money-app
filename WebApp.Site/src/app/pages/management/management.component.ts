@@ -286,7 +286,7 @@ export class ManagementComponent {
         {
           title: 'Receitas',
           value: `R$${this.totalIncomesPrice}`,
-          icon: 'pi pi-money-bill',
+          icon: 'pi pi-chart-line',
           bgColor: 'bg-green-100',
           // changeValue: '+%52',
           // changeText: 'Nov/2023',
@@ -338,7 +338,7 @@ export class ManagementComponent {
           {
             title: 'Receitas',
             value: `R$${this.totalIncomesPrice.toFixed(2)}`,
-            icon: 'pi pi-money-bill',
+            icon: 'pi pi-chart-line',
             bgColor: 'bg-green-100',
             // changeValue: '+%52',
             // changeText: 'Nov/2023',
@@ -376,7 +376,7 @@ export class ManagementComponent {
     if (table && this.screenWidth >= 1200) {
       table.style.height = `${Number(fullCard?.clientHeight) * 0.79}px`;
       table.style.width = '100%';
-      this.widthDialog = '30vw';
+      this.widthDialog = '35vw';
     }
 
     if (table && this.screenWidth >= 960 && this.screenWidth < 1200) {
