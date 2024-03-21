@@ -20,7 +20,6 @@
 
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:first-child {
   height: 2.5rem;
-  border-left: 2px solid gray;
 }
 
 @media screen and (max-width: 767px) {

@@ -7,6 +7,7 @@ import { AnalyticsValuesModule } from 'src/app/feature-components/analytics-valu
 import { TableSpentModule } from 'src/app/feature-components/table/table.module';
 import { RegistryFormModule } from 'src/app/feature-components/registry-form/registry-form.module';
 import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module';
+import { CalendarModule } from 'src/app/feature-components/calendar/calendar.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module
     AnalyticsValuesModule,
     TableSpentModule,
     RegistryFormModule,
-    SpinnerModule
+    SpinnerModule,
+    CalendarModule
   ]
 })
 export class ManagementModule { }

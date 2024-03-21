@@ -1,7 +1,3 @@
-.full-container {
-  margin-top: -4px;
-}
-
 .management-container::-webkit-scrollbar {
   width: 7px; /* Largura da barra de rolagem vertical */
   height: 12px; /* Altura da barra de rolagem horizontal */

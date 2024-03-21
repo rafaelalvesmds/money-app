@@ -5,19 +5,7 @@
   [responsiveLayout]="'stack'"
 >
   <ng-template pTemplate="caption">
-    <div class="flex flex-row justify-content-between align-items-center">
-      <div [formGroup]="calendarForm">
-        <p-calendar
-          styleClass="w-10rem md:w-13rem input-calendar"
-          formControlName="date"
-          view="month"
-          dateFormat="mm/yy"
-          [readonlyInput]="true"
-          [showIcon]="true"
-          (ngModelChange)="emitDate()"
-        ></p-calendar>
-      </div>
-
+    <div class="flex flex-row justify-content-end align-items-center">
       <div class="flex align-items-center justify-content-end gap-2 p-0">
         <p-button
           [label]="columns.length != 2 ? '  Despesa' : ''"

@@ -26,16 +26,6 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   expenseTypes!: { id: number; name: string }[];
   incomeTypes!: { id: number; name: string }[];
 
-  items: MenuItem[] = [
-    {
-      label: 'Salvar e registrar outra',
-      icon: 'pi pi-save',
-      command: () => {
-        this.emitRegistry(true)
-      }
-    }
-  ];
-
   constructor(private fb: FormBuilder, private domainService: DomainService) { }
 
   ngOnChanges(changes: SimpleChanges): void {

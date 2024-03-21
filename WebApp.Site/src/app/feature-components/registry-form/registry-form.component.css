@@ -2,3 +2,8 @@
 :host ::ng-deep .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
   width: 250px !important;
 }
+
+label {
+  font-size: 0.8rem;
+  margin-left: 1px;
+}

@@ -1,5 +1,5 @@
 <div style="padding-left: 6px; padding-right: 6px">
-  <div class="grid mt-1">
+  <div class="grid" style="margin-top: 1px;">
     <div class="col-12 sm:col-4" *ngFor="let card of cards">
       <div class="surface-card shadow-2 p-2 border-round" [class]="card.title == 'Despesas' ? 'card-box' : ''">
         <div class="flex justify-content-between mb-3">
@@ -15,7 +15,7 @@
             class="flex align-items-center justify-content-center {{
               card.bgColor
             }} border-round"
-            style="width: 2.5rem; height: 2.5rem"
+            style="width: 2rem; height: 2rem"
           >
             <i [ngClass]="card.icon"></i>
           </div>

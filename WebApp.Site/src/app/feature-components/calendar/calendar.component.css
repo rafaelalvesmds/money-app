@@ -1,0 +1,12 @@
+:host ::ng-deep .p-datepicker table th {
+  display: none !important;
+}
+
+:host ::ng-deep .p-datepicker table td {
+  display: none !important;
+}
+
+:host ::ng-deep .p-datepicker {
+  padding: 0rem !important;
+  width: 100vw;
+}

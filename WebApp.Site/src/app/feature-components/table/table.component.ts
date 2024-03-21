@@ -10,7 +10,7 @@ import { ActionsModel } from 'src/app/core/models/actions.model';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 
   @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date' | 'enum'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
@@ -19,31 +19,10 @@ export class TableComponent implements OnInit {
 
   @Output() valueSelected = new EventEmitter<any>()
   @Output() addValue = new EventEmitter<any>()
-  @Output() dateSelected = new EventEmitter<any>()
-
-  date: Date[] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1)];
 
   @Input() registryCategory!: number;
 
   registryCategoryEnum = RegistryCategoryEnum
-
-  calendarForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.calendarForm = this.fb.group({
-      date: [new Date(), [Validators.required]]
-    })
-  }
-
-  ngOnInit(): void {
-    this.emitDate()
-
-    this.calendarForm.valueChanges.subscribe({
-      next: (res: any) => {
-        this.emitDate()
-      }
-    })
-  }
 
   onRowClick(value: any) {
 
@@ -92,19 +71,10 @@ export class TableComponent implements OnInit {
   }
 
   setTextColor(registry: any, column: any): string {
-    if (registry.category == 1 && column.field == 'price') {
-      return 'font-semibold text-red-300'
-    }
-
-    if (registry.category == 2 && column.field == 'price') {
-      return 'font-semibold text-green-300'
-    }
+    if (registry.category == 1 && column.field == 'price') return 'font-semibold text-red-300'
+    if (registry.category == 2 && column.field == 'price') return 'font-semibold text-green-300'
 
     return ''
   }
 
-  emitDate() {
-    this.date = this.calendarForm.value.date;
-    this.dateSelected.emit(this.date)
-  }
 }

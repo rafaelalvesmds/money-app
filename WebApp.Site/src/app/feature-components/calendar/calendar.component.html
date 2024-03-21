@@ -1,0 +1,22 @@
+<p-card
+  styleClass="surface-card shadow-2 p-2 border-round"
+  [style]="{ marginLeft: '7px', marginRight: '7px', marginTop: '7px' }"
+>
+  <div class="w-full flex flex-row align-items-center justify-content-between">
+    <p-button
+      size="small"
+      icon="pi pi-angle-left"
+      [text]="true"
+      (onClick)="onChangeMonth('before')"
+    ></p-button>
+
+    <p class="font-bold">{{ convertDateToText(date.toString()) }}</p>
+
+    <p-button
+      size="small"
+      icon="pi pi-angle-right"
+      [text]="true"
+      (onClick)="onChangeMonth('next')"
+    ></p-button>
+  </div>
+</p-card>

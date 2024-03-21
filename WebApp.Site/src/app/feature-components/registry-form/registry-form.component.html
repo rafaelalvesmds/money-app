@@ -9,24 +9,12 @@
     />
   </span>
 
-  <div *ngIf="registryCategory === 1">
+  <div>
     <label>Tipo</label>
     <p-dropdown
       placeholder="Selecione um tipo"
       formControlName="type"
-      [options]="expenseTypes"
-      optionLabel="name"
-      optionValue="id"
-      styleClass="w-full"
-    ></p-dropdown>
-  </div>
-
-  <div *ngIf="registryCategory === 2">
-    <label>Tipo</label>
-    <p-dropdown
-      placeholder="Selecione um tipo"
-      formControlName="type"
-      [options]="incomeTypes"
+      [options]="registryCategory === 1 ? expenseTypes : incomeTypes"
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
@@ -59,19 +47,29 @@
     ></p-calendar>
   </div>
 
-  <p-splitButton
-    *ngIf="typeAction == 'register'"
-    label="Salvar"
-    [model]="items"
-    (onClick)="emitRegistry(false)"
-    styleClass="p-button-raised p-button-text p-button-secondary mt-4 w-full"
-  ></p-splitButton>
-
-  <div *ngIf="typeAction == 'edit'" class="mt-4">
+  <div
+    class="mt-4 w-full flex flex-row align-items-center justify-content-end gap-2"
+  >
+    @if(typeAction == 'register') {
     <p-button
-      label="Salvar"
-      styleClass="p-button-raised p-button-text p-button-secondary col-12"
-      (onClick)="emitEditedRegistry()"
+      icon="pi pi-save"
+      severity="secondary"
+      [text]="true"
+      (onClick)="emitRegistry(true)"
+      [pTooltip]="'Salvar e adicionar outra'"
+      [tooltipPosition]="'left'"
+    >
+      <i class="pi pi-replay"></i> 
+    </p-button>
+    }
+
+    <p-button
+      icon="pi pi-save"
+      label=" Salvar"
+      [text]="true"
+      [raised]="true"
+      severity="secondary"
+      (onClick)="typeAction == 'register' ? emitRegistry(false) : emitEditedRegistry()"
     ></p-button>
   </div>
 </div>

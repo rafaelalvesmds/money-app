@@ -1,13 +1,15 @@
-<div class="grid-nogutter w-full full-container bg-gray-50" id="full-container">
+<div class="grid-nogutter w-full bg-gray-50" id="full-container">
+  <calendar (dateSelected)="receiveDateSelected($event)"></calendar>
+
   <app-analytics-values [cards]="cards"></app-analytics-values>
 
   <div class="management-container" id="management-container">
     <p-tabView (activeIndexChange)="activeIndexChange($event)">
-      <p-tabPanel [headerStyle]="{ width: '33.98%' }">
+      <p-tabPanel [headerStyle]="{ width: '50%' }">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-list mr-2"></i>
-            <span *ngIf="screenWidth > 576">Todos</span>
+            <span *ngIf="screenWidth > 576">Lista de receitas e despesas</span>
           </div>
         </ng-template>
 
@@ -19,49 +21,16 @@
           (valueSelected)="receiveRegistrySelected($event)"
           [registryCategory]="activeIndex"
           (addValue)="addRegistry($event)"
-          (dateSelected)="receiveDateSelected($event)"
           [emptyMessage]="'Não há receitas ou despesas registradas'"
         ></app-table>
       </p-tabPanel>
-      <p-tabPanel [headerStyle]="{ width: '33%' }">
+      <p-tabPanel [headerStyle]="{ width: '50%' }">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
-            <i class="pi pi-arrow-down-left text-red-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Despesas</span>
+            <i class="pi pi-chart-pie mr-2"></i>
+            <span *ngIf="screenWidth > 576">Métricas dos valores</span>
           </div>
         </ng-template>
-
-        <app-table
-          class="col-12"
-          [values]="expenses"
-          [columns]="screenWidth >= 768 ? columns : columnsSmallScreen"
-          [actions]="actions"
-          (valueSelected)="receiveRegistrySelected($event)"
-          (addValue)="addRegistry($event)"
-          [registryCategory]="activeIndex"
-          (dateSelected)="receiveDateSelected($event)"
-          [emptyMessage]="'Não há despesas registradas'"
-        ></app-table>
-      </p-tabPanel>
-      <p-tabPanel [headerStyle]="{ width: '33%' }">
-        <ng-template pTemplate="header">
-          <div class="w-full flex align-items-center justify-content-center">
-            <i class="pi pi-arrow-up-right text-green-500 mr-2"></i>
-            <span *ngIf="screenWidth > 576">Receitas</span>
-          </div>
-        </ng-template>
-
-        <app-table
-          class="col-12"
-          [values]="incomes"
-          [columns]="screenWidth >= 768 ? columns : columnsSmallScreen"
-          [actions]="actions"
-          (valueSelected)="receiveRegistrySelected($event)"
-          (addValue)="addRegistry($event)"
-          [registryCategory]="activeIndex"
-          (dateSelected)="receiveDateSelected($event)"
-          [emptyMessage]="'Não há receitas registradas'"
-        ></app-table>
       </p-tabPanel>
     </p-tabView>
   </div>
