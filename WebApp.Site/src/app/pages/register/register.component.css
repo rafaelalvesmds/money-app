@@ -1,13 +1,9 @@
-.back-btn {
-  position: fixed;
-}
-
 ::ng-deep .p-input-icon-right > .p-inputtext {
   padding-right: 0rem !important;
 }
 
-/* ::ng-deep .p-icon {
+::ng-deep .p-icon {
   position: relative  ;
   bottom: 8px  ;
   cursor: pointer;
-} */
+}

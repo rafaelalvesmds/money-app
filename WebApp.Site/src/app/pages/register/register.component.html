@@ -2,7 +2,7 @@
   class="h-screen w-full background-page flex align-items-center justify-content-center"
 >
   <div class="w-20rem h-28rem bg-gray-50 p-3 border-round-lg">
-    <div class="h-4rem">
+    <div class="h-4rem flex flex-row align-items-center mb-1">
       <p-button
         icon="pi pi-arrow-left"
         severity="secondary"
@@ -12,11 +12,7 @@
         class="back-btn"
       ></p-button>
 
-      <div class="flex flex-row justify-content-center mb-2">
-        <span class="text-2xl font-bold font-style adjust-position"
-          >Cadastrar</span
-        >
-      </div>
+      <span class="text-2xl font-bold ml-5">Cadastrar</span>
     </div>
 
     <div [formGroup]="registerForm" class="flex flex-column gap-1 h-18rem">

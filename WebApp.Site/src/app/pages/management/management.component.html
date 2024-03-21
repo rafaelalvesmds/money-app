@@ -24,11 +24,11 @@
           [emptyMessage]="'Não há receitas ou despesas registradas'"
         ></app-table>
       </p-tabPanel>
-      <p-tabPanel [headerStyle]="{ width: '50%' }">
+      <p-tabPanel [headerStyle]="{ width: '50%' }" [disabled]="true">
         <ng-template pTemplate="header">
           <div class="w-full flex align-items-center justify-content-center">
             <i class="pi pi-chart-pie mr-2"></i>
-            <span *ngIf="screenWidth > 576">Métricas dos valores</span>
+            <span *ngIf="screenWidth > 576">Métricas dos dados</span>
           </div>
         </ng-template>
       </p-tabPanel>

@@ -8,6 +8,7 @@
       icon="pi pi-angle-left"
       [text]="true"
       (onClick)="onChangeMonth('before')"
+      severity="secondary"
     ></p-button>
 
     <p class="font-bold">{{ convertDateToText(date.toString()) }}</p>
@@ -17,6 +18,7 @@
       icon="pi pi-angle-right"
       [text]="true"
       (onClick)="onChangeMonth('next')"
+      severity="secondary"
     ></p-button>
   </div>
 </p-card>

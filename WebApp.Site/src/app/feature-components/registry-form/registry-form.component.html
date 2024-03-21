@@ -42,24 +42,22 @@
       formControlName="date"
       dateFormat="dd/mm/yy"
       styleClass="w-full"
-      [showIcon]="true"
       [appendTo]="'body'"
     ></p-calendar>
   </div>
 
   <div
-    class="mt-4 w-full flex flex-row align-items-center justify-content-end gap-2"
+    class="mt-4 w-full flex flex-row align-items-center justify-content-between gap-2"
   >
     @if(typeAction == 'register') {
     <p-button
-      icon="pi pi-save"
+      icon="pi pi-replay"
       severity="secondary"
       [text]="true"
       (onClick)="emitRegistry(true)"
       [pTooltip]="'Salvar e adicionar outra'"
-      [tooltipPosition]="'left'"
     >
-      <i class="pi pi-replay"></i> 
+      <i class="pi pi-save"></i> 
     </p-button>
     }
 
@@ -69,7 +67,9 @@
       [text]="true"
       [raised]="true"
       severity="secondary"
-      (onClick)="typeAction == 'register' ? emitRegistry(false) : emitEditedRegistry()"
+      (onClick)="
+        typeAction == 'register' ? emitRegistry(false) : emitEditedRegistry()
+      "
     ></p-button>
   </div>
 </div>
