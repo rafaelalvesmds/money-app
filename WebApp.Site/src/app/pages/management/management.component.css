@@ -28,3 +28,14 @@
 ::ng-deep span {
   font-size: 0.9rem;
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: #fff; /* Cor do texto do rodapé */
+  text-align: center; /* Alinhamento do texto */
+  padding-bottom: 5px;
+  font-size: 12px;
+}
