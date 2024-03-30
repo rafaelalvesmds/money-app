@@ -87,7 +87,9 @@ export class RegistryFormComponent implements OnInit, OnChanges {
     this.registryForm.controls['includedDate'].setValue(new Date())
     this.registryForm.controls['category'].setValue(this.registryCategory)
     this.registryForm.controls['id'].setValue(uuidv4())
-    this.registryForm.controls['date'].setValue(this.date)
+
+    if (!this.registryForm.controls['date'].value)
+      this.registryForm.controls['date'].setValue(this.date)
 
     if (this.registryForm.valid) {
       this.registryEmit.emit({ registry: this.registryForm.value, visible: registerAnother })
