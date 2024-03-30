@@ -27,9 +27,9 @@ namespace WebApp.API.Services
         public void SendConfirmationEmail(string toAddress, string name)
         {
             string confirmationLink = GenerateConfirmationLink(toAddress);
-            string subject = "Register Confirmation";
+            string subject = "Confirmação de email";
 
-            string headerPath = "C:\\GitHub\\money-control-app\\WebApp.API\\Images\\header-email.png"; // Substitua pelo caminho real da imagem
+            string headerPath = "C:\\GitHub\\money-control-app\\WebApp.API\\Images\\header-email.png"; 
 
             string body = $@"
 <html>
@@ -78,16 +78,16 @@ namespace WebApp.API.Services
     </head>
     <body>
         <div class=""container"">
-            <p>Dear {name},</p>
-            <p>Welcome to our platform! We are very happy to have you with us! :)</p>
-            <p>Please click the following link to confirm your email and proceed to login:</p>
+            <p>Olá, {name} !</p>
+            <p>Bem-vindo à nossa plataforma! Estamos muito felizes em tê-lo conosco! :)</p>
+            <p>Por favor, clique no seguinte link para confirmar seu e-mail e prosseguir para o login:</p>
             <a href=""{confirmationLink}"" class=""button"">
-                Confirm Email
+                Confirmar Email
             </a>
-            <p>If the button above doesn't work, you can also copy and paste the following link into your browser:</p>
+            <p>Se o botão acima não funcionar, você também pode acessar o seguinte link:</p>
             <a href=""{confirmationLink}"" class=""link"">{confirmationLink}</a>
             <br>
-            <p>Thank you!</p>
+            <p>Obrigado!</p>
         </div>
     </body>
 </html>";

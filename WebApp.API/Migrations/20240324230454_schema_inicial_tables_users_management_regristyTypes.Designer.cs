@@ -12,8 +12,8 @@ using WebApp.API.Context;
 namespace WebApp.API.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20240306223807_schema_inicial_domain")]
-    partial class schema_inicial_domain
+    [Migration("20240324230454_schema_inicial_tables_users_management_regristyTypes")]
+    partial class schema_inicial_tables_users_management_regristyTypes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,44 +24,6 @@ namespace WebApp.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApp.API.Repository.DataBase.expenseType", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("name");
-
-                    b.HasKey("id");
-
-                    b.ToTable("expenseType", "domain");
-                });
-
-            modelBuilder.Entity("WebApp.API.Repository.DataBase.incomeType", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("name");
-
-                    b.HasKey("id");
-
-                    b.ToTable("incomeType", "domain");
-                });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.registry", b =>
                 {
@@ -80,11 +42,6 @@ namespace WebApp.API.Migrations
                         .HasMaxLength(180)
                         .HasColumnType("character varying(180)");
 
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<DateTime>("includedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -93,6 +50,9 @@ namespace WebApp.API.Migrations
 
                     b.Property<int>("type")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("id");
 
@@ -116,6 +76,36 @@ namespace WebApp.API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("registryCategory", "domain");
+                });
+
+            modelBuilder.Entity("WebApp.API.Repository.DataBase.registryType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("category")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid?>("userId")
+                        .IsRequired()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("id");
+
+                    b.ToTable("registryType", "management");
                 });
 
             modelBuilder.Entity("WebApp.API.Repository.DataBase.user", b =>

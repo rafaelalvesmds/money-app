@@ -1,0 +1,24 @@
+<div [formGroup]="registryTypeForm" class="flex flex-column gap-1 h-auto">
+  <p-colorPicker formControlName="color" styleClass=" mb-2"></p-colorPicker>
+
+  <div>
+    <label> Nome</label>
+    <input
+      pInputText
+      formControlName="name"
+      class="w-full"
+      placeholder="Insira o nome do tipo"
+    />
+  </div>
+
+  <div class="mt-4 w-full flex flex-row justify-content-end">
+    <p-button
+      icon="pi pi-save"
+      label=" Salvar"
+      [text]="true"
+      [raised]="true"
+      severity="secondary"
+      (onClick)="emitRegistryType()"
+    ></p-button>
+  </div>
+</div>

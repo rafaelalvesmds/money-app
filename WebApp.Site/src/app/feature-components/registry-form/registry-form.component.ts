@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
-import { DomainService } from 'src/app/core/service/domain.service';
+import { ManagementService } from 'src/app/core/service/management.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -23,10 +22,13 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   @Input() registryCategory!: number;
   @Input() date!: any;
 
-  expenseTypes!: { id: number; name: string }[];
-  incomeTypes!: { id: number; name: string }[];
+  registryTypes: { id: number; name: string; category: number; color: string; }[] = []
 
-  constructor(private fb: FormBuilder, private domainService: DomainService) { }
+  visible!: boolean;
+
+  optionsType: { id: number; name: string; category: number; color: string; }[] = []
+
+  constructor(private fb: FormBuilder, private managementService: ManagementService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.typeAction == 'edit' && this.registryToEdit) {
@@ -38,11 +40,13 @@ export class RegistryFormComponent implements OnInit, OnChanges {
       this.registryForm?.reset();
       // this.registryForm?.controls['updatedDate'].setValue(new Date())
     }
+
+    if (changes['registryCategory']) {
+      this.getRegistryTypes();
+    }
   }
 
-
   ngOnInit() {
-    this.getDomainTypes();
     this.configureForm();
   }
 
@@ -50,7 +54,7 @@ export class RegistryFormComponent implements OnInit, OnChanges {
     this.registryForm = this.fb.group({
       id: [null],
       description: [null, [Validators.required]],
-      email: [null, [Validators.required]],
+      userId: [null, [Validators.required]],
       price: [null, [Validators.required]],
       type: [null, [Validators.required]],
       category: [null, [Validators.required]],
@@ -59,22 +63,27 @@ export class RegistryFormComponent implements OnInit, OnChanges {
     })
   }
 
-  getDomainTypes() {
-    this.domainService.getExpenseTypes().subscribe({
-      next: (res: any) => {
-        this.expenseTypes = res;
-      }
-    })
+  getRegistryTypes() {
+    let userId = localStorage.getItem('userId');
 
-    this.domainService.getIncomeTypes().subscribe({
-      next: (res: any) => {
-        this.incomeTypes = res;
-      }
-    })
+    if (userId) {
+      this.managementService.getAllRegristriesTypes(userId).subscribe({
+        next: (res: any) => {
+          this.registryTypes = res.registry;
+        },
+        complete: () => {
+          this.setResgistryTypes()
+        }
+      })
+    }
+  }
+
+  setResgistryTypes() {
+    this.optionsType = this.registryTypes.filter((x) => x.category == this.registryCategory);
   }
 
   emitRegistry(registerAnother: boolean) {
-    this.registryForm.controls['email'].setValue(this.user?.email)
+    this.registryForm.controls['userId'].setValue(this.user?.id)
     this.registryForm.controls['includedDate'].setValue(new Date())
     this.registryForm.controls['category'].setValue(this.registryCategory)
     this.registryForm.controls['id'].setValue(uuidv4())
@@ -91,4 +100,21 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   emitEditedRegistry() {
     this.registryEdit.emit(this.registryForm.value)
   }
+
+  showDialogRegistryType() {
+    this.visible = true;
+  }
+
+  createRegistryType(e: any) {
+    this.managementService.createRegistryType(e).subscribe({
+      next: (res: any) => {
+        this.visible = false;
+      },
+      error: (error: any) => { },
+      complete: () => {
+        this.getRegistryTypes()
+      }
+    })
+  }
+
 }

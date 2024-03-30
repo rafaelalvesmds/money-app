@@ -11,8 +11,7 @@ namespace WebApp.API.Repository.DataBase
         public Guid id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string email { get; set; }
+        public Guid userId { get; set; }
 
         [Required]
         [StringLength(180)]

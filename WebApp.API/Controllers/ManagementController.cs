@@ -20,9 +20,9 @@ namespace WebApp.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllRegristries([FromQuery] string email, DateTime date)
+        public IActionResult GetAllRegristries([FromQuery] Guid userId, DateTime date)
         {
-            (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(email, date);
+            (bool, List<Notification>, List<registry>) result = _managementService.GetAllRegristries(userId, date);
 
             if (!result.Item1)
                 return BadRequest(new { Success = false, Notifications = result.Item2, Registry = result.Item3 });
@@ -65,5 +65,30 @@ namespace WebApp.API.Controllers
 
             return Ok(new { Success = true, Notifications = result.Item2 });
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllRegistriesTypes([FromQuery] Guid userId)
+        {
+            (bool, List<Notification>, List<RegistryType>) result = _managementService.GetAllRegistriesTypes(userId);
+
+            if (!result.Item1)
+                return BadRequest(new { Success = false, Notifications = result.Item2, Registry = result.Item3 });
+
+            return Ok(new { Success = false, Notifications = result.Item2, Registry = result.Item3 });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateRegistryType([FromBody] RegistryType registryType)
+        {
+            (bool success, List<Notification> notifications) = _managementService.CreateRegistryType(registryType);
+
+            if (!success)
+                return BadRequest(new { Success = false, Notifications = notifications });
+
+            return Ok(new { Success = true, Notifications = notifications });
+        }
+
     }
 }

@@ -16,7 +16,7 @@ namespace WebApp.API.AutoMapper
             CreateMap<Registry, RegistryDomain>()
                 .ConstructUsing(registry =>
                 new RegistryDomain(
-                    registry.email,
+                    registry.userId,
                     registry.description,
                     registry.type,
                     registry.category,
@@ -24,6 +24,16 @@ namespace WebApp.API.AutoMapper
                     registry.date,
                     registry.includedDate
                 ));
+
+
+            CreateMap<registryType, RegistryType>();
+            CreateMap<RegistryType, registryType>();
+            CreateMap<RegistryType, RegistryTypeDomain>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.name))
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.category))
+                .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.color))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.userId));
+
         }
     }
 }

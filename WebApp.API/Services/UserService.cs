@@ -31,7 +31,7 @@ namespace WebApp.API.Services
             //password encryption
             if (userRequest == null || !BCrypt.Net.BCrypt.Verify(request.password, userRequest.password))
             {
-                notifications.Add(new Notification { message = "Invalid credentials." });
+                notifications.Add(new Notification { message = "Credenciais inválidas." });
 
                 var result = new AuthenticationResult
                 {
@@ -45,7 +45,7 @@ namespace WebApp.API.Services
             }
             else if (!userRequest.confirmedEmail)
             {
-                notifications.Add(new Notification { message = "confirm your email please." });
+                notifications.Add(new Notification { message = "Confirme seu email." });
 
                 var result = new AuthenticationResult
                 {
@@ -61,7 +61,7 @@ namespace WebApp.API.Services
             {
                 var token = _tokenService.GenerateJwtToken(userRequest.email);
 
-                notifications.Add(new Notification { message = "User successfully authenticated." });
+                notifications.Add(new Notification { message = "Usuário autenticado com sucesso." });
 
                 var successResult = new AuthenticationResult
                 {
@@ -81,7 +81,7 @@ namespace WebApp.API.Services
 
             if (user == null)
             {
-                var notifications = new List<Notification> { new Notification { message = "User not found." } };
+                var notifications = new List<Notification> { new Notification { message = "Usuário não encontrado." } };
                 return (false, notifications, null);
             }
 
@@ -106,11 +106,11 @@ namespace WebApp.API.Services
             {
                 if (!existingUser.confirmedEmail)
                 {
-                    notifications.Add(new Notification { message = "Email already registered. To complete registration, please confirm your email." });
+                    notifications.Add(new Notification { message = "Email já registrado. Para completar o registro, por favor confirme seu email." });
                     return (false, notifications);
                 }
 
-                notifications.Add(new Notification { message = "There is already a user with the same email." });
+                notifications.Add(new Notification { message = "Já existe um usuário com o mesmo email." });
                 return (false, notifications);
             }
             else
@@ -126,7 +126,7 @@ namespace WebApp.API.Services
                 _context.users.Add(userToRegister);
                 _context.SaveChanges();
 
-                notifications.Add(new Notification { message = "Confirm your email to complete your registration." });
+                notifications.Add(new Notification { message = "Confirme seu email para completar o registro" });
                 return (true, notifications);
             }
         }
@@ -147,21 +147,21 @@ namespace WebApp.API.Services
                     {
                         existingUser.confirmedEmail = true;
                         _context.SaveChanges();
-                        notifications.Add(new Notification { message = "email confirmed successfully." });
+                        notifications.Add(new Notification { message = "Email confirmado com sucesso." });
                         return (true, notifications);
                     }
                     else
                     {
-                        notifications.Add(new Notification { message = "expired token." });
+                        notifications.Add(new Notification { message = "Token expirado" });
                         return (false, notifications);
                     }
                 } else
-                    notifications.Add(new Notification { message = "email is already confirmed." });
+                    notifications.Add(new Notification { message = "O email já foi confirmado." });
                     return (false, notifications);
 
             } else
             {
-                notifications.Add(new Notification { message = "email not registered." });
+                notifications.Add(new Notification { message = "Email não registrado."});
                 return (false, notifications);
             }
         }

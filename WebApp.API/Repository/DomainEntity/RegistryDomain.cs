@@ -5,9 +5,9 @@ namespace WebApp.API.Repository.DomainEntity
 {
     public class RegistryDomain
     {
-        public RegistryDomain(string email, string description, int type, int category, decimal price, DateTime date, DateTime includedDate)
+        public RegistryDomain(Guid userId, string description, int type, int category, decimal price, DateTime date, DateTime includedDate)
         {
-            Email = email;
+            UserId = userId;
             Description = description;
             Type = type;
             Category = category;
@@ -21,7 +21,7 @@ namespace WebApp.API.Repository.DomainEntity
         }
 
         public Guid Id { get; set; }
-        public string Email { get; set; }
+        public Guid UserId { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
         public int Category { get; set; }
@@ -51,14 +51,15 @@ namespace WebApp.API.Repository.DomainEntity
 
         private void Validate()
         {
-            if (string.IsNullOrWhiteSpace(Email) || !IsValidEmail(Email))
-            {
-                Notifications.Add(new Notification { message = "Invalid email." });
-            }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
                 Notifications.Add(new Notification { message = "Description is required." });
+            }
+
+            if (UserId == Guid.Empty)
+            {
+                Notifications.Add(new Notification { message = "UserId is required." });
             }
 
             if (Type < 0)

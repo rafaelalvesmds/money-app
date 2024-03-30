@@ -46,7 +46,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { DockModule } from 'primeng/dock';
 import { TagModule } from 'primeng/tag';
 import { SpeedDialModule } from 'primeng/speeddial';
-
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @NgModule({
   exports: [
@@ -94,7 +94,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     ProgressSpinnerModule,
     TabViewModule,
     DockModule,
-    TagModule
+    TagModule,
+    ColorPickerModule
   ],
   providers: [
     ConfirmationService,

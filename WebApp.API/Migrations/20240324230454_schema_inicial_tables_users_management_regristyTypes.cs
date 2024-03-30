@@ -7,47 +7,19 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebApp.API.Migrations
 {
     /// <inheritdoc />
-    public partial class schema_inicial_tables_users_management_domain : Migration
+    public partial class schema_inicial_tables_users_management_regristyTypes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "domain");
-
-            migrationBuilder.EnsureSchema(
                 name: "management");
 
             migrationBuilder.EnsureSchema(
+                name: "domain");
+
+            migrationBuilder.EnsureSchema(
                 name: "auth");
-
-            migrationBuilder.CreateTable(
-                name: "expenseType",
-                schema: "domain",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_expenseType", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "incomeType",
-                schema: "domain",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_incomeType", x => x.id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "registry",
@@ -55,7 +27,7 @@ namespace WebApp.API.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    userId = table.Column<Guid>(type: "uuid", nullable: false),
                     description = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
                     type = table.Column<int>(type: "integer", nullable: false),
                     category = table.Column<int>(type: "integer", nullable: false),
@@ -83,6 +55,23 @@ namespace WebApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "registryType",
+                schema: "management",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    category = table.Column<int>(type: "integer", nullable: false),
+                    userId = table.Column<Guid>(type: "uuid", nullable: false),
+                    color = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_registryType", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 schema: "auth",
                 columns: table => new
@@ -105,20 +94,16 @@ namespace WebApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "expenseType",
-                schema: "domain");
-
-            migrationBuilder.DropTable(
-                name: "incomeType",
-                schema: "domain");
-
-            migrationBuilder.DropTable(
                 name: "registry",
                 schema: "management");
 
             migrationBuilder.DropTable(
                 name: "registryCategory",
                 schema: "domain");
+
+            migrationBuilder.DropTable(
+                name: "registryType",
+                schema: "management");
 
             migrationBuilder.DropTable(
                 name: "users",

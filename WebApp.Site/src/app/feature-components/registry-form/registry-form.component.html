@@ -1,31 +1,50 @@
 <div [formGroup]="registryForm" class="flex flex-column gap-1 h-auto">
-  <span>
-    <label>Descrição</label>
+  <div>
+    <label> Descrição</label>
     <input
       pInputText
       formControlName="description"
       class="w-full"
       placeholder="Insira uma descrição"
     />
-  </span>
+  </div>
 
   <div>
     <label>Tipo</label>
     <p-dropdown
       placeholder="Selecione um tipo"
       formControlName="type"
-      [options]="registryCategory === 1 ? expenseTypes : incomeTypes"
+      [options]="optionsType"
       optionLabel="name"
       optionValue="id"
       styleClass="w-full"
-    ></p-dropdown>
+    >
+      <ng-template let-option pTemplate="item">
+        <div class="flex flex-row align-items-center gap-1">
+          <div
+            class="h-1rem w-1rem border-round-sm"
+            [style.background]="option.color"
+          ></div>
+          <span>{{ option.name }}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <p-button
+          label="Adicione outro tipo"
+          [text]="true"
+          icon="pi pi-plus"
+          styleClass="w-full h-2rem"
+          (onClick)="showDialogRegistryType()"
+        ></p-button>
+      </ng-template>
+    </p-dropdown>
   </div>
 
-  <span class="flex flex-column">
+  <div class="flex flex-column">
     <label>Valor</label>
     <p-inputNumber
-      placeholder="R$ 0,00"
       formControlName="price"
+      placeholder="R$ 0,00"
       inputId="currency-us"
       mode="currency"
       currency="BRL"
@@ -33,9 +52,9 @@
       styleClass="w-full"
     >
     </p-inputNumber>
-  </span>
+  </div>
 
-  <div>
+  <span>
     <label>Data</label>
     <p-calendar
       placeholder="Selecione uma data"
@@ -44,7 +63,7 @@
       styleClass="w-full"
       [appendTo]="'body'"
     ></p-calendar>
-  </div>
+  </span>
 
   <div
     class="mt-4 w-full flex flex-row align-items-center justify-content-between gap-2"
@@ -57,7 +76,7 @@
       (onClick)="emitRegistry(true)"
       [pTooltip]="'Salvar e adicionar outra'"
     >
-      <i class="pi pi-save"></i> 
+      <i class="pi pi-save"></i>
     </p-button>
     }
 
@@ -73,3 +92,18 @@
     ></p-button>
   </div>
 </div>
+
+<p-dialog
+  [header]="'Cadastrar tipo'"
+  [(visible)]="visible"
+  [modal]="true"
+  [maximizable]="false"
+  [draggable]="false"
+>
+  <registry-type-form
+    [user]="user"
+    [registryCategory]="registryCategory"
+    (registryTypeEmit)="createRegistryType($event)"
+    (onHide)="getRegistryTypes()"
+  ></registry-type-form>
+</p-dialog>

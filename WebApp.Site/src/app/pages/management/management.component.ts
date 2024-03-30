@@ -27,6 +27,8 @@ export class ManagementComponent {
   expenses = [];
   incomes = [];
 
+  registryTypes: { id: number; name: string; category: number; color: string; }[] = []
+
   columns: any[] = [
     { field: 'description', header: 'Descrição', width: '50%' },
     {
@@ -35,7 +37,7 @@ export class ManagementComponent {
       useTag: true,
       width: '20%',
       alignment: 'center',
-      pipe: 'enum',
+      pipe: 'registryType'
     },
     {
       field: 'date',
@@ -105,6 +107,7 @@ export class ManagementComponent {
 
   headerDialogLoading: boolean = false;
 
+
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     this.screenHeigth = window.innerHeight;
@@ -128,7 +131,7 @@ export class ManagementComponent {
 
     if (this.user?.email) {
       this.managementService
-        .getAllRegristries(this.user?.email, this.dateSelected)
+        .getAllRegristries(this.user?.id, this.dateSelected)
         .subscribe({
           next: (res: any) => {
             this.registries = res.registry;
@@ -149,6 +152,18 @@ export class ManagementComponent {
             this.showSpinner = false;
           },
         });
+    }
+  }
+
+  getRegistryTypes() {
+    let userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.managementService.getAllRegristriesTypes(userId).subscribe({
+        next: (res: any) => {
+          this.registryTypes = res.registry;
+        },
+      })
     }
   }
 
@@ -229,6 +244,7 @@ export class ManagementComponent {
         },
         complete: () => {
           this.getAllRegristries();
+          this.getRegistryTypes();
         },
       });
     }
@@ -420,6 +436,7 @@ export class ManagementComponent {
   }
 
   onHideDialog() {
+    this.getRegistryTypes()
     this.headerDialogLoading = false;
   }
 }

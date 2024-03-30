@@ -20,8 +20,9 @@
           [actions]="actions"
           (valueSelected)="receiveRegistrySelected($event)"
           [registryCategory]="activeIndex"
+          [registryTypes]="registryTypes"
           (addValue)="addRegistry($event)"
-          [emptyMessage]="'Não há receitas ou despesas registradas'"
+          [emptyTableMessage]="'Não há receitas ou despesas registradas'"
         ></app-table>
       </p-tabPanel>
       <p-tabPanel [headerStyle]="{ width: '50%' }" [disabled]="true">

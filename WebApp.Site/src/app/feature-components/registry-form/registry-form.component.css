@@ -1,4 +1,3 @@
-
 :host ::ng-deep .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
   width: 250px !important;
 }
@@ -6,4 +5,10 @@
 label {
   font-size: 0.8rem;
   margin-left: 1px;
+}
+
+:host ::ng-deep .p-colorpicker-preview,
+.p-fluid .p-colorpicker-preview.p-inputtext {
+  height: 1rem !important;
+  width: 1rem !important;
 }

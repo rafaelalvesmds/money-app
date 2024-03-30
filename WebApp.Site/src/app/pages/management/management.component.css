@@ -22,12 +22,12 @@
 }
 
 ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
-  color: white !important;
+  color: rgb(163, 163, 163) !important;
 }
-
+/*
 ::ng-deep span {
   font-size: 0.9rem;
-}
+} */
 
 .footer {
   position: fixed;
@@ -38,4 +38,8 @@
   text-align: center; /* Alinhamento do texto */
   padding-bottom: 5px;
   font-size: 12px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content:last-of-type {
+  overflow-y: hidden !important;
 }

@@ -3,7 +3,7 @@
     public class Registry
     {
         public Guid id { get; set; }
-        public string email { get; set; }
+        public Guid userId { get; set; }
         public string description { get; set; }
         public int type { get; set; }
         public int category { get; set; }

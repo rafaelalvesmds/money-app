@@ -9,9 +9,8 @@ namespace WebApp.API.Context
 
         public DbSet<user> users { get; set; }
         public DbSet<registry> registry { get; set; }
-        public DbSet<expenseType> expenseType { get; set; }
-        public DbSet<incomeType> incomeType { get; set; }
         public DbSet<registryCategory> registryCategory { get; set; }
+        public DbSet<registryType> registryType { get; set; }
     }
 
 }

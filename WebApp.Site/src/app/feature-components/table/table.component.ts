@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExpenseTypeEnum } from 'src/app/core/enums/expenseType.enum';
-import { IncomeTypeEnum } from 'src/app/core/enums/incomeType.enum';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
 
@@ -15,7 +13,8 @@ export class TableComponent {
   @Input() columns!: { field: string; header: string; width: string; alignment: string; pipe?: 'money' | 'date' | 'enum'; useTag?: boolean, enum: any }[];
   @Input() values!: any[];
   @Input() actions!: ActionsModel[]
-  @Input() emptyMessage!: string;
+  @Input() emptyTableMessage!: string;
+  @Input() registryTypes: { id: number; name: string; category: number; color: string; }[] = []
 
   @Output() valueSelected = new EventEmitter<any>()
   @Output() addValue = new EventEmitter<any>()
@@ -30,13 +29,9 @@ export class TableComponent {
   }
 
   getAlignmentClass(column: any): string {
-    if (column.alignment === 'center') {
-      return 'text-center';
-    } else if (column.alignment === 'right') {
-      return 'text-right';
-    } else {
-      return '';
-    }
+    if (column.alignment === 'center') return 'text-center';
+    else if (column.alignment === 'right') return 'text-right';
+    else return '';
   }
 
   manipulateValue(registry: any, column: any) {
@@ -49,10 +44,8 @@ export class TableComponent {
           return this.formatValue(value);
         case 'date':
           return new Date(value).toLocaleDateString('pt-BR')
-        case 'enum':
-          if (registry.category == 1)
-            return ExpenseTypeEnum[value]
-          else return IncomeTypeEnum[value]
+        case 'registryType':
+          return this.registryTypes.find(x => x.id == value)
       }
     } else return value
   }
