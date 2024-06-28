@@ -46,7 +46,7 @@
           *ngIf="!column.useTag"
           class="px-3 p-0"
         >
-          <span [class]="setTextColor(registry, column)">
+          <span [class]="setTextColor(registry, column)" [pTooltip]="registry[column.field]">
             {{ manipulateValue(registry, column) }}
           </span>
         </td>

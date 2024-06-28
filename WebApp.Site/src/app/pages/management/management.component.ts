@@ -30,37 +30,44 @@ export class ManagementComponent {
   registryTypes: { id: number; name: string; category: number; color: string; }[] = []
 
   columns: any[] = [
-    { field: 'description', header: 'Descrição', width: '50%' },
+    // { field: 'description', header: 'Descrição', width: '50%' },
     {
       field: 'type',
       header: 'Tipo',
       useTag: true,
-      width: '20%',
-      alignment: 'center',
+      width: '50%',
+      alignment: 'left',
       pipe: 'registryType'
     },
     {
       field: 'date',
       header: 'Data',
-      width: '10%',
+      width: '25%',
       alignment: 'center',
       pipe: 'date',
     },
     {
       field: 'price',
       header: 'Valor',
-      width: '20%',
+      width: '25%',
       alignment: 'right',
       pipe: 'money',
     },
   ];
 
   columnsSmallScreen: any[] = [
-    { field: 'description', header: 'Descrição', width: '70%' },
+    {
+      field: 'type',
+      header: 'Tipo',
+      useTag: true,
+      width: '65%',
+      alignment: 'left',
+      pipe: 'registryType'
+    },
     {
       field: 'price',
       header: 'Valor',
-      width: '30%',
+      width: '35%',
       alignment: 'right',
       pipe: 'money',
     },
@@ -106,6 +113,40 @@ export class ManagementComponent {
   showSpinner: boolean = false;
 
   headerDialogLoading: boolean = false;
+
+  data = {
+    datasets: [
+        {
+            data: [11, 16, 7, 3, 14],
+            backgroundColor: [
+                'red',
+                'green',
+                'yellow',
+                'gray',
+                'blue'
+            ],
+            label: 'My dataset'
+        }
+    ],
+    labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+};
+
+options = {
+    plugins: {
+        legend: {
+            labels: {
+                color: 'red'
+            }
+        }
+    },
+    scales: {
+        r: {
+            grid: {
+                color: 'blue'
+            }
+        }
+    }
+};
 
 
   ngOnInit() {
