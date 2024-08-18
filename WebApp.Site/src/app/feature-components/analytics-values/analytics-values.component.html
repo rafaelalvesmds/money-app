@@ -1,7 +1,10 @@
 <div style="padding-left: 6px; padding-right: 6px">
-  <div class="grid" style="margin-top: 1px;">
-    <div class="col-12 sm:col-4" *ngFor="let card of cards">
-      <div class="surface-card shadow-2 p-2 border-round" [class]="card.title == 'Despesas' ? 'card-box' : ''">
+  <div class="grid" style="margin-top: 1px">
+    <div class="col-12 sm:col-4" *ngFor="let card of cards()">
+      <div
+        class="surface-card shadow-2 p-2 border-round"
+        [class]="card.title == 'Despesas' ? 'card-box' : ''"
+      >
         <div class="flex justify-content-between align-items-center mb-1">
           <div>
             <span class="block text-500 font-medium mb-2">{{

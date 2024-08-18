@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit {
   }
 
   setResponsitityScreen() {
-    const card = document.getElementById('card-container'); // Substitua 'your-card-id' pelo ID real do seu elemento p-card
+    const card = document.getElementById('card-container');
     if (card) {
       if (this.screenWidth > 960) {
         card.style.width = `${this.screenWidth * 0.85}px`;
