@@ -14,12 +14,6 @@ export class MenuComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
 
-  displayTerminal!: boolean;
-  displayFinder!: boolean;
-  dockItems!: MenuItem[];
-  menubarItems!: any[];
-  responsiveOptions!: any[];
-  nodes!: any[];
   user!: UserModel;
 
   screenWidth!: number;
