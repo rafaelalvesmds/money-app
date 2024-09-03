@@ -1,19 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'calendar',
   standalone: false,
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css'
+  styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent {
 
   date: Date = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
   @Output() dateSelected = new EventEmitter<any>()
-
-
 
   ngOnInit(): void {
     this.emitDate()

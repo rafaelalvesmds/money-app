@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
   displayTerminal!: boolean;

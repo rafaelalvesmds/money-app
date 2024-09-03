@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-registry-form',
   templateUrl: './registry-form.component.html',
-  styleUrls: ['./registry-form.component.css']
+  styleUrls: ['./registry-form.component.scss']
 })
 export class RegistryFormComponent implements OnInit, OnChanges {
 

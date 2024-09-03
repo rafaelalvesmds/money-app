@@ -6,7 +6,7 @@ import { UserModel } from 'src/app/core/models/user.model';
   selector: 'registry-type-form',
   standalone: false,
   templateUrl: './registry-type-form.component.html',
-  styleUrl: './registry-type-form.component.css'
+  styleUrl: './registry-type-form.component.scss'
 })
 export class RegistryTypeFormComponent implements OnInit {
 
