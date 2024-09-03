@@ -1,5 +1,5 @@
 <h1 align="center"> 
-	👷🚧web-app 🚧🔨
+	👷🚧Money-app 🚧🔨
 </h1>
   
 <br/>  
@@ -15,7 +15,7 @@
 
 - Auth JWT Token
 - Login
-- Register [ User, Expense ]
+- Register [ User, Expenses and Incomes ]
   
 <br/>
   
