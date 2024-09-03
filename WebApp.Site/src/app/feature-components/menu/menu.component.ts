@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { UserModel } from 'src/app/core/models/user.model';
@@ -10,27 +10,21 @@ import { AuthService } from 'src/app/core/service/auth.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+
+  authService = inject(AuthService);
+  router = inject(Router);
+
   displayTerminal!: boolean;
-
   displayFinder!: boolean;
-
   dockItems!: MenuItem[];
-
   menubarItems!: any[];
-
   responsiveOptions!: any[];
-
   nodes!: any[];
-
   user!: UserModel;
 
   screenWidth!: number;
   screenHeigth!: number;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;

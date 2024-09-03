@@ -15,7 +15,7 @@
       <span class="text-2xl font-bold ml-5">Cadastrar</span>
     </div>
 
-    <div [formGroup]="registerForm" class="flex flex-column gap-1 h-18rem">
+    <div [formGroup]="registerForm()" class="flex flex-column gap-1 h-18rem">
       <span>
         <label>Nome</label>
         <input pInputText formControlName="name" class="w-full" />
@@ -47,8 +47,8 @@
       </span>
     </div>
     <p-button
-      [pTooltip]="!registerForm.valid ? 'Fill in the fields' : ''"
-      [disabled]="!registerForm.valid"
+      [pTooltip]="!registerForm().valid ? 'Fill in the fields' : ''"
+      [disabled]="!registerForm().valid"
       label="Salvar"
       styleClass="p-button-raised col-12 mt-3"
       severity="secondary"
@@ -60,4 +60,4 @@
 
 <p-toast></p-toast>
 
-<app-spinner *ngIf="showSpinner"></app-spinner>
+<app-spinner *ngIf="showSpinner()"></app-spinner>

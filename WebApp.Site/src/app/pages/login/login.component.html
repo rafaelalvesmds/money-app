@@ -5,7 +5,7 @@
     <div class="flex flex-row justify-content-center mb-5 mt-3">
       <h1 class="text-2xl font-style">Moneyapp</h1>
     </div>
-    <form [formGroup]="loginForm" class="flex grid formgrid p-fluid h-14rem">
+    <form [formGroup]="loginForm()" class="flex grid formgrid p-fluid h-14rem">
       <div class="col-12 h-9rem flex flex-column justify-content-around">
         <span>
           <label>Email</label>
@@ -33,7 +33,7 @@
             severity="secondary"
             label="Entrar"
             (onClick)="onLoginSubmit()"
-            [disabled]="!loginForm.valid"
+            [disabled]="!loginForm().valid"
           ></p-button>
         </div>
       </div>
@@ -53,4 +53,6 @@
 
 <p-toast></p-toast>
 
-<app-spinner *ngIf="showSpinner"></app-spinner>
+@if(showSpinner()) {
+<app-spinner></app-spinner>
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistryModel } from 'src/app/core/models/registry.model';
 import { UserModel } from 'src/app/core/models/user.model';
@@ -11,6 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./registry-form.component.scss']
 })
 export class RegistryFormComponent implements OnInit, OnChanges {
+
+  fb = inject(FormBuilder);
+  managementService = inject(ManagementService);
 
   @Output() registryEmit = new EventEmitter<any>()
   @Output() registryEdit = new EventEmitter<any>()
@@ -27,8 +30,6 @@ export class RegistryFormComponent implements OnInit, OnChanges {
   visible!: boolean;
 
   optionsType: { id: number; name: string; category: number; color: string; }[] = []
-
-  constructor(private fb: FormBuilder, private managementService: ManagementService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.typeAction == 'edit' && this.registryToEdit) {

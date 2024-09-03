@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { RegistryCategoryEnum } from 'src/app/core/enums/registryCategory.enum';
 import { ActionsModel } from 'src/app/core/models/actions.model';
@@ -13,13 +13,12 @@ import { ManagementService } from 'src/app/core/service/management.service';
   styleUrls: ['./management.component.scss'],
 })
 export class ManagementComponent {
-  constructor(
-    private managementService: ManagementService,
-    private messageService: MessageService,
-    private authService: AuthService,
-    private elRef: ElementRef,
-    private renderer: Renderer2
-  ) { }
+
+  managementService = inject(ManagementService);
+  messageService = inject(MessageService);
+  authService = inject(AuthService);
+  elRef = inject(ElementRef);
+  renderer = inject(Renderer2);
 
   rowSelected!: any;
 
@@ -116,37 +115,37 @@ export class ManagementComponent {
 
   data = {
     datasets: [
-        {
-            data: [11, 16, 7, 3, 14],
-            backgroundColor: [
-                'red',
-                'green',
-                'yellow',
-                'gray',
-                'blue'
-            ],
-            label: 'My dataset'
-        }
+      {
+        data: [11, 16, 7, 3, 14],
+        backgroundColor: [
+          'red',
+          'green',
+          'yellow',
+          'gray',
+          'blue'
+        ],
+        label: 'My dataset'
+      }
     ],
     labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
-};
+  };
 
-options = {
+  options = {
     plugins: {
-        legend: {
-            labels: {
-                color: 'red'
-            }
+      legend: {
+        labels: {
+          color: 'red'
         }
+      }
     },
     scales: {
-        r: {
-            grid: {
-                color: 'blue'
-            }
+      r: {
+        grid: {
+          color: 'blue'
         }
+      }
     }
-};
+  };
 
 
   ngOnInit() {

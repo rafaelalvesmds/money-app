@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserModel } from 'src/app/core/models/user.model';
 
@@ -10,16 +10,14 @@ import { UserModel } from 'src/app/core/models/user.model';
 })
 export class RegistryTypeFormComponent implements OnInit {
 
+  fb = inject(FormBuilder);
+
   @Input() registryCategory!: number;
   @Input() user!: UserModel;
 
   @Output() registryTypeEmit = new EventEmitter<any>()
 
   registryTypeForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-
-  }
 
   ngOnInit(): void {
     this.registryTypeForm = this.fb.group({
@@ -29,7 +27,6 @@ export class RegistryTypeFormComponent implements OnInit {
       color: ['#e0e0e0', []]
     })
   }
-
 
   emitRegistryType() {
     this.registryTypeForm.controls['category'].setValue(this.registryCategory)

@@ -7,13 +7,19 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { PrimeNgModule } from 'src/app/shared/modules/primeng.module';
 import { SpinnerModule } from 'src/app/feature-components/spinner/spinner.module';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         LoginComponent
-    ], imports: [CommonModule,
+    ],
+    imports: [
+        CommonModule,
         LoginRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         PrimeNgModule,
-        SpinnerModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        SpinnerModule
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 
 export class LoginModule { }

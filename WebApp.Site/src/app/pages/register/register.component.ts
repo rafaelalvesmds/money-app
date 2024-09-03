@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -11,31 +11,30 @@ import { AuthService } from 'src/app/core/service/auth.service';
   styleUrls: ['./register.component.scss', '../../../styles.scss'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup;
 
-  showSpinner: boolean = false;
+  fb = inject(FormBuilder);
+  router = inject(Router);
+  authService = inject(AuthService);
+  messageService = inject(MessageService);
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private messageService: MessageService
-  ) {}
+  registerForm = signal<FormGroup>(new FormGroup({}));
+
+  showSpinner = signal<boolean>(false);
+
+  constructor() {
+    effect(() => {
+      this.registerForm().clearValidators();
+    })
+  }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.registerForm.set(this.fb.group({
       name: [null, [Validators.required]],
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],
       passwordConfirm: [null, [Validators.required]],
       cellphone: [null, []],
-    });
-
-    this.registerForm.valueChanges.subscribe({
-      next: () => {
-        this.registerForm.clearValidators();
-      },
-    });
+    }));
   }
 
   back() {
@@ -43,9 +42,9 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    this.showSpinner = true;
+    this.showSpinner.set(true);
 
-    var form = this.registerForm.value;
+    var form = this.registerForm().value;
 
     var user: UserModel = {
       name: form.name,
@@ -58,43 +57,35 @@ export class RegisterComponent implements OnInit {
     if (form.password === form.passwordConfirm) {
       this.authService.register(user).subscribe({
         next: (res: any) => {
-          this.showSuccess(res.notifications[0].message);
+          this.showMessage('success', res.notifications[0].message);
           this.router.navigate(['/login'], {
             queryParams: { message: res.notifications[0].message },
           });
         },
         error: (error: any) => {
           if (error.status == 400)
-            this.showError(error.error.notifications[0].message);
+            this.showMessage('error', error.error.notifications[0].message);
 
-          this.showSpinner = false;
+          this.showSpinner.set(false);
         },
         complete: () => {
-          this.showSpinner = false;
+          this.showSpinner.set(false);
         },
       });
     } else {
-      this.registerForm.controls['passwordConfirm'].setErrors({
+      this.registerForm().controls['passwordConfirm'].setErrors({
         invalid: true,
       });
-      this.showError('Passwords must be the same');
+      this.showMessage('error', 'Passwords must be the same');
 
-      this.showSpinner = false;
+      this.showSpinner.set(false);
     }
   }
 
-  showError(message: string) {
+  showMessage(severity: string, message: string) {
     this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: message,
-    });
-  }
-
-  showSuccess(message: string) {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
+      severity: severity,
+      summary: severity,
       detail: message,
     });
   }
